@@ -12,7 +12,7 @@ $(document).ready(function () {
         }
     });
     // CONFIGURACION DEL SLIDER
-    setInterval(() => {
+    setTimeout(() => {
         $('#boxslider').bxSlider({
             auto: true,
             speed: 500,
