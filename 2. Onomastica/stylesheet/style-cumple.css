@@ -8,6 +8,7 @@ ul li{
     border: 1px solid #3C90CB;
     box-shadow: 0px 0px 4px #225880 inset;
     height: 170px;
+    background-color: #F0F0F0;
 }
 li img{
     float: left;
