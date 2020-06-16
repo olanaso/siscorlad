@@ -1,0 +1,111 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+ul li{
+    font-family: 'Quicksand', sans-serif;
+    border-radius: 10px;
+    border: 1px solid #3C90CB;
+    box-shadow: 0px 0px 4px #225880 inset;
+    height: 170px;
+}
+li img{
+    float: left;
+    width: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0px auto;
+    margin-top: 30px;
+    padding-bottom: 200px;
+}
+li .nombre{
+    text-transform: uppercase;
+    font-size: 19px;
+    line-height: 17px;
+    margin-top: 20px;
+}
+li .apellido{
+    text-transform: uppercase;
+    font-size: 19px;
+    margin-top: 10px;
+    line-height: 17px;
+}
+li .date{
+    color: #333;
+    margin-left: 140px;
+}
+li .cumpleanos{
+    color: #333;
+    margin-top: 20px;
+}
+
+
+/********RESpoNSIVE*******/
+@media (max-width: 290px){
+    li img{
+        width: 60px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 30px;
+    } 
+    li .nombre{
+        margin-top: 25px;
+        font-size: 17px;
+        line-height: 15px;
+    }
+    li .apellido{
+        font-size: 17px;
+        line-height: 15px;
+    }
+    li .date{
+        margin-left: 120px;
+    }
+    li .cumpleanos{
+        margin-top: 20px;
+    }
+}
+@media (max-width: 240px){
+    li img{
+        width: 60px;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-top: 40px;
+    }
+    li .nombre{
+        margin-top: 35px;
+        font-size: 14px;
+        line-height: 15px;
+    }
+    li .apellido{
+        font-size: 14px;
+        line-height: 15px;
+    }
+    li .date{
+        margin-left: 100px;
+        font-size: 12px;
+    }
+    li .cumpleanos{
+        margin-top: 20px;
+        font-size: 12px;
+    }
+}
+.bx-wrapper .bx-prev{
+    background: url("../img/prev.png") no-repeat;
+    background-size: 15px;
+}
+.bx-wrapper .bx-next {
+    background: url("../img/next.png") no-repeat;
+    background-size: 15px;
+}
+.bx-wrapper .bx-controls-direction a {
+    width: 22px;
+}
+
+.bx-wrapper .bx-next:hover {
+    background: url("../img/next.png") no-repeat;
+    background-size: 15px;
+}
+.bx-wrapper .bx-next:focus-within {
+    background: url("../img/next.png") no-repeat;
+    background-size: 15px;
+}
