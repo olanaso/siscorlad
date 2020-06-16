@@ -3,7 +3,7 @@ $(document).ready(function () {
     // PETICIONES AJAX
     $.ajax({
         type: 'GET',
-        url: "https://api.jsonbin.io/b/5ee8fca80e966a7aa36abd46",
+        url: "https://api.jsonbin.io/b/5ee91c1b19b60f7aa95b796a",
         success: function (response) {
             response.forEach((element) => {
                 console.log(element.nombre+element.apellidos+element.date);
