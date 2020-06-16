@@ -32,7 +32,6 @@ li .apellido{
 }
 li .date{
     color: #333;
-    margin-left: 140px;
 }
 li .cumpleanos{
     color: #333;
@@ -57,9 +56,6 @@ li .cumpleanos{
         font-size: 17px;
         line-height: 15px;
     }
-    li .date{
-        margin-left: 120px;
-    }
     li .cumpleanos{
         margin-top: 20px;
     }
@@ -79,10 +75,6 @@ li .cumpleanos{
     li .apellido{
         font-size: 14px;
         line-height: 15px;
-    }
-    li .date{
-        margin-left: 100px;
-        font-size: 12px;
     }
     li .cumpleanos{
         margin-top: 20px;
