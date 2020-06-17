@@ -8,6 +8,7 @@
     padding-top: 30px;
     border: 1px solid #333;
     font-family: 'Quicksand', sans-serif;
+    background-color: #2a8a280e;
 }
 body{
     margin: 0px;
@@ -38,6 +39,7 @@ body{
     display: block;
     width: 120px;
     padding: 3px;
+    text-transform: uppercase;
     border: 2px solid #298A28;
     border-radius: 20px;
     float: right;
@@ -45,10 +47,12 @@ body{
     transition: all 300ms;
 }
 #button-search:hover{
-    box-shadow: 0px 0px 5px #424242 inset;
+    box-shadow: 0px 0px 5px #42424286 inset;
     background-color: #298A28;
     color: white;
+    border: 2px solid #42424286;
     transition: all 300ms;
+    font-size: 13px;
 }
 #button-search:focus-within{
     outline: none;
@@ -69,10 +73,14 @@ body{
 /************************************************/
 /*=====================TABS=====================*/
 #tabs h2{
-    margin-top: 5px;
+    margin: 0px;
+    padding-top: 5px;
     padding-bottom: 4px;
+    margin-bottom: 15px;
     font-size: 18px;
     text-align: center;
+    color: #2E4500;
+    background-color: #a1c42336;
     border-bottom: 1px solid #ccc;
 }
 .ui-tabs .ui-tabs-panel{
@@ -80,6 +88,9 @@ body{
     border-top: 4px solid #298A28;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
+    box-shadow: 1px 0px 1px #ccc;
+    box-shadow: -1px 0px 1px #ccc;
+    border-bottom: 3px solid #298A28;
     border-radius: 0px;
     min-height: 330px;
 }
@@ -92,13 +103,16 @@ body{
 }
 .ui-widget.ui-widget-content{
     border: none;
+    border-radius: 7px 7px 0px 0px;
+    background-color: transparent !important;
 }
 .ui-tabs .ui-tabs-nav{
     padding: 0px;
 }
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
-    background-color: #82A181 !important;
+    background-color: #a1c423c2 !important;
     border: 1px solid #7ba779;
+    border-radius: 7px 7px 0px 0px;
     cursor: pointer;
 }
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
@@ -106,6 +120,7 @@ body{
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
     background-color: #eafff1;
+    border-radius: 7px 7px 0px 0px;
     border: none;
 }
 #formulario{
@@ -146,8 +161,9 @@ input{
 input:focus{
     outline: none;
     letter-spacing: 1px;
-    border: 2px double #298A28;
+    border: 2px double #2a8a28bd;
     transition: all 400ms;
+    box-shadow: 0px 0px 3px #2E4500 inset;
 }
 select:active{
     outline: none;
@@ -155,22 +171,24 @@ select:active{
 }
 select:focus-within{
     border: 2px double #298A28;
+    box-shadow: 0px 0px 3px #2E4500 inset;
 }
 #tab-2 table{
-    width: 94%;
+    width: 96%;
     margin: 0px auto;
     margin-top: 20px;
     border: 1px solid #ccc;
-    background-color: #c5c5c5;
+    background-color: #B4D055;
     font-size: 13px;
 }
 #tab-2 table th{
-    background-color: #E5E5E5;
+    background-color: rgba(255, 255, 255, 0.473);
     width: 20%;
-    border: 1px solid #E5E5E5;
+    padding: 5px;
+    border: none;
 }
 #tab-2 table td{
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.849);
     width: 20%;
     border: 1px solid white;
 }
