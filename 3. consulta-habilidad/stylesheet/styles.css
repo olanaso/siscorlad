@@ -1,0 +1,232 @@
+/****************GENERAL****************/
+#container{
+    width: 650px;
+    min-height: 420px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 30px;
+    border: 1px solid #333;
+    font-family: 'Quicksand', sans-serif;
+}
+body{
+    margin: 0px;
+    padding: 0px;
+}
+.clearfix{
+    float: none;
+    clear: both;
+}
+::placeholder{
+    color: #20681d80;
+}
+/**************SEARCH***************/
+#busqueda{
+    height: 80px;
+}
+#busqueda #criterio{
+    width: 150px;
+    padding: 3px;
+    margin-right: 20px;
+}
+#busqueda #search{
+    width: 300px;
+    padding: 3px;
+}
+#busqueda #button-search{
+    display: block;
+    width: 120px;
+    padding: 3px;
+    border: 2px solid #298A28;
+    border-radius: 20px;
+    float: right;
+    cursor: pointer;
+    transition: all 300ms;
+}
+#button-search:hover{
+    box-shadow: 0px 0px 5px #424242 inset;
+    background-color: #298A28;
+    color: white;
+    transition: all 300ms;
+}
+#button-search:focus-within{
+    outline: none;
+}
+#button-search:active{
+    outline: none;
+    box-shadow: 0px 0px 5px #a0a0a0;
+}
+#busqueda #captcha{
+    font-size: 15px;
+}
+#busqueda #captcha #captcha-input{
+    margin-top: 10px;
+    width: 160px;
+    margin-left: 10px;
+    padding: 3px;
+}
+/***********TABS*************/
+#tabs h2{
+    margin-top: 5px;
+    padding-bottom: 4px;
+    font-size: 18px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.ui-tabs .ui-tabs-panel{
+    padding: 0px;
+    border-top: 4px solid #298A28;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-radius: 0px;
+    min-height: 330px;
+}
+.ui-tabs{
+    padding: 0px;
+}
+.ui-widget-header {
+    background-color: transparent;
+    border: none;
+}
+.ui-widget.ui-widget-content{
+    border: none;
+}
+.ui-tabs .ui-tabs-nav{
+    padding: 0px;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
+    background-color: #82A181 !important;
+    border: 1px solid #7ba779;
+    cursor: pointer;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    outline: none;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
+    background-color: #eafff1;
+    border: none;
+}
+#formulario{
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+#formulario div{
+    margin: 0px auto;
+    background-color: #D8ECE1;
+    border: 3px solid #51A9E3;
+    margin: 0px;
+    margin-left: 40px;
+    height: 200px;
+}
+#formulario form{
+    display: grid;
+    margin: 0px auto;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
+form label{
+    text-align: right;
+    margin-right: 10px;
+}
+#formulario p{
+    grid-column: 1/3;
+    grid-row: 2/3;
+    text-align: center;
+}
+#formulario p span{
+    margin-left: 15px;
+}
+input{
+    letter-spacing: 0px;
+    transition: all 400ms;
+}
+input:focus{
+    outline: none;
+    letter-spacing: 1px;
+    border: 2px double #298A28;
+    transition: all 400ms;
+}
+select:active{
+    outline: none;
+    border: 2px double #298A28;
+}
+select:focus-within{
+    border: 2px double #298A28;
+}
+#tab-2 table{
+    width: 94%;
+    margin: 0px auto;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    background-color: #c5c5c5;
+    font-size: 13px;
+}
+#tab-2 table th{
+    background-color: #E5E5E5;
+    width: 20%;
+    border: 1px solid #E5E5E5;
+}
+#tab-2 table td{
+    background-color: white;
+    width: 20%;
+    border: 1px solid white;
+}
+
+/*****************************************************/
+/*==================== RESPONSIVE ======================*/
+@media (max-width: 425px){
+    #busqueda{
+        height: 100px;
+    }
+    #busqueda #criterio{
+        font-size: 25px;
+    }
+    #busqueda #search{
+        font-size: 25px;
+    }
+    #busqueda #button-search{
+        width: 150px;
+        font-size: 23px;
+    }
+    #busqueda #captcha{
+        font-size: 20px;
+    }
+    #busqueda #captcha #captcha-input{
+        margin-top: 15px;
+        width: 280px;
+        font-size: 25px;
+    }
+    #tabs h2{
+        font-size: 30px;
+    }
+    #formulario{
+        display: grid;
+        grid-template-columns: 100%;
+    }
+    #formulario p{
+        grid-row: 3/4;
+        grid-column: 1/2;
+        text-align: center;
+        font-size: 25px;
+    }
+    #formulario form{
+        margin-top: 30px;
+        font-size: 25px;
+        width: 90%;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+    }
+    #formulario div{
+        margin-left: 180px;
+        margin-right: 180px;
+        height: 340px;
+    }
+    .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
+        font-size: 25px;
+    }
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
+        background-color: #eafff1;
+        font-size: 25px;
+    }
+
+}
