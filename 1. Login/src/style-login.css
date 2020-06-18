@@ -87,6 +87,32 @@ body{
     outline: none;
     box-shadow: 0px 0px 5px white inset, 0px 0px 5px white;
 }
+#login button:focus-within,
+#login input[type="submit"]:focus-within{
+    outline: none;
+}
+#login span{
+    position: absolute;
+    margin-top: 160px;
+    color: white;
+    padding: 5px;
+    width: 20%;
+    background-color: rgba(255, 0, 0, 0.493);
+}
+/****************PROGRESS CIRCLE*************/
+#progress-circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width:100%;
+    height: 100vh;
+    background-color: rgba(51, 51, 51, 0.445);
+}
+#progress-circle img{
+    animation: progress-animate 2s linear infinite ;
+    width: 4%;
+}
 /********RESPONSIVE*********/
 @media (max-width: 1250px){
     #logotipo img{
@@ -106,6 +132,9 @@ body{
     #container{
         width: 80%;
     }
+    #progress-circle img{
+        width: 8%;
+    }
 }
 @media (max-width: 736px){
     #container{
@@ -116,6 +145,9 @@ body{
     #container{
         display: flex;
         flex-flow: column wrap;
+    }
+    #progress-circle{
+        height: 1fr;
     }
     #login{
         width: 100%;
@@ -135,6 +167,9 @@ body{
     #login #input-password{
         margin-bottom: 15px;
     }
+    #login span{
+        width: 88%;
+    }
 }
 @media (max-width: 361px){
     #container h1{
@@ -143,5 +178,18 @@ body{
     #login #input-user,
     #login #input-password{
         margin-bottom: 10px;
+    }
+    #login span{
+        margin-top: 140px;
+        width: 86%;
+    }
+}
+
+@keyframes progress-animate{
+    to{
+        transform: rotate(360deg);
+    }
+    from{
+        transform: rotate(0deg);
     }
 }
