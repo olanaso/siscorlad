@@ -1,7 +1,7 @@
 /**************************************************/
 /*====================GENERAL=====================*/
 #container{
-    width: 650px;
+    width: 700px;
     min-height: 420px;
     padding-left: 25px;
     padding-right: 25px;
@@ -24,35 +24,60 @@ body{
 /*******************************************************/
 /*=======================SEARCH========================*/
 #busqueda{
+    margin-top: 10px;
+    height: 120px;
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+#busqueda #section-busqueda{
     height: 80px;
+    display: grid;
+    grid-template-columns: 30% 30% 40%;
+    grid-template-rows: 40% 60%;
+    grid-row-gap: 10px;
 }
 #busqueda #criterio{
-    width: 150px;
     padding: 3px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
     margin-right: 20px;
 }
+#busqueda #criterio:focus{
+    outline: none;
+    border: 1px double #2a8a28bd;
+    box-shadow: 0px 0px 4px #2a8a289d;
+}
 #busqueda #search{
-    width: 300px;
-    padding: 3px;
+    grid-column: 2/4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: all 300ms;
+}
+#busqueda #search:focus{
+    outline: none;
+    letter-spacing: 1px;
+    border: 1px double #2a8a28bd;
+    box-shadow: 0px 0px 4px #2a8a289d;
+    transition: all 400ms;
 }
 #busqueda #button-search{
+    padding: 2px;
+    font-size: 18px;
     display: block;
-    width: 120px;
-    padding: 3px;
+    margin: 5px;
+    color: #189279;
     text-transform: uppercase;
-    border: 2px solid #298A28;
-    border-radius: 20px;
-    float: right;
+    border: 2px solid #189279;
+    border-radius: 10px;
     cursor: pointer;
+    grid-column: 3/4;
+    grid-row: 2/3;
     transition: all 300ms;
 }
-#button-search:hover{
-    box-shadow: 0px 0px 5px #42424286 inset;
-    background-color: #298A28;
+#busqueda #button-search:hover{
+    background-color: #03873B;
     color: white;
-    border: 2px solid #42424286;
-    transition: all 300ms;
-    font-size: 13px;
+    transition: all 200ms;
 }
 #button-search:focus-within{
     outline: none;
@@ -64,23 +89,27 @@ body{
 #busqueda #captcha{
     font-size: 15px;
 }
-#busqueda #captcha #captcha-input{
-    margin-top: 10px;
-    width: 160px;
-    margin-left: 10px;
-    padding: 3px;
+#consulta-img{
+    width: 110px;
+}
+#g-recaptcha-error{
+    position: absolute;
+    margin-top: 96px;
+    margin-left: 15px;
+}
+#imagen-perfil img{
+    width: 100%;
 }
 /************************************************/
 /*=====================TABS=====================*/
-#tabs h2{
+.tabs h2{
     margin: 0px;
     padding-top: 5px;
     padding-bottom: 4px;
     margin-bottom: 15px;
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
-    color: #2E4500;
-    background-color: #a1c42336;
+    color: #189279;
     border-bottom: 1px solid #ccc;
 }
 .ui-tabs .ui-tabs-panel{
@@ -125,22 +154,32 @@ body{
 }
 #formulario{
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 30% 60%;
+    margin-top: 10px;
+    padding: 10px;
+    justify-content: space-around;
 }
 #formulario div{
     margin: 0px auto;
-    background-color: #D8ECE1;
-    border: 3px solid #51A9E3;
+    width: 100%;
     margin: 0px;
-    margin-left: 40px;
     height: 200px;
+    border-radius: 10px;
+    border-top: 2px solid #189279;
+    border-right: 1px solid #ccc;
+    box-shadow: 0px 1px 2px #ccc;
 }
 #formulario form{
     display: grid;
     margin: 0px auto;
-    width: 80%;
+    width: 100%;
     grid-template-columns: 1fr 1fr;
+    padding: 10px;
     grid-gap: 15px;
+    border-radius: 7px;
+    border-top: 2px solid #189279;
+    border-right: 1px solid #ccc;
+    box-shadow: 0px 1px 2px #ccc;
 }
 form label{
     text-align: right;
@@ -150,49 +189,17 @@ form label{
     grid-column: 1/3;
     grid-row: 2/3;
     text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0px !important;
+    color: #189279;
+    font-size: 14px;
 }
 #formulario p span{
     margin-left: 15px;
 }
-input{
-    letter-spacing: 0px;
-    transition: all 400ms;
+.table thead th{
+    color: #189279;
 }
-input:focus{
-    outline: none;
-    letter-spacing: 1px;
-    border: 2px double #2a8a28bd;
-    transition: all 400ms;
-    box-shadow: 0px 0px 3px #2E4500 inset;
-}
-select:active{
-    outline: none;
-    border: 2px double #298A28;
-}
-select:focus-within{
-    border: 2px double #298A28;
-    box-shadow: 0px 0px 3px #2E4500 inset;
-}
-#tab-2 table{
-    width: 96%;
-    margin: 0px auto;
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    background-color: #D8ECE1;
-    font-size: 13px;
-}
-#tab-2 table th{
-    background-color: rgba(255, 255, 255, 0.473);
-    width: 20%;
-    padding: 5px;
-    border: none;
-}
-#tab-2 table td{
-    background-color: rgba(255, 255, 255, 0.849);
-    width: 20%;
-    border: 1px solid white;
-}
-
 /********************************************************/
 /*==================== RESPONSIVE ======================*/
 @media (max-width: 425px){
@@ -266,4 +273,19 @@ select:focus-within{
         width: 20%;
         border: 1px solid white;
     }
+}
+.error{
+    /* color: white; */
+}
+.error[type="text"],
+.error[type="number"]{
+    border: 1px solid red !important;
+    background-color: white;
+    color: black;
+}
+#search-error{
+    position: absolute;
+    width: 202px;
+    margin-top: 91px;
+    margin-left: 310px;
 }

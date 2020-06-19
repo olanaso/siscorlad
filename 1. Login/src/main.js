@@ -15,8 +15,8 @@ $(document).ready(function () {
 
     $('input[type="submit"]').click(function (e) {
         e.preventDefault();
-        for (var element in cuentas) {
-            if (cuentas[element].user == $('#input-user').val().trim() || cuentas[element].email == $('#input-user').val().trim() && cuentas[element].password == $('#input-password').val().trim()) {
+        for (var element of cuentas) {
+            if (element.user == $('#input-user').val().trim() || element.email == $('#input-user').val().trim() && element.password == $('#input-password').val().trim()) {
                 progress.fadeIn();
                 error.hide();
                 vaciar.hide();

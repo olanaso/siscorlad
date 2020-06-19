@@ -4,38 +4,43 @@
 }
 ul li{
     font-family: 'Quicksand', sans-serif;
-    border-radius: 10px;
+    border-radius: 20px;
     border: 1px solid #3C90CB;
-    box-shadow: 0px 0px 4px #225880 inset;
+    box-shadow: 0px 0px 6px #345e7e inset;
     height: 170px;
-    background-color: #F0F0F0;
+    /* background-color: #e9e9e9; */
+    background-color: #67819d62;
 }
 li img{
     float: left;
-    width: 80px;
-    padding-left: 20px;
-    padding-right: 20px;
+    width: 90px;
+    padding-left: 30px;
+    padding-right: 10px;
     margin: 0px auto;
-    margin-top: 30px;
+    margin-top: 10px;
     padding-bottom: 200px;
 }
 li .nombre{
     text-transform: uppercase;
-    font-size: 19px;
+    color: #003115;
+    font-size: 21px;
     line-height: 17px;
     margin-top: 20px;
 }
 li .apellido{
     text-transform: uppercase;
-    font-size: 19px;
+    color: #003115;
+    font-size: 18px;
     margin-top: 10px;
     line-height: 17px;
 }
 li .date{
-    color: #333;
+    font-size: 15px;
+    color: #125e33;
 }
 li .cumpleanos{
-    color: #333;
+    font-size: 15px;
+    color: #125e33;
     margin-top: 20px;
 }
 
@@ -43,9 +48,9 @@ li .cumpleanos{
 /********RESpoNSIVE*******/
 @media (max-width: 290px){
     li img{
-        width: 60px;
-        padding-left: 15px;
-        padding-right: 15px;
+        width: 70px;
+        padding-left: 20px;
+        padding-right: 10px;
         margin-top: 30px;
     } 
     li .nombre{
@@ -64,9 +69,9 @@ li .cumpleanos{
 @media (max-width: 240px){
     li img{
         width: 60px;
-        padding-left: 10px;
-        padding-right: 10px;
-        margin-top: 40px;
+        padding-left: 15px;
+        padding-right: 5px;
+        margin-top: 30px;
     }
     li .nombre{
         margin-top: 35px;

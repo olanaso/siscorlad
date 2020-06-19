@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Consulta habilidad</title>
+    <script type="text/javascript" src="JS/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="JS/JQuery-UI-1.12.1/jquery-ui.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet"/>
+    <!--jquery-->
+    <link type="text/css" rel="stylesheet" href="JS/JQuery-UI-1.12.1/jquery-ui.min.css"/>
+    <link type="text/css" rel="stylesheet" href="JS/JQuery-UI-1.12.1/jquery-ui.structure.min.css"/>
+    <link type="text/css" rel="stylesheet" href="JS/JQuery-UI-1.12.1/jquery-ui.theme.min.css"/>
+    <!--styles y boostrap-->
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../stylesheets/css/style.css">
+    <link type="text/css" rel="stylesheet" href="stylesheet/styles.css"/>
+    
+    
+</head>
+<body>
+    <div id="container">
+        <div id="busqueda">
+            <img src="img/consulta.png" id="consulta-img"/>
+            <div>
+                <form id="section-busqueda" method="post" onsubmit="return submitUserForm();">
+                    <select id="criterio">
+                        <option value="none">--SELECCIONE--</option>
+                        <option value="dni">DNI</option>
+                        <option value="nombreApellido">NOMBRES Y APELLIDOS</option>
+                        <option value="codColegiado">CODIGO COLEGIADO</option>
+                    </select>
+                    <input placeholder="Ingrese búsqueda" id="search"/>
+                    <div class="g-recaptcha" data-sitekey="6LeWxaYZAAAAAI9SAZ2bHV3j4OkepKk4v6RwIC5w" data-callback="verifyCaptcha"></div>
+                    <div id="g-recaptcha-error"></div>
+                    <!-- <input type="submit" name="submit" value="Submit" /> -->
+                    <button type="submit" name="submit" id="button-search">
+                        <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                        </svg>
+                        Buscar
+                    </button>
+                </form>
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <script type="text/javascript" src="JS/index.js"></script>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div>
+            <div class="tabs">
+                <!-- Tabs Header -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#home" data-toggle="tab">Datos</a></li>
+                    <li><a href="#profile2" data-toggle="tab">Ultimos pagos</a></li>
+                </ul>
+                <!-- Tabs Content -->
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="home">
+                        <h2>Habilitado hasta: <span id="date-habilitado"></span></h2>
+                        <div id="formulario">
+                            <div id="imagen-perfil">
+                                <img style="opacity: 0.08;" src="img/user.png"/>
+                            </div>
+                            <form action="#" method="POST">
+                                <label for="name">Nombre</label>
+                                <input disabled type="text" name="name" id="name"/>
+                                <label for="surname">Apellidos</label>
+                                <input disabled type="text" name="surname" id="surname"/>
+                                <label for="collage">N° Colegio</label>
+                                <input disabled type="text" name="colage" id="collage"/>
+                                <label for="text">Fecha de incorp.</label>
+                                <input disabled type="text" name="date" id="date"/>
+                                <label for="condicion">Condición</label>
+                                <input disabled type="text" name="condicion" id="condicion"/>
+                                <label>Deuda Actual</label>
+                                <span id="deuda"></span>
+                            </form>
+                            <p>Ultima Cuota: <span id="date-ultima-cuota"></span></p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile2">
+                        <div>
+                            <div class="panel">
+                                <div class="panel-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Fecha de Pago</th>
+                                            <th>Aporte</th>
+                                            <th>Concepto</th>
+                                            <th>Comprobante</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<!--BASIC scripts-->
+<!-- ========================================================= -->
+<script src="../vendor/jquery/jquery-1.12.3.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../vendor/nano-scroller/nano-scroller.js"></script>
+<!--TEMPLATE scripts-->
+<!-- ========================================================= -->
+<!-- <script src="../javascripts/template-script.min.js"></script>
+<script src="../javascripts/template-init.min.js"></script> -->
+<!-- SECTION script and examples-->
+<!-- ========================================================= -->
+<!--Validations-->    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
+<script src="JS/jquery.mask.min.js"></script>
+</html>
