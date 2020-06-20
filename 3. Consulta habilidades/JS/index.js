@@ -32,7 +32,6 @@ $(document).ready(function () {
 
     //boton de busqueda
     $('#button-search').click(function (e) { 
-        console.log(listUsers);
         if (submitUserForm()) {
             e.preventDefault();
             if ($('#criterio').val() == "dni") {

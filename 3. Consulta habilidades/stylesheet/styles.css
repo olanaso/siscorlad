@@ -6,7 +6,9 @@
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 30px;
-    border: 1px solid #333;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    border-top: 20px solid #03873B;
     font-family: 'Quicksand', sans-serif;
     background-color: #2a8a280e;
 }
@@ -25,15 +27,15 @@ body{
 /*=======================SEARCH========================*/
 #busqueda{
     margin-top: 10px;
-    height: 120px;
+    height: 140px;
     display: grid;
     grid-template-columns: 20% 80%;
 }
 #busqueda #section-busqueda{
-    height: 80px;
+    height: 100%;
     display: grid;
     grid-template-columns: 30% 30% 40%;
-    grid-template-rows: 40% 60%;
+    grid-template-rows: 30% 60%;
     grid-row-gap: 10px;
 }
 #busqueda #criterio{
@@ -203,26 +205,14 @@ form label{
 /********************************************************/
 /*==================== RESPONSIVE ======================*/
 @media (max-width: 425px){
-    #busqueda{
-        height: 100px;
-    }
     #busqueda #criterio{
-        font-size: 25px;
-    }
-    #busqueda #search{
-        font-size: 25px;
-    }
-    #busqueda #button-search{
-        width: 150px;
-        font-size: 23px;
-    }
-    #busqueda #captcha{
         font-size: 20px;
     }
-    #busqueda #captcha #captcha-input{
-        margin-top: 15px;
-        width: 280px;
-        font-size: 25px;
+    #busqueda #search{
+        font-size: 20px;
+    }
+    #busqueda #button-search{
+        font-size: 20px;
     }
     #tabs h2{
         font-size: 30px;
@@ -237,45 +227,34 @@ form label{
         text-align: center;
         font-size: 25px;
     }
-    #formulario form{
-        margin-top: 30px;
-        font-size: 25px;
-        width: 90%;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 15px;
+    .table thead{
+        font-size: 18px;
     }
-    #formulario div{
-        margin-left: 180px;
-        margin-right: 180px;
-        height: 340px;
+    .table tbody{
+        font-size: 16px;
     }
-    .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
-        font-size: 25px;
-    }
-    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
-        background-color: #eafff1;
-        font-size: 25px;
-    }
-    #tab-2{
+    .panel-tabla{
         overflow-x: scroll;
     }
-    #tab-2 table{
-        width: 1000px;
+    #formulario form{
+        margin: 0px auto;
+        margin-top: 30px;
+        padding-top: 20px;
         font-size: 25px;
+        width: 90%;
+        grid-template-columns: 30% 60%;
+        grid-gap: 20px;
+        padding-left: 50px;
+        padding-right: 50px;
     }
-    #tab-2 table th{
-        background-color: #E5E5E5;
-        width: 20%;
-        border: 1px solid #E5E5E5;
+    #formulario form label{
+        font-size: 17px;
     }
-    #tab-2 table td{
-        background-color: white;
-        width: 20%;
-        border: 1px solid white;
+    #formulario div{
+        width: 45%;
+        margin: 0px auto;
+        height: 300px;
     }
-}
-.error{
-    /* color: white; */
 }
 .error[type="text"],
 .error[type="number"]{
