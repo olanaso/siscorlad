@@ -107,3 +107,7 @@ li .cumpleanos{
     background: url("../img/next.png") no-repeat;
     background-size: 15px;
 }
+
+.bx-wrapper{
+    border: none;
+}

@@ -10,8 +10,10 @@ function verifyCaptcha() {
     document.getElementById('g-recaptcha-error').innerHTML = '';
 }
 
+
 $(document).ready(function () {
     var listUsers = [];
+    var listNombres = [];
     var search = $('#search');
     $.ajax({
         type: "GET",
@@ -25,29 +27,47 @@ $(document).ready(function () {
                     listPagos.push([pago.numero,pago.fechaPago,pago.aporte,pago.concepto,pago.comprobante]);
                 }
                 listUsers.push([user.nombre,user.apellidos,user.dni,user.nColegiado,user.fechaIncorporacion,user.condicion,user.deuda,user.fechaHabilitado,user.ultimaCuota, listPagos,user.imagen]);
+                listNombres.push(user.nombre + " " + user.apellidos);
             }
         }
     });
     
-
     //boton de busqueda
     $('#button-search').click(function (e) { 
-        if (submitUserForm()) {
+        if (submitUserForm()) {             //submitUserForm()
             e.preventDefault();
-            if ($('#criterio').val() == "dni") {
-                busquedaDni(listUsers, search.val());
-            }
-            if ($('#criterio').val() == "codColegiado") {
-                busquedaCodigo(listUsers, search.val());
-            }
-            if ($('#criterio').val() == "nombreApellido") {
-                busquedaNombre(listUsers, search.val());
+            if ($('#criterio').val() == "none") {
+                $('#criterio').css('border', '1px solid red');
+            } else{
+                if (search.val() == "" || search.val() == "undefined" || search.val() == null) {
+                    search.removeClass('valid');
+                    search.addClass('error');
+                } else {
+                    search.removeClass('error');
+                    search.addClass('valid');
+                    $('.bi-search').hide();
+                    $('.bi-arrow-repeat').show();
+                    setTimeout(() => {
+                        $('.bi-search').show();
+                        $('.bi-arrow-repeat').hide();
+                        if ($('#criterio').val() == "dni") {
+                            busquedaDni(listUsers, search.val());
+                        }
+                        if ($('#criterio').val() == "codColegiado") {
+                            busquedaCodigo(listUsers, search.val());
+                        }
+                        if ($('#criterio').val() == "nombreApellido") {
+                            busquedaNombre(listUsers, search.val());
+                        }
+                    }, 2000);
+                }
             }
         } else {
             e.preventDefault();
         }
     });
-
+    
+    
     // VALIDACIONES DE BUSQUEDA
     $('#section-busqueda').validate({
         rules: {
@@ -91,23 +111,49 @@ $(document).ready(function () {
         if (that.val() == "dni") {
             search.attr("type", "number");
             search.attr("name", "number");
+            search.autocomplete({
+                disabled:true
+            });
+            $('#criterio').css('border', '1px solid #ccc');
             // $('[name="number"]').mask('00000000');
         } 
         else if (that.val() == "nombreApellido") {
             search.attr("type", "text");
             search.attr("name", "text");
+            search.autocomplete({
+                source: listNombres,
+                disabled: false,
+                minLength: 2,
+                select: function (event,ui){
+                    $('.bi-search').hide();
+                    $('.bi-arrow-repeat').show();
+                    setTimeout(() => {
+                        busquedaNombre(listUsers, search.val());
+                        $('.bi-search').show();
+                        $('.bi-arrow-repeat').hide();
+                    }, 2000);
+                }
+            });
+            $('#criterio').css('border', '1px solid #ccc');
         }
         else if (that.val() == "codColegiado") {
             search.attr("type", "number");
             search.attr("name", "codigo");
+            search.autocomplete({
+                disabled:true
+            });
+            $('#criterio').css('border', '1px solid #ccc');
             // $('[name="codigo"]').mask('000');
         }else{
+            search.autocomplete({
+                disabled:true
+            });
             search.attr("type", "search");
             search.attr("name", "search");
         }
     });
 
-    //METODOS DE BUSQUDA
+    //METODOS DE BUSQUEDA
     function busquedaDni(lista=[], busqueda) {
         for (let i = 0; i < lista.length; i++) {
             if (lista[i][2]==busqueda) {
@@ -154,12 +200,10 @@ $(document).ready(function () {
 
         var children = "";
         for (let i = 0; i < lista[9].length; i++) {
-            console.log(lista[9][i])
             var tr = "<tr>";
             var trf = "</tr>"
             var td = "";
             for (let j = 0; j < lista[9][i].length; j++) {
-                console.log(lista[9][i][j])
                 var contenidos = "<td>"+lista[9][i][j]+"</td>";
                 td+=contenidos;
             }
