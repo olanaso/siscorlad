@@ -175,9 +175,11 @@ $(document).ready(function () {
                 disabled: false,
                 minLength: 2,
                 select: function (event){
-                    setTimeout(() => {
-                        peticionAjax("nombreApellido", search.val());
-                    }, 200);
+                    if (submitUserForm()) {
+                        setTimeout(() => {
+                            peticionAjax("nombreApellido", search.val());
+                        }, 200);
+                    }
                 }
             });
             $('#criterio').css('border', '1px solid #ccc');
@@ -213,8 +215,8 @@ $(document).ready(function () {
             codigo: {
                 required: true,
                 number: true,
-                minlength: 3,
-                maxlength: 3
+                minlength: 1,
+                maxlength: 4
             },
             text: {
                 required: true,
@@ -230,8 +232,8 @@ $(document).ready(function () {
             codigo: {
                 required: "Ingrese su código de colegiado",
                 number: "ingrese un número valido",
-                minlength: "Carácteres minimos 3",
-                maxlength: "Carácterse maximos 3"
+                minlength: "Carácteres minimos 1",
+                maxlength: "Carácterse maximos 4"
             },
             text: {
                 required: "Ingrese nombres y apellidos",
