@@ -1,0 +1,128 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Quicksand', sans-serif;
+}
+#container{
+    display: grid;
+    grid-template-columns: 16% 84%;
+    width: 650px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    border-top: 20px solid #03873B;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #2a8a280e;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#content{
+    display: grid;
+    grid-template-columns: 25% 40% 32%;
+    grid-gap: 10px;
+    align-items: center;
+}
+#categoria{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-transform: uppercase;
+}
+#icon{
+    width: 100px;
+}
+#categoria:focus{
+    outline: none;
+    border: 1px double #2a8a28bd;
+    box-shadow: 0px 0px 4px #2a8a289d;
+}
+#casillaSearch{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: all 300ms;
+}
+#casillaSearch:focus{
+    outline: none;
+    letter-spacing: 1px;
+    border: 1px double #2a8a28bd;
+    box-shadow: 0px 0px 4px #2a8a289d;
+    transition: all 400ms;
+    background-color: white;
+}
+::placeholder{
+    color: #20681d80;
+}
+#consultar{
+    padding: 10px;
+    color: white;
+    text-transform: uppercase;
+    background-color: #03873B;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 300ms;
+}
+#consultar:hover{
+    transform: scale(1.03,1.03);
+    color: white;
+    transition: all 200ms;
+}
+#consultar:focus-within{
+    outline: none;
+}
+#consultar:active{
+    outline: none;
+    box-shadow: 0px 0px 5px #a0a0a0;
+}
+section{
+    margin-top: 20px;
+    grid-column: 1/3;
+}
+section embed{
+    width: 100%;
+    height: 700px;
+}
+/*****************************************************/
+/*====================RESPONSIVE=====================*/
+@media (max-width: 425px){
+    #container{
+        border-top: 35px solid #03873B;
+        grid-template-columns: 22% 76%;
+    }
+    *{
+        font-size: 20px;
+    }
+    #icon{
+        width: 150px;
+    }
+    #content{
+        grid-template-columns: 30% 40% 30%;
+    }
+    #casillaSearch{
+        grid-column: 2/4;
+    }
+    #consultar{
+        grid-column: 2/3;
+    }
+}
+
+/***********ANIMACION**************/
+.bi-arrow-repeat{
+    display: none;
+    animation: animate-search 1500ms linear infinite;
+}
+@keyframes animate-search{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+#casillaSearch-error{
+    position: absolute;
+    padding-top: 80px;
+    color: red;
+}

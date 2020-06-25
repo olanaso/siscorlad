@@ -1,8 +1,11 @@
+/*======================URL GENERAL=======================*/
+var url_servicios = "http://34.227.105.144:3000/";
+
 /*==================METODOS DEL CATPCHA======================*/
 function submitUserForm() {
     var response = grecaptcha.getResponse();
     if(response.length == 0) {
-        document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">Verifica si no eres un robot.</span>';
+        document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:#ff0000;">Verifica si no eres un robot.</span>';
         return false;
     }
     return true;
@@ -13,15 +16,12 @@ function verifyCaptcha() {
 
 
 $(document).ready(function () {
-    /*========================================================*/
-    /*======================URL GENERAL=======================*/
-    var urlPeticion = "http://34.227.105.144:3000/agremiados";
-
-    /*===================METODO DE PETICION AJAX======================*/
-    function peticionAjax(tipo, busqueda) {
+    /*============================================================*/
+    /*===================METODOS DE BUSQUEDA======================*/
+    function busquedaDni(busqueda) {
         $.ajax({
             type: "GET",
-            url: urlPeticion, 
+            url: url_servicios+"agremiados/?filter[where][dni]="+busqueda,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -30,51 +30,66 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
-                if (tipo == "dni") {
-                    busquedaDni(response, busqueda);
-                }
-                if (tipo == "codColegiado") {
-                    busquedaCodigo(response, busqueda);
-                }
-                if (tipo == "nombreApellido") {
-                    busquedaNombre(response, busqueda);
+                if (response.length != 0){
+                    insertarDatos(response[0]);
+                }else {
+                    borrarDatos();
                 }
             }
         });
     }
-
-
-    /*===================METODOS DE BUSQUEDA======================*/
-    function busquedaDni(lista, busqueda) {
-        for (var user of lista) {
-            if (user.dni == busqueda) {
-                insertarDatos(user);
-                break;
-            } else{
-                borrarDatos();
+    function busquedaCodigo(busqueda) {
+        $.ajax({
+            type: "GET",
+            url: url_servicios+"agremiados/?filter[where][codigocolegiado]="+busqueda,
+            data: "json",
+            beforeSend: ()=>{
+                $('.bi-search').hide();
+                $('.bi-arrow-repeat').show();
+            },
+            success: function (response) {
+                $('.bi-search').show();
+                $('.bi-arrow-repeat').hide();
+                if (response.length != 0){
+                    insertarDatos(response[0]);
+                }else {
+                    borrarDatos();
+                }
             }
-        }
+        });
     }
-    function busquedaCodigo(lista, busqueda) {
-        for (let user of lista) {
-            if (user.codigocolegiado == busqueda) {
-                insertarDatos(user);
-                break;
-            } else{
-                borrarDatos();
-            }
+    function busquedaNombre(busqueda) {
+        let busquedaArray = busqueda.split(" ").reverse();
+        var filtro = '';
+        /*SI LOS USUARIOS TIENES UN NOMBRE O DOS NOMBRES O TRES NOMBRES*/
+        if (busquedaArray.length == 3){
+            filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
         }
-    }
-    function busquedaNombre(lista, busqueda) {
-        for (let user of lista) {
-            var nombreCompleto = user.nombres + " " + user.apellidopaterno + " " + user.apellidomaterno;
-            if (nombreCompleto.includes(busqueda)) {
-                insertarDatos(user);
-                break;
-            } else{
-                borrarDatos();
-            }
+        if (busquedaArray.length == 4){
+            filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[3]+" "+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
         }
+        if (busquedaArray.length == 5){
+            filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[4]+" "+busquedaArray[3]+" "+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
+        }
+
+        $.ajax({
+            type: "GET",
+            url: url_servicios+filtro,
+            data: "json",
+            beforeSend: ()=>{
+                $('.bi-search').hide();
+                $('.bi-arrow-repeat').show();
+            },
+            success: function (response) {
+                $('.bi-search').show();
+                $('.bi-arrow-repeat').hide();
+                if (response[0].length != 0){
+                    insertarDatos(response[0]);
+                }else {
+                    borrarDatos();
+                }
+            }
+        });
     }
     function insertarDatos(user) {
         $('#name').val(user.nombres);
@@ -86,16 +101,12 @@ $(document).ready(function () {
         $('#date-habilitado').html(user.fechaHabilitado);//falta
         $('#date-ultima-cuota').html(user.ultimaCuota);//falta
         $('#imagen-perfil img').hide();
-        $('#imagen-perfil').css("background", "no-repeat url("+user.imagen+")");//falta
-        $('#imagen-perfil').css("background-size", "100% 100%");
-        //PARA LA LISTA DE PAGOS
-        var children = "";
-        for (let pago of user.pagos) {
-            var td = "<td>"+pago.numero+"</td>"+"<td>"+pago.fechaPago+"</td>"+"<td>"+pago.aporte+"</td>"+"<td>"+pago.concepto+"</td>"+"<td>"+pago.comprobante+"</td>";
-            var child = "<tr>"+td+"</tr>";
-            children += child;
+        if (typeof user.foto == "object"){
+            $('#imagen-perfil').css("background", "transparent");
+        }else{
+            $('#imagen-perfil').css("background", "no-repeat url(data:image/jpeg;base64,"+user.foto+")");
+            $('#imagen-perfil').css("background-size", "100% 100%");
         }
-        $('tbody').html(children);
     }
     function borrarDatos() {
         $('#name').val(null);
@@ -127,13 +138,13 @@ $(document).ready(function () {
                     search.removeClass('error');
                     search.addClass('valid');
                     if ($('#criterio').val() == "dni") {
-                        peticionAjax("dni", search.val());
+                        busquedaDni(search.val());
                     }
                     if ($('#criterio').val() == "codColegiado") {
-                        peticionAjax("codColegiado", search.val());
+                        busquedaCodigo(search.val());
                     }
                     if ($('#criterio').val() == "nombreApellido") {
-                        peticionAjax("nombreApellido", search.val());
+                        busquedaNombre(search.val());
                     }
                 }
             }
@@ -144,16 +155,16 @@ $(document).ready(function () {
 
     /*=========================VALIDACION y CAMBIOS DE CAMPO REQUERIMIENTO============================*/
     var listaUsers = [];
-            $.ajax({
-                type: "GET",
-                url: urlPeticion,
-                data: "json",
-                success: function (response) {
-                    for (let user of response) {
-                        listaUsers.push(user.nombres + " " + user.apellidopaterno+" "+user.apellidomaterno);
-                    }
+        $.ajax({
+            type: "GET",
+            url: url_servicios+'agremiados/',
+            data: "json",
+            success: function (response) {
+                for (let user of response) {
+                    listaUsers.push(user.nombres + " " + user.apellidopaterno+" "+user.apellidomaterno);
                 }
-    });
+            }
+        });
     $('#criterio').blur(function () { 
         var that = $(this);
         if (that.val() == "dni") {
@@ -177,7 +188,7 @@ $(document).ready(function () {
                 select: function (event){
                     if (submitUserForm()) {
                         setTimeout(() => {
-                            peticionAjax("nombreApellido", search.val());
+                            busquedaNombre(search.val());
                         }, 200);
                     }
                 }
@@ -185,7 +196,7 @@ $(document).ready(function () {
             $('#criterio').css('border', '1px solid #ccc');
         }
         else if (that.val() == "codColegiado") {
-            search.attr("type", "number");
+            search.attr("type", "text");
             search.attr("name", "codigo");
             search.attr("placeholder", "Ingrese su código de colegiado");
             search.autocomplete({
@@ -214,9 +225,7 @@ $(document).ready(function () {
             },
             codigo: {
                 required: true,
-                number: true,
-                minlength: 1,
-                maxlength: 4
+                minlength: 1
             },
             text: {
                 required: true,
@@ -231,9 +240,7 @@ $(document).ready(function () {
             },
             codigo: {
                 required: "Ingrese su código de colegiado",
-                number: "ingrese un número valido",
-                minlength: "Carácteres minimos 1",
-                maxlength: "Carácterse maximos 4"
+                minlength: "Carácteres minimos 1"
             },
             text: {
                 required: "Ingrese nombres y apellidos",

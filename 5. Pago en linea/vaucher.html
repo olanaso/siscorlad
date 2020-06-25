@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Envio vaucher pago | CORLAD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet" />
+    <!--BASIC css-->
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../vendor/animate.css/animate.css">
+    <!--Date picker-->
+    <link rel="stylesheet" href="../vendor/bootstrap_date-picker/css/bootstrap-datepicker3.min.css">
+
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all"
+        rel="stylesheet" type="text/css" />
+    <!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
+    <!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+    <!-- the font awesome icon library if using with `fas` theme (or Bootstrap 4.x). Note that default icons used in the plugin are glyphicons that are bundled only with Bootstrap 3.x. -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
+        wish to resize images before upload. This must be loaded before fileinput.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/piexif.min.js"
+        type="text/javascript"></script>
+    <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
+        This must be loaded before fileinput.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/sortable.min.js"
+        type="text/javascript"></script>
+    <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
+        HTML files. This must be loaded before fileinput.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/purify.min.js"
+        type="text/javascript"></script>
+    <!-- popper.min.js below is needed if you use bootstrap 4.x (for popover and tooltips). You can also use the bootstrap js 
+    3.3.x versions without popper.min.js. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+        dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <!-- the main fileinput plugin file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+    <!-- following theme script is needed to use the Font Awesome 5.x theme (`fas`) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
+
+
+    <link rel="stylesheet" href="../stylesheets/css/style.css">
+    <link rel="stylesheet" href="Stylesheets/styles.css" />
+</head>
+
+<body>
+    <div id="container">
+        <img id="imagen" src="images/icon.png" />
+        <h1>PAGOS EN LINEA</h1>
+        <form class="contenedor" id="contentBusqueda" action="#" onsubmit="return false;">
+            <h2>Búsqueda</h2>
+            <label for="dni">DNI:</label>
+            <!--<select name="categoria" id="categoria"></select>-->
+            <input id="dni" name="dni" placeholder="Ingrese su DNI" type="number"/>
+            <button id="buscar" type="submit">
+                <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                </svg>
+                <svg class="bi bi-arrow-repeat" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
+                    <path fill-rule="evenodd" d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z"/>
+                </svg>
+                Buscar
+            </button>
+        </form>
+        <form class="contenedor" id="contentResultado" action="#" onsubmit="return true;">
+            <section id="section-agremiado">
+                <h3>AGREMIADO</h3>
+                <label for="labelNombre">Nombre:</label>
+                <input type="text" name="labelNombre" id="labelNombre" disabled/>
+                <label for="DNI">DNI:</label>
+                <input type="text" name="labelDni" id="labelDni" disabled/>
+                <label for="labelEmail">Correo:</label>
+                <input type="email" name="labelEmail" id="labelEmail" disabled/>
+            </section>
+            <section id="section-deuda">
+                <h3>DEUDAS</h3>
+                <input type="checkbox" name="aporte" id="check_aporte"/>
+                <label for="check_aporte">Aportes</label> <p></p> <span>S/200.00</span>
+                <input type="checkbox" name="certificado" id="check_certificado"/>
+                <label for="check_certificado">Certificado</label> <p></p> <span>S/15.00</span>
+
+            </section>
+            <section id="section-pagar">
+                <label for="entidadBancaria">Banco</label>
+                <label for="nOperacion">N° Operación</label>
+                <label for="input-id">Voucher</label>
+                <label></label>
+                <select name="entidad" id="entidadBancaria">
+                    <option value="bcp">BCP</option>
+                    <option value="bbva">BBVA Continental</option>
+                    <option value="interbank">Interbank</option>
+                </select>
+                <input type="number" name="nOperacion" id="nOperacion" placeholder="Operación"/>
+                <input name="adjuntar" id="input-id" type="file" class="file" data-preview-file-type="text" accept=".jpg,.png"/>
+                <input type="submit" value="Enviar aporte" id="enviar" />
+            </section>
+            <!--
+            <label for="fechaPago">Fecha de pago:</label>
+            <div class="input-group">
+                <input name="fechaPago" type="text" class="form-control" id="default-datepicker" placeholder="dd/mm/aa" autocomplete="off"/>
+                <span class="input-group-addon x-primary"><i class="fa fa-calendar"></i></span>
+            </div>
+            -->
+        </form>
+        <form class="contenedor" id="contentPago" action="#">
+
+        </form>
+    </div>
+
+    <script src="../vendor/jquery/jquery-1.12.3.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../vendor/nano-scroller/nano-scroller.js"></script>
+    <!-- SECTION script and examples-->
+    <!-- ========================================================= -->
+    <!--Max length-->
+    <script src="../vendor/bootstrap_max-lenght/bootstrap-maxlength.js"></script>
+    <!--Select with searching & tagging-->
+    <script src="../vendor/select2/js/select2.min.js"></script>
+    <!--Input mask-->
+    <script src="../vendor/input-masked/inputmask.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
+
+    <!--Date picker-->
+    <script src="../vendor/bootstrap_date-picker/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="JavaScript/vaucher.js"></script>
+</body>
+
+</html>
