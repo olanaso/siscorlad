@@ -3,14 +3,40 @@ var url_servicios = "http://34.227.105.144:3000/";
 
 $(document).ready(function () {
     $('#contentResultado').hide();
+    $('#contentPago').hide();
     /*====================================*/
     /*===========FORM BUSQUEDA============*/
     $('#buscar').click(function (e) {
         e.preventDefault();
         if ($('#dni').val() != ""){
             busquedaDni($('#dni').val());
-        }else{
-
+        }
+    });
+    $('#pagar').click(function () {
+        if ($('#input-id').val()!=""){
+            $('tbody').html("");
+            if ($('#check_certificado:checked').val() == "on"){
+                let certificado = $('#monto-certificado').html();
+                let cantidad = 1;
+                let monto = parseInt(certificado) * cantidad;
+                $('tbody').prepend("<tr><td>"+cantidad+"</td><td>Certificado</td><td>"+certificado+"</td><td>"+monto+"</td></tr>");
+            }
+            if ($('#check_aporte:checked').val() == "on"){
+                let aporte = $('#monto-aporte').html();
+                let cantidad = 2;
+                let monto = parseInt(aporte) * cantidad;
+                $('tbody').prepend("<tr><td>"+cantidad+"</td><td>Aporte</td><td>"+aporte+"</td><td>"+monto+"</td></tr>");
+            }
+            if ($('#check_aporte:checked').val() == undefined && $('#check_certificado:checked').val() == undefined){
+                $('#contentPago').hide();
+            } else {
+                $('tbody').append("<tr><td></td><td></td><td>Subtotal</td><td>415</td></tr>");
+                $('tbody').append("<tr><td></td><td></td><td>IGV</td><td>0</td></tr>");
+                $('tbody').append("<tr><td></td><td></td><td>Total</td><td>415</td></tr>");
+                $('#contentPago').slideDown();
+            }
+        }else {
+            $('#contentPago').slideUp();
         }
     });
     function busquedaDni(busqueda) {
@@ -40,21 +66,23 @@ $(document).ready(function () {
         $('#labelEmail').val(user.correo);
     }
 
+
     function previewphoto() {
         document.getElementById("input-id").onchange = function () {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 // get loaded data and render thumbnail.
-                document.getElementById("input-id").src = e.target.result;
+                document.getElementById("image").src = e.target.result;
             };
             // read the image file as a data URL.
             reader.readAsDataURL(this.files[0]);
-            console.log("tamaño de imagen", this.files[0].size)
+            console.log("tamaño de imagen", this.files[0].size);
 
-            if (this.files[0].size > 20000) {
+            if (this.files[0].size > 1500000) {
                 alert("La imagen sobre pasa el tamaño permitido");
                 $('#input-id').val('');
+                document.getElementById("image").src = 'images/blanco.png';
             }
         };
     }

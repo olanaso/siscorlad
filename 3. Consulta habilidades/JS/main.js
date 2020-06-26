@@ -59,22 +59,23 @@ $(document).ready(function () {
         });
     }
     function busquedaNombre(busqueda) {
-        let busquedaArray = busqueda.split(" ").reverse();
-        var filtro = '';
-        /*SI LOS USUARIOS TIENES UN NOMBRE O DOS NOMBRES O TRES NOMBRES*/
-        if (busquedaArray.length == 3){
+        /*
+        var busquedaArray = busqueda.split(" ");
+        var filtro;
+        if (busquedaArray.length == 3){ //si la persona tiene un nombre
             filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
         }
-        if (busquedaArray.length == 4){
+        if (busquedaArray.length == 4){ //si la persona tiene dos nombre
             filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[3]+" "+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
         }
-        if (busquedaArray.length == 5){
+        if (busquedaArray.length == 5){ //si la persona tiene tres nombres
             filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[4]+" "+busquedaArray[3]+" "+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
         }
-
+        */
+        var url_path = encodeURIComponent(JSON.stringify({"limit":5,"where":{"or":[{"nombres": {"like": busqueda}},{"apellidopaterno": {"like": busqueda}},{"apellidomaterno": {"like": busqueda}}]}}));
         $.ajax({
             type: "GET",
-            url: url_servicios+filtro,
+            url: url_servicios+'agremiados/?filter='+url_path,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -184,6 +185,7 @@ $(document).ready(function () {
             search.autocomplete({
                 source: listaUsers,
                 disabled: false,
+                limit: 5,
                 minLength: 2,
                 select: function (event){
                     if (submitUserForm()) {

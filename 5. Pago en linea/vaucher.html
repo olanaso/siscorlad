@@ -56,7 +56,7 @@
         <img id="imagen" src="images/icon.png" />
         <h1>PAGOS EN LINEA</h1>
         <form class="contenedor" id="contentBusqueda" action="#" onsubmit="return false;">
-            <h2>Búsqueda</h2>
+            <h2>BUSQUEDA</h2>
             <label for="dni">DNI:</label>
             <!--<select name="categoria" id="categoria"></select>-->
             <input id="dni" name="dni" placeholder="Ingrese su DNI" type="number"/>
@@ -85,9 +85,9 @@
             <section id="section-deuda">
                 <h3>DEUDAS</h3>
                 <input type="checkbox" name="aporte" id="check_aporte"/>
-                <label for="check_aporte">Aportes</label> <p></p> <span>S/200.00</span>
+                <label for="check_aporte">Aportes</label> <p></p> S/<span id="monto-aporte">200.00</span>
                 <input type="checkbox" name="certificado" id="check_certificado"/>
-                <label for="check_certificado">Certificado</label> <p></p> <span>S/15.00</span>
+                <label for="check_certificado">Certificado</label> <p></p> S/<span id="monto-certificado">15.00</span>
 
             </section>
             <section id="section-pagar">
@@ -101,8 +101,11 @@
                     <option value="interbank">Interbank</option>
                 </select>
                 <input type="number" name="nOperacion" id="nOperacion" placeholder="Operación"/>
-                <input name="adjuntar" id="input-id" type="file" class="file" data-preview-file-type="text" accept=".jpg,.png"/>
-                <input type="submit" value="Enviar aporte" id="enviar" />
+                <div>
+                    <img id="image" src="images/blanco.png"/>
+                    <input name="adjuntar" id="input-id" type="file" class="file" data-preview-file-type="text" accept=".jpg,.png" required/>
+                </div>
+                <input type="submit" value="Pagar" id="pagar" />
             </section>
             <!--
             <label for="fechaPago">Fecha de pago:</label>
@@ -112,8 +115,24 @@
             </div>
             -->
         </form>
-        <form class="contenedor" id="contentPago" action="#">
+        <form class="contenedor" id="contentPago" action="#" onsubmit="return false;">
+            <h3>PAGO</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Concepto</th>
+                        <th>Precio Unit</th>
+                        <th>Monto</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
+                    </tbody>
+                </table>
+            </div>
+            <input type="submit" value="Enviar" id="enviar" />
         </form>
     </div>
 

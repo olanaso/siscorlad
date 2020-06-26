@@ -5,12 +5,32 @@ var url_servicios = "http://34.227.105.144:3000/";
 $(document).ready(function () {
     $("#consultar").click(function () {
         if ($('#casillaSearch').val().trim() != ""){
-            if ($('#categoria').val()==="codigo"){
+            var categoria = $('#categoria');
+            if (categoria.val()==="codigo"){
                 busquedaCodigo($('#casillaSearch').val());
+            }
+            if (categoria.val()==="serie"){
+                busquedaSerie($('#casillaSearch').val());
             }
         }
     });
+    /*TODO falta completar la busqueda por serie de recibo*/
+    function busquedaSerie(busqueda) {
+        $.ajax({
+            type: "GET",
+            url: url_servicios+"agremiados/?filter[where][codigocolegiado]="+busqueda,
+            data: "json",
+            beforeSend: ()=>{
+                $('.bi-search').hide();
+                $('.bi-arrow-repeat').show();
+            },
+            success: function (response) {
+                $('.bi-search').show();
+                $('.bi-arrow-repeat').hide();
 
+            }
+        });
+    }
     function busquedaCodigo(busqueda) {
         $.ajax({
             type: "GET",
