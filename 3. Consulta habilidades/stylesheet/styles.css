@@ -14,7 +14,7 @@
 }
 body{
     margin: 0px;
-    padding: 0px;
+    background: white;
 }
 .clearfix{
     float: none;
@@ -220,58 +220,109 @@ form label{
 }
 /********************************************************/
 /*==================== RESPONSIVE ======================*/
-@media (max-width: 425px){
-    #busqueda #criterio{
-        font-size: 20px;
-    }
-    #busqueda #search{
-        font-size: 20px;
-    }
-    #busqueda #button-search{
-        font-size: 20px;
-    }
-    #tabs h2{
-        font-size: 30px;
-    }
-    #formulario{
-        display: grid;
-        grid-template-columns: 100%;
-    }
-    #formulario p{
-        grid-row: 3/4;
-        grid-column: 1/2;
-        text-align: center;
-        font-size: 25px;
-    }
-    .table thead{
-        font-size: 18px;
-    }
-    .table tbody{
-        font-size: 16px;
-    }
-    .panel-tabla{
-        overflow-x: scroll;
-    }
-    #formulario form{
-        margin: 0px auto;
-        margin-top: 30px;
-        padding-top: 20px;
-        font-size: 25px;
-        width: 90%;
-        grid-template-columns: 30% 60%;
-        grid-gap: 20px;
-        padding-left: 50px;
-        padding-right: 50px;
-    }
-    #formulario form label{
-        font-size: 17px;
-    }
-    #formulario div{
-        width: 45%;
-        margin: 0px auto;
-        height: 300px;
+@media (max-width: 700px) {
+    #container{
+        width: 100%;
     }
 }
+@media (max-width: 676px) {
+    #consulta-img{
+        width: 100%;
+    }
+    #busqueda{
+        height: 160px;
+        grid-template-columns: 20% 80%;
+    }
+    #busqueda #section-busqueda{
+        grid-template-rows: 20% 35% 20%;
+    }
+    #busqueda #button-search{
+        grid-column: 2/3;
+        grid-row: 3/4;
+        height: 100%;
+        width: 170px;
+    }
+    .g-recaptcha{
+        grid-column: 1/2;
+    }
+}
+
+@media (max-width: 582px) {
+    #busqueda{
+        height: 160px;
+        grid-template-columns: 25% 75%;
+    }
+    #busqueda #button-search{
+        margin-left: -30px;
+    }
+    #formulario{
+        grid-template-columns: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        justify-content: center;
+    }
+    #formulario #imagen-perfil{
+        margin: 0px auto;
+        grid-column: 1/2;
+        width: 40%;
+        height: 200px;
+        margin-bottom: 20px;
+    }
+    #imagen-perfil img{
+        width: 100%;
+        height: 100%;
+    }
+    #formulario form{
+        display: grid;
+        grid-column: 1/2;
+        margin: 0px auto;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        padding: 10px;
+        grid-gap: 10px;
+    }
+    #busqueda #criterio{
+        width: 97%;
+    }
+    .tabs .tab-content {
+        overflow-x: scroll;
+    }
+    .panel .panel-content {
+        width: 800px;
+    }
+    .panel {
+        -webkit-box-shadow: none;
+         box-shadow: none;
+    }
+    #formulario p{
+        grid-column: 1/2;
+        grid-row: 3/4;
+    }
+}
+
+@media (max-width: 456px) {
+    #busqueda{
+        grid-template-columns: 100%;
+        margin-bottom: 140px;
+    }
+    #consulta-img{
+        width: 30%;
+        margin: 0px auto;
+    }
+    #busqueda #button-search{
+        margin-left: -10px;
+    }
+    #formulario #imagen-perfil{
+        height: 150px;
+    }
+    .panel .panel-content {
+        width: 600px;
+    }
+}
+
+
+
+
 .error[type="text"],
 .error[type="number"]{
     border: 1px solid red !important;

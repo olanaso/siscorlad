@@ -21,7 +21,7 @@ $(document).ready(()=>{
                 salaSinEspacios += palabra;
             })
 
-            if(combo.val() == "jitsi"){
+            if(true){
                 const domain = 'meet.jit.si';
                 const options = {
                     roomName: salaSinEspacios,
@@ -45,28 +45,6 @@ $(document).ready(()=>{
                     $('#url_compartir').hide();
                     $('#copy').hide();
                     input.val("");
-                });
-            }
-            if(combo.val() == "ocho"){
-                $('#url_compartir').html('8x8.vc/' + salaSinEspacios);
-                input.attr('disabled','disabled');
-                $(this).attr('disabled','disabled');
-                setTimeout(function () {
-                    $('#cerrar').fadeIn(2000);
-                },5000)
-                let url_8x8 = 'https://8x8.vc/'+input.val();
-                $('#meet').append('<iframe src="'+url_8x8+'" frameborder="0" id="8x8" width="100%" height="100%"></iframe>');
-                $('#cerrar').click(function () {
-                    $('#meet').html('<button type="button" id="cerrar">Cerrar sesión</button>');
-                });
-                $('#cerrar').click(()=>{
-                    $(this).removeAttr('disabled');
-                    input.removeAttr('disabled');
-                    $('#url_compartir').hide();
-                    $('#copy').hide();
-                    input.val("");
-                    $('#meet').html('<button type="button" id="cerrar">Cerrar sesión</button>');
-                    $('#cerrar').hide();
                 });
             }
         }

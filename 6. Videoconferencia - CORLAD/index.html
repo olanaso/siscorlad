@@ -15,14 +15,11 @@
         <header id="header">
             <img src="images/logocorlad.png" alt="Logo CORLAD"/>
             <form action="#" onsubmit="return false;">
-                <label for="sala">SALA</label>
+                <label for="sala">Sala: </label>
                 <input type="text" name="sala" id="sala" placeholder="Nombre de la sala"/>
-                <select name="sala_select" id="sala_select">
-                    <option value="jitsi">MeetJi</option>
-                    <option value="ocho">8x8</option>
-                </select>
+
                 <button type="submit" id="generar">Generar sala</button>
-                <span id="copy">Copiar <span onclick="Copiar(this)" id="url_compartir"></span></span>
+                <span id="copy">Copiar URL para invitar amigos: <span onclick="Copiar(this)" id="url_compartir"></span></span>
                 <!--copiar texto del url compartido-->
                 <script !src="">function Copiar(element) {
                     //creamos un input que nos ayudara a guardar el texto temporalmente
@@ -37,7 +34,7 @@
                     document.execCommand("copy");
                     //eliminamos el input temporal
                     $temp.remove();
-                    alert("URL COPIADA");
+                    $(element).css('background','yellow');
                 }</script>
             </form>
         </header>

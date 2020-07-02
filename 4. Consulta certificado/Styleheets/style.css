@@ -6,9 +6,7 @@
 #container{
     display: grid;
     grid-template-columns: 16% 84%;
-    width: 650px;
-    padding-left: 25px;
-    padding-right: 25px;
+    width: 700px;
     border-radius: 10px;
     border: 1px solid #ccc;
     border-top: 20px solid #03873B;
@@ -19,8 +17,8 @@
 }
 #content{
     display: grid;
-    grid-template-columns: 25% 40% 32%;
-    grid-gap: 10px;
+    grid-template-columns: 30% 40% 25%;
+    grid-gap: 5px;
     align-items: center;
 }
 #categoria{
@@ -86,27 +84,26 @@ section embed{
 }
 /*****************************************************/
 /*====================RESPONSIVE=====================*/
-@media (max-width: 425px){
+@media (max-width: 700px){
     #container{
-        border-top: 35px solid #03873B;
+        width: 100%;
         grid-template-columns: 22% 76%;
     }
-    *{
-        font-size: 20px;
+}
+@media (max-width: 572px) {
+    #container{
+        display: grid;
+        grid-template-columns: 14% 86%;
     }
     #icon{
-        width: 150px;
-    }
-    #content{
-        grid-template-columns: 30% 40% 30%;
-    }
-    #casillaSearch{
-        grid-column: 2/4;
+        width: 100%;
     }
     #consultar{
-        grid-column: 2/3;
+        padding: 5px;
+        font-size: 10px;
     }
 }
+
 
 /***********ANIMACION**************/
 .bi-arrow-repeat{

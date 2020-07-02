@@ -27,12 +27,13 @@
     width: 150px;
 }
 #header form{
-    margin: 0px auto;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 10% 30% 20% 40%;
 }
 input[type="text"],
 button, #sala_select{
     padding: 5px;
-    width: 250px;
     border-radius: 5px;
     border: 1px solid white;
     margin: 3px;
@@ -43,16 +44,15 @@ button, #sala_select{
     color: white;
 }
 #sala_select{
-    width: 120px;
 }
 label{
-    color: white    ;
+    color: white;
     font-size: 20px;
 }
 input[type="text"]:focus,
 #sala_select:focus{
     background: transparent;
-    color: black;
+    color: white;
     box-shadow: 0px 0px 5px white;
 }
 input[type="text"]:focus-within,
@@ -62,7 +62,6 @@ button:focus-within{
 }
 button{
     cursor: pointer;
-    width: 150px;
     color: black;
     border: 1px solid white;
     color: white;
@@ -98,7 +97,7 @@ button:hover{
     border-radius: 5px;
 }
 #copy{
-    font-size: 10px;
+    font-size: 8px;
     margin-left: 10px;
     color: white;
     padding-top: 10px;
@@ -110,15 +109,16 @@ button:hover{
 }
 #8x8{
     width: 100%;
-  }
-@media (max-width: 735px) {
-    form{
-        display: grid;
-        grid-template-columns: 50% 50%;
-        justify-content: center;
+}
+@media (max-width: 923px) {
+    #url_compartir{
+        font-size: 10px;
     }
-    input[type="text"]{
-        width: 100%;
+}
+@media (max-width: 735px) {
+    #header form{
+        display: grid;
+        grid-template-columns: 20% 40% 30%;
     }
     #copy{
         grid-column: 1/3;

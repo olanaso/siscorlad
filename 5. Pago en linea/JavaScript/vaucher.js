@@ -79,7 +79,7 @@ $(document).ready(function () {
             reader.readAsDataURL(this.files[0]);
             console.log("tamaño de imagen", this.files[0].size);
 
-            if (this.files[0].size > 1500000) {
+            if (this.files[0].size > 100000) {
                 alert("La imagen sobre pasa el tamaño permitido");
                 $('#input-id').val('');
                 document.getElementById("image").src = 'images/blanco.png';

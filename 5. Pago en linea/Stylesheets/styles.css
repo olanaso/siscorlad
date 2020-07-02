@@ -257,6 +257,47 @@ h2{
 .file-preview{
     display: none;
 }
+
+/*====================RESPONSIVE=======================*/
+@media (max-width: 700px) {
+    #container{
+        width: 100%;
+    }
+    h1{
+        width: 80%;
+        text-align: right;
+        text-shadow: 1px 2px 3px #333;
+    }
+}
+@media (max-width: 551px) {
+    h1{
+        width: 75%;
+        font-size: 30px;
+        line-height: 40px;
+    }
+    #imagen{
+        width: 70px;
+    }
+}
+@media (max-width: 504px) {
+    #section-pagar{
+        grid-template-columns: repeat(2, 50%);
+    }
+    #labelVaucher{
+        grid-row: 3/4;
+    }
+    #entidadBancaria{
+        grid-row: 2/3;
+    }
+    #nOperacion{
+        grid-row: 2/3;
+    }
+    #section-deuda{
+        grid-template-columns: 7% 35% 35% 10% 13%;
+    }
+}
+
+
 /***********ANIMACION**************/
 .bi-arrow-repeat{
     display: none;
