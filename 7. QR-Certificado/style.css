@@ -1,0 +1,7 @@
+#qrcode{
+    display: block;
+    float: right;
+}
+#imagen img{
+    margin-top: 70px;
+}
