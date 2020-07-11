@@ -1,5 +1,5 @@
 /*======================URL GENERAL=======================*/
-var url_servicios = "http://34.227.105.144:3000/";
+//var url_servicios = "http://34.227.105.144:3000/";
 
 /*==================METODOS DEL CATPCHA======================*/
 function submitUserForm() {
@@ -21,7 +21,7 @@ $(document).ready(function () {
     function busquedaDni(busqueda) {
         $.ajax({
             type: "GET",
-            url: url_servicios+"agremiados/?filter[where][dni]="+busqueda,
+            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/6',            //url_servicios+"agremiados/?filter[where][dni]="+busqueda,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -30,10 +30,13 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
-                if (response.length != 0){
-                    insertarDatos(response[0]);
-                }else {
-                    borrarDatos();
+                for (let responseElement of response) {
+                    if (responseElement.dni == parseInt(busqueda)){
+                        insertarDatos(responseElement);
+                        break;
+                    }else{
+                        borrarDatos();
+                    }
                 }
             }
         });
@@ -41,7 +44,7 @@ $(document).ready(function () {
     function busquedaCodigo(busqueda) {
         $.ajax({
             type: "GET",
-            url: url_servicios+"agremiados/?filter[where][codigocolegiado]="+busqueda,
+            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/6',//url_servicios+"agremiados/?filter[where][codigocolegiado]="+busqueda,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -50,10 +53,13 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
-                if (response.length != 0){
-                    insertarDatos(response[0]);
-                }else {
-                    borrarDatos();
+                for (let responseElement of response) {
+                    if (responseElement.nColegiado == parseInt(busqueda)){
+                        insertarDatos(responseElement);
+                        break;
+                    }else{
+                        borrarDatos();
+                    }
                 }
             }
         });
@@ -75,7 +81,7 @@ $(document).ready(function () {
         var url_path = encodeURIComponent(JSON.stringify({"limit":5,"where":{"or":[{"nombres": {"like": busqueda}},{"apellidopaterno": {"like": busqueda}},{"apellidomaterno": {"like": busqueda}}]}}));
         $.ajax({
             type: "GET",
-            url: url_servicios+'agremiados/?filter='+url_path,
+            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/6' ,//url_servicios+'agremiados/?filter='+url_path,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -84,30 +90,40 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
-                if (response[0].length != 0){
-                    insertarDatos(response[0]);
-                }else {
-                    borrarDatos();
+                for (let responseElement of response) {
+                    if (responseElement.nombre+' '+ responseElement.apellidos == busqueda){
+                        insertarDatos(responseElement);
+                        break;
+                    }else{
+                        borrarDatos();
+                    }
                 }
             }
         });
     }
     function insertarDatos(user) {
-        $('#name').val(user.nombres);
-        $('#surname').val(user.apellidopaterno + " " + user.apellidomaterno);
-        $('#collage').val(user.codigocolegiado);
+        $('#name').val(user.nombre);
+        $('#surname').val(user.apellidos);
+        $('#collage').val(user.nColegiado);
         $('#date').val(user.fechaIncorporacion);//falta
         $('#condicion').val(user.condicion);//falta
         $('#deuda').html(user.deuda);//falta
         $('#date-habilitado').html(user.fechaHabilitado);//falta
         $('#date-ultima-cuota').html(user.ultimaCuota);//falta
         $('#imagen-perfil img').hide();
-        if (typeof user.foto == "object"){
+        if (typeof user.imagen == "object"){
             $('#imagen-perfil').css("background", "transparent");
         }else{
-            $('#imagen-perfil').css("background", "no-repeat url(data:image/jpeg;base64,"+user.foto+")");
+            $('#imagen-perfil').css("background", "no-repeat url("+user.imagen+")");
             $('#imagen-perfil').css("background-size", "100% 100%");
         }
+
+        var pagoTr='';
+        for (let pago of user.pagos) {
+            let tr = '<tr><td>'+pago.numero+'</td>'+'<td>'+pago.fechaPago+'</td>'+'<td>S/. '+pago.aporte+'</td>'+'<td>'+pago.concepto+'</td>'+'<td>'+pago.comprobante+'</td></tr>';
+            pagoTr+=tr;
+        }
+        $('.table tbody').html(pagoTr);
     }
     function borrarDatos() {
         $('#name').val(null);
@@ -158,11 +174,11 @@ $(document).ready(function () {
     var listaUsers = [];
         $.ajax({
             type: "GET",
-            url: url_servicios+'agremiados/',
+            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/6',//url_servicios+'agremiados/',
             data: "json",
             success: function (response) {
                 for (let user of response) {
-                    listaUsers.push(user.nombres + " " + user.apellidopaterno+" "+user.apellidomaterno);
+                    listaUsers.push(user.nombre + " " + user.apellidos);
                 }
             }
         });

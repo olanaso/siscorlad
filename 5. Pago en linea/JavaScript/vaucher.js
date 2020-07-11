@@ -42,7 +42,7 @@ $(document).ready(function () {
     function busquedaDni(busqueda) {
         $.ajax({
             type: "GET",
-            url: url_servicios+"agremiados/?filter[where][dni]="+busqueda,
+            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/7',//url_servicios+"agremiados/?filter[where][dni]="+busqueda,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -51,17 +51,27 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
-                if (response.length != 0){
-                    insertarDatos(response[0])
-                    $('#contentResultado').slideDown(1000);
-                }else {
-                    $('#contentResultado').slideUp();
+                for (let responseElement of response) {
+                    console.log(responseElement);
+                    if (responseElement.dni == busqueda){
+                        insertarDatos(response[0]);
+                        $('#contentResultado').slideDown(1000);
+                        break;
+                    }else{
+                        $('#contentResultado').slideUp();
+                    }
                 }
+                // if (response.length != 0){
+                //     insertarDatos(response[0]);
+                //     $('#contentResultado').slideDown(1000);
+                // }else {
+                //     $('#contentResultado').slideUp();
+                // }
             }
         });
     }
     function insertarDatos(user){
-        $('#labelNombre').val(user.nombres+" "+user.apellidopaterno+" "+user.apellidomaterno);
+        $('#labelNombre').val(user.nombre+" "+user.apellidos);
         $('#labelDni').val(user.dni);
         $('#labelEmail').val(user.correo);
     }
