@@ -2,12 +2,12 @@ $(document).ready(function () {
     // PETICION DE SERVICEs
     $.ajax({
         type: 'GET',
-        url: "http://34.227.105.144:3000/agremiados",
+        url: "https://api.jsonbin.io/b/5ee91c1b19b60f7aa95b796a/5",
         success: function (response) {
             response.forEach((element) => {
-                if (element.fechanacimiento.substr(5,2).trim() == moment().format('MM')) {
-                    $('#boxslider').append('<li><img src="img/cumpleanos.png" alt="Imagen de pastel de cumpleaños"/><p class="nombre">'+element.nombres+'</p><p class="apellido">'+element.apellidopaterno+' '+element.apellidomaterno+'</p><p class="cumpleanos">Feliz cumpleaños</p><p class="date">'+formatearFecha(element.fechanacimiento.substr(5,2),element.fechanacimiento.substr(8,2))+'</p></li>');
-                }
+                console.log(element.date);
+                $('#boxslider').append('<li><img src="img/cumpleanos.png" alt="Imagen de pastel de cumpleaños"/><p class="nombre">'+element.nombre+'</p><p class="apellido">'+element.apellidos+'</p><p class="cumpleanos">Feliz cumpleaños</p><p class="date">'+element.date+'</p></li>');
+                //if (element.date.substr(5,2).trim() == moment().format('MM')) {}
             });
         }
     });
