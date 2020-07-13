@@ -52,9 +52,8 @@ $(document).ready(function () {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
                 for (let responseElement of response) {
-                    console.log(responseElement);
                     if (responseElement.dni == busqueda){
-                        insertarDatos(response[0]);
+                        insertarDatos(responseElement);
                         $('#contentResultado').slideDown(1000);
                         break;
                     }else{
