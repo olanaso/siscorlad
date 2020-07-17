@@ -1,0 +1,106 @@
+/**************************************************/
+/*====================GENERAL=====================*/
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.contenedor{
+    width: 690px;
+    min-height: 420px;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: 20px solid #03873B;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #2a8a280e;
+}
+.conte{
+    margin-bottom: 30px;
+    margin-top: 30px;
+    width: 100%;
+    min-height: 100px;
+    text-align: justify;
+}
+label{
+    margin: 0px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+h3{
+    color: #03873B;
+    text-transform: uppercase;
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-radio-checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: arial;
+}
+
+
+/* Modificador para dar la imagen de checkbox */
+.custom-radio-checkbox__show--checkbox {
+    background-image: url('../img/checkbox-uncheck.png');
+}
+
+/* Oculta input original */
+.custom-radio-checkbox > .custom-radio-checkbox__input {
+    display: none;
+}
+
+/* Radio personalizado usando <span> */
+.custom-radio-checkbox > .custom-radio-checkbox__show {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: .5rem;
+    background-size: cover;
+}
+
+/* Cambia el checkbox personalizado cuando es pulsado */
+.custom-radio-checkbox > .custom-radio-checkbox__input:checked + .custom-radio-checkbox__show--checkbox {
+    background-image: url('../img/checkbox-check.png');
+}
+
+.custom-radio-checkbox > .custom-radio-checkbox__show {
+    width: 40px;
+}
+
+.conte button{
+    display: block;
+    margin: 0px auto;
+    margin-top: 40px;
+    width: 150px;
+}
+
+.conte textarea:focus{
+    box-shadow: 0px 0px 5px #03873B;
+    border: 1px solid #03873B;
+}
+.conte input:focus{
+    box-shadow: 0px 0px 5px #03873B;
+    border: 1px solid #03873B;
+}
+.conte select:focus{
+    box-shadow: 0px 0px 5px #03873B;
+    border: 1px solid #03873B;
+}
+.conte select{
+    color: black;
+}
+.conte ::placeholder{
+    color: #ccc;
+}
+.custom-file-label::after{
+    content: "Examinar";
+}
+/*=========================================*/
+/*===============RESPONSIVE================*/
+@media (max-width: 690px){
+    .contenedor{
+        width: 99%;
+    }
+}

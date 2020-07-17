@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+    <title>Libro de reclamaciones | CORLAD</title>
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="Stylesheets/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="Stylesheets/jquery-ui.min.css">
+    <link rel="stylesheet" href="Stylesheets/styles.css">
+
+    <!--Scripts-->
+    <script src="Scripts/jquery-3.5.1.min.js"></script>
+    <script src="Scripts/jquery-ui.min.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/index.js"></script>
+</head>
+<body>
+    <div class="contenedor" id="formulario">
+        <div id="tabs">
+            <ul>
+                <li><a href="#persona-natural">PERSONA NATURAL</a></li>
+                <li><a href="#persona-juridica">PERSONA JURIDICA</a></li>
+            </ul>
+            <div id="persona-natural">
+                <form action="#">
+                    <div class="form-group">
+                        <label for="tipoDocumento"></label>
+                        <select class="form-control form-control-sm" id="tipoDocumento">
+                            <option>--Seleccionar--</option>
+                            <option>DOC NAC. DE IDENTIDAD</option>
+                            <option>CARNET DE EXTRANJERIA</option>
+                            <option>PASAPORTE</option>
+                        </select>
+                        <label for="numeroDocumento">Número de documento*</label><br>
+                        <input class="form-control form-control-sm" type="text" id="numeroDocumento" disabled/>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="apellidoPaterno">Apellido paterno*</label><br>
+                        <input type="text" id="apellidoPaterno" class="form-control form-control-sm"/>
+                        <label for="apellidoMaterno">Apellido materno*</label><br>
+                        <input type="text" id="apellidoMaterno" class="form-control form-control-sm"/>
+                        <label for="nombres">Nombres*</label><br>
+                        <input type="text" id="nombres" class="form-control form-control-sm"/>
+                        <label for="telefonoFijo">Telefono fijo*</label><br>
+                        <input type="text" id="telefonoFijo" class="form-control form-control-sm"/>
+                        <label for="celular">Celular*</label><br>
+                        <input type="text" id="celular" class="form-control form-control-sm"/>
+                        <label for="correoElectronico">Correo electrónico*</label><br>
+                        <input type="email" class="form-control form-control-sm" id="correoElectronico" placeholder="correo@ejemplo.com">
+                        <label for="domicilio">Domicilio*</label><br>
+                        <input type="text" id="domicilio" class="form-control form-control-sm"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento">Departamento*</label>
+                        <select class="form-control form-control-sm" id="departamento">
+                            <option>--Seleccionar--</option>
+                        </select>
+                        <label for="departamento">Provincia*</label>
+                        <select class="form-control form-control-sm" id="provincia">
+                            <option>--Seleccionar--</option>
+                        </select>
+                        <label for="departamento">Distrito*</label>
+                        <select class="form-control form-control-sm" id="distrito">
+                            <option>--Seleccionar--</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Descripción del reclamo*</label>
+                        <textarea class="form-control form-control-sm" id="mensaje" rows="7"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-success">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                          </svg>
+                          ENVIAR
+                    </button>
+                </form>
+            </div>
+            <div id="persona-juridica">
+                <form action="#">
+                    <div class="form-group">
+                        <label for="numeroRuc">Número de RUC*</label><br>
+                        <input type="text" id="numeroRuc" class="form-control form-control-sm"/>
+                        <label for="razonSocial">Razón Social*</label><br>
+                        <input type="text" id="razonSocial" class="form-control form-control-sm"/>
+                        <label for="telefonoFijo">Telefono fijo*</label><br>
+                        <input type="text" id="telefonoFijo" class="form-control form-control-sm"/>
+                        <label for="correoElectronico">Correo electrónico*</label><br>
+                        <input type="email" class="form-control form-control-sm" id="correoElectronico" placeholder="correo@ejemplo.com">
+                        <label for="domicilio">Domicilio*</label><br>
+                        <input type="text" id="domicilio" class="form-control form-control-sm"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="departamento">Departamento*</label>
+                        <select class="form-control form-control-sm" id="departamento">
+                            <option>--Seleccionar--</option>
+                        </select>
+                        <label for="departamento">Provincia*</label>
+                        <select class="form-control form-control-sm" id="provincia">
+                            <option>--Seleccionar--</option>
+                        </select>
+                        <label for="departamento">Distrito*</label>
+                        <select class="form-control form-control-sm" id="distrito">
+                            <option>--Seleccionar--</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Descripción del reclamo*</label>
+                        <textarea class="form-control form-control-sm" id="mensaje" rows="7"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                          </svg>
+                          ENVIAR
+                    </button>
+                </form>
+            </div>
+        </div>
+    
+    </div>
+</body>
+</html>
