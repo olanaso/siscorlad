@@ -97,6 +97,14 @@ h3{
 .custom-file-label::after{
     content: "Examinar";
 }
+label.error {
+    display: block;
+    float: none;
+    background: none;
+    color: red;
+    padding-left: 0px;
+    margin: 0px;
+}
 /*=========================================*/
 /*===============RESPONSIVE================*/
 @media (max-width: 690px){

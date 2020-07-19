@@ -57,7 +57,7 @@
 }
 #formulario label{
     margin: 0px;
-    margin-top: 10px;
+    margin-top: 8px;
     font-size: 13px;
 }
 #formulario select{
@@ -78,6 +78,14 @@
 #formulario button{
     display: block;
     margin: 0px auto;
+}
+label.error {
+    display: block;
+    float: none;
+    background: none;
+    color: red;
+    padding-left: 0px;
+    margin: 0px;
 }
 /*=========================================*/
 /*===============RESPONSIVE================*/
