@@ -29,7 +29,7 @@
         </div>
         <script>
             function enviar(){
-                if (document.getElementById('autorizo').checked && document.getElementById('tipoPersona').value != 'none') {
+                if (document.getElementById('autorizo').checked && document.getElementById('tipoPersona').value != 'none' && document.getElementById('tipoDocumento').value != 'none') {
                     return true;
                 }else{
                     return false;
@@ -68,13 +68,16 @@
                 <div class="form-group">
                     <label for="tipoDocumento">Tipo documento*</label>
                     <select class="form-control form-control-sm" id="tipoDocumento" name="tipoDocumento">
-                        <option>--Seleccionar--</option>
-                        <option>SOLICITUD</option>
-                        <option>CARTA</option>
-                        <option>OFICIO</option>
-                        <option>OTROS</option>
+                        <option value="none">--Seleccionar--</option>
+                        <option value="solicitud">SOLICITUD</option>
+                        <option value="carta">CARTA</option>
+                        <option value="oficio">OFICIO</option>
+                        <option value="otros">OTROS</option>
                     </select>
-                    <label for="numeroDocumento">N° de documento adjunto*</label>
+                    <label for="customFileLang" class="mr-3">
+                        Documento adjunto*
+                    </label>
+                    <button type="button" class="btn btn-success example-popover m-1" data-toggle="popover" title="Sugerencia" data-content="Si desea subir más de un archivo se recomienda comprimirlos en un zip">?</button>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="customFileLang" lang="es" name="customFileLang">
                         <label class="custom-file-label" id="customFileText" for="customFileLang">Seleccionar Archivo</label>

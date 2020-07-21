@@ -24,7 +24,6 @@
 label{
     margin: 0px;
     margin-top: 10px;
-    font-size: 14px;
 }
 h3{
     color: #03873B;
@@ -54,7 +53,7 @@ h3{
 /* Radio personalizado usando <span> */
 .custom-radio-checkbox > .custom-radio-checkbox__show {
     display: inline-block;
-    width: 15px;
+    width: 33px;
     height: 15px;
     margin-right: .5rem;
     background-size: cover;
@@ -66,13 +65,14 @@ h3{
 }
 
 .custom-radio-checkbox > .custom-radio-checkbox__show {
-    width: 40px;
+    width: 33px;
+    margin-right: 30px;
 }
 
 .conte button{
     display: block;
     margin: 0px auto;
-    margin-top: 40px;
+    transform: translateY(50%);
     width: 150px;
 }
 
@@ -104,6 +104,13 @@ label.error {
     color: red;
     padding-left: 0px;
     margin: 0px;
+}
+.conte .example-popover{
+    width: 20px;
+    transform: translateY(0%);
+    height: 30px;
+    padding-left: 5px;
+    line-height: 0px;
 }
 /*=========================================*/
 /*===============RESPONSIVE================*/

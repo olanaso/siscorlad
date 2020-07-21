@@ -7,8 +7,9 @@ $(document).ready(function () {
         e.preventDefault();
         var extPdf = /(.pdf)$/i;
         var extDocx = /(.docx)$/i;
+        var extDocx = /(.zip)$/i;
         if (!extDocx.exec($(this)[0].value) && !extPdf.exec($(this)[0].value)) {
-            alert('Seleccione solo archivos pdf, docx, doc');
+            alert('Solo se puede adjuntar archivos pdf, docx, zip');
             $(this)[0].value = ''
             console.log($(this)[0].value);
             return;
@@ -19,7 +20,10 @@ $(document).ready(function () {
         console.log($(this)[0].value);
         console.log($(this)[0].files[0].size);
     });
-
+    $('.example-popover').popover({
+        container: 'body',
+        trigger: 'hover'
+    });
     /*===============================
     ===========JQUERYS=============*/
     //Mascaras
