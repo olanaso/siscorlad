@@ -132,7 +132,32 @@ select:focus, input:focus, textarea:focus{
 }
 #section-deuda{
     display: grid;
-    grid-template-columns: 4% 20% 60% 3% 13%;
+    grid-template-columns: 4% 20% 52% 3% 21%;
+}
+#btn-detalles{
+    grid-column: 4/6;
+}
+#btn-detalles{
+    padding: 5px;
+    color: white;
+    text-transform: uppercase;
+    background-color: #03873B;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 300ms;
+}
+#btn-detalles:hover{
+    transform: scale(1.03,1.03);
+    color: white;
+    transition: all 200ms;
+}
+#btn-detalles:focus-within{
+    outline: none;
+}
+#btn-detalles:active{
+    outline: none;
+    box-shadow: 0px 0px 5px #a0a0a0;
 }
 #section-deuda h3{
     border-top: 1px solid #ccc;
@@ -263,6 +288,9 @@ h2{
     #container{
         width: 100%;
     }
+    element.style {
+        padding-right: 0px;
+    }
     h1{
         width: 80%;
         text-align: right;
@@ -294,6 +322,9 @@ h2{
     }
     #section-deuda{
         grid-template-columns: 7% 35% 35% 10% 13%;
+    }
+    #btn-detalles{
+        grid-column: 3/6;
     }
 }
 

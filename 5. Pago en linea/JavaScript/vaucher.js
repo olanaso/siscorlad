@@ -1,9 +1,10 @@
 /*======================URL GENERAL=======================*/
-var url_servicios = "http://34.227.105.144:3000/";
+URL_CORLAD = "http://54.161.211.196:3000/api";
 
 $(document).ready(function () {
     $('#contentResultado').hide();
     $('#contentPago').hide();
+    $('#encontrados').hide();
     /*====================================*/
     /*===========FORM BUSQUEDA============*/
     $('#buscar').click(function (e) {
@@ -14,25 +15,25 @@ $(document).ready(function () {
     });
     $('#pagar').click(function () {
         if ($('#input-id').val()!=""){
-            $('tbody').html("");
+            $('#tabla-pago tbody').html("");
             if ($('#check_certificado:checked').val() == "on"){
                 let certificado = $('#monto-certificado').html();
                 let cantidad = 1;
                 let monto = parseInt(certificado) * cantidad;
-                $('tbody').prepend("<tr><td>"+cantidad+"</td><td>Certificado</td><td>"+certificado+"</td><td>"+monto+"</td></tr>");
+                $('#tabla-pago tbody').prepend("<tr><td>"+cantidad+"</td><td>Certificado</td><td>"+certificado+"</td><td>"+monto+"</td></tr>");
             }
             if ($('#check_aporte:checked').val() == "on"){
                 let aporte = $('#monto-aporte').html();
                 let cantidad = 2;
                 let monto = parseInt(aporte) * cantidad;
-                $('tbody').prepend("<tr><td>"+cantidad+"</td><td>Aporte</td><td>"+aporte+"</td><td>"+monto+"</td></tr>");
+                $('#tabla-pago tbody').prepend("<tr><td>"+cantidad+"</td><td>Aporte</td><td>"+aporte+"</td><td>"+monto+"</td></tr>");
             }
             if ($('#check_aporte:checked').val() == undefined && $('#check_certificado:checked').val() == undefined){
                 $('#contentPago').hide();
             } else {
-                $('tbody').append("<tr><td></td><td></td><td>Subtotal</td><td>415</td></tr>");
-                $('tbody').append("<tr><td></td><td></td><td>IGV</td><td>0</td></tr>");
-                $('tbody').append("<tr><td></td><td></td><td>Total</td><td>415</td></tr>");
+                $('#tabla-pago tbody').append("<tr><td></td><td></td><td>Subtotal</td><td>415</td></tr>");
+                $('#tabla-pago tbody').append("<tr><td></td><td></td><td>IGV</td><td>0</td></tr>");
+                $('#tabla-pago tbody').append("<tr><td></td><td></td><td>Total</td><td>415</td></tr>");
                 $('#contentPago').slideDown();
             }
         }else {
@@ -42,7 +43,7 @@ $(document).ready(function () {
     function busquedaDni(busqueda) {
         $.ajax({
             type: "GET",
-            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/7',//url_servicios+"agremiados/?filter[where][dni]="+busqueda,
+            url: URL_CORLAD+"/web/busquedaDni/"+busqueda,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -51,26 +52,39 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
-                for (let responseElement of response) {
-                    if (responseElement.dni == busqueda){
-                        insertarDatos(responseElement);
-                        $('#contentResultado').slideDown(1000);
-                        break;
-                    }else{
-                        $('#contentResultado').slideUp();
-                    }
+                if (response){
+                    insertarDatos(response);
+                    insertarDatosDeudas(response.dni);
+                    $('#contentResultado').slideDown(1000);
+                    $('#encontrados').hide();
+                }else{
+                    $('#contentResultado').slideUp();
+                    $('#encontrados').show();
                 }
-                // if (response.length != 0){
-                //     insertarDatos(response[0]);
-                //     $('#contentResultado').slideDown(1000);
-                // }else {
-                //     $('#contentResultado').slideUp();
-                // }
+                
+            }
+        });
+    }
+    function insertarDatosDeudas(busqueda) {
+        $.ajax({
+            type: "GET",
+            url: URL_CORLAD+"/web/deudasAgremiado/"+busqueda,
+            data: "json",
+            success: function (response) {
+                $('#tabla-detalles tbody').html("");
+                $('#monto-aporte').html(response.cuotas.cuotaTotal+'.00');
+                for (let cuota of response.cuotas.cuotas) {
+                    var estado;
+                    if (cuota.estadoaporteid == 1) estado = "pendiente";
+                    if (cuota.estadoaporteid == 2) estado = "pagado";
+                    if (cuota.estadoaporteid == 3) estado = "cancelado";
+                    $('#tabla-detalles tbody').prepend("<tr><td>"+cuota.fecha_registro+"</td><td>"+estado+"</td><td>S/. "+cuota.monto+"</td></tr>");
+                }
             }
         });
     }
     function insertarDatos(user){
-        $('#labelNombre').val(user.nombre+" "+user.apellidos);
+        $('#labelNombre').val(user.nombres+" "+user.apellidopaterno+" "+user.apellidomaterno);
         $('#labelDni').val(user.dni);
         $('#labelEmail').val(user.correo);
     }

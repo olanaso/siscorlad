@@ -1,13 +1,17 @@
+URL_CORLAD = "http://54.161.211.196:3000/api";
+
 $(document).ready(function () {
     // PETICION DE SERVICEs
     $.ajax({
         type: 'GET',
-        url: "https://api.jsonbin.io/b/5ee91c1b19b60f7aa95b796a/5",
+        url: URL_CORLAD+"/web/cumpleanios", //"https://api.jsonbin.io/b/5ee91c1b19b60f7aa95b796a/6",
         success: function (response) {
-            response.forEach((element) => {
-                console.log(element.date);
-                $('#boxslider').append('<li><img src="img/cumpleanos.png" alt="Imagen de pastel de cumpleaños"/><p class="nombre">'+element.nombre+'</p><p class="apellido">'+element.apellidos+'</p><p class="cumpleanos">Feliz cumpleaños</p><p class="date">'+element.date+'</p></li>');
-                //if (element.date.substr(5,2).trim() == moment().format('MM')) {}
+            if (response.cumpleanios <= 0) {
+                $('body').html("No existen colegiados que cumplan años este mes");
+            }
+            response.cumpleanios.forEach((element) => {
+                fecha = formatearFecha(element.mes, element.dia);
+                $('#boxslider').append('<li><img src="img/cumpleanos.png" alt="Imagen de pastel de cumpleaños"/><p class="nombre">'+element.agremiado+'</p><p class="cumpleanos">Feliz cumpleaños</p><p class="date">'+fecha+'</p></li>');
             });
         }
     });
@@ -30,44 +34,19 @@ $(document).ready(function () {
     function formatearFecha(mes, dia) {
         var mesFormateado = "";
         switch (mes) {
-            case "01":
-                mesFormateado = "enero";
-                break;
-            case "02":
-                mesFormateado = "febrero";
-                break;
-            case "03":
-                mesFormateado = "marzo";
-                break;
-            case "04":
-                mesFormateado = "abril";
-                break;
-            case "05":
-                mesFormateado = "mayo";
-                break;
-            case "06":
-                mesFormateado = "junio";
-                break;
-            case "07":
-                mesFormateado = "julio";
-                break;
-            case "08":
-                mesFormateado = "agosto";
-                break;
-            case "09":
-                mesFormateado = "septiembre";
-                break;
-            case "10":
-                mesFormateado = "octubre";
-                break;
-            case "11":
-                return "noviembre";
-                break;
-            case "12":
-                return "diciembre";
-                break;
-            default:
-                break;
+            case "1":mesFormateado = "enero"; break;
+            case "2":mesFormateado = "febrero"; break;
+            case "3":mesFormateado = "marzo"; break;
+            case "4":mesFormateado = "abril"; break;
+            case "5":mesFormateado = "mayo"; break;
+            case "6":mesFormateado = "junio"; break;
+            case "7":mesFormateado = "julio"; break;
+            case "8":mesFormateado = "agosto"; break;
+            case "9":mesFormateado = "septiembre"; break;
+            case "10":mesFormateado = "octubre"; break;
+            case "11":mesFormateado = "noviembre"; break;
+            case "12":mesFormateado = "diciembre"; break;
+            default:break;
         }
         return dia + " " + mesFormateado;
     }

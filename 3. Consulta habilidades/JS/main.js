@@ -1,6 +1,7 @@
 /*======================URL GENERAL=======================*/
-//var url_servicios = "http://34.227.105.144:3000/";
-
+//import URL_CORLAD from '../../10. service/corlad.service';
+//console.log(URL_CORLAD);
+URL_CORLAD = "http://54.161.211.196:3000/api";
 /*==================METODOS DEL CATPCHA======================*/
 function submitUserForm() {
     var response = grecaptcha.getResponse();
@@ -21,7 +22,7 @@ $(document).ready(function () {
     function busquedaDni(busqueda) {
         $.ajax({
             type: "GET",
-            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/6',            //url_servicios+"agremiados/?filter[where][dni]="+busqueda,
+            url: URL_CORLAD+"/web/busquedaDNI/"+busqueda,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -30,13 +31,11 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
-                for (let responseElement of response) {
-                    if (responseElement.dni == parseInt(busqueda)){
-                        insertarDatos(responseElement);
-                        break;
-                    }else{
-                        borrarDatos();
-                    }
+                if (response){
+                    detalleUsuario(response.id);
+                    insertarDatos(response);
+                }else{
+                    borrarDatos();
                 }
             }
         });
@@ -44,7 +43,7 @@ $(document).ready(function () {
     function busquedaCodigo(busqueda) {
         $.ajax({
             type: "GET",
-            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/6',//url_servicios+"agremiados/?filter[where][codigocolegiado]="+busqueda,
+            url: URL_CORLAD+"/web/busquedaNro/"+busqueda,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -53,35 +52,20 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
-                for (let responseElement of response) {
-                    if (responseElement.nColegiado == parseInt(busqueda)){
-                        insertarDatos(responseElement);
-                        break;
-                    }else{
-                        borrarDatos();
-                    }
+                if (response){
+                    detalleUsuario(response.id);
+                    insertarDatos(response);
+                }else{
+                    borrarDatos();
                 }
             }
         });
     }
     function busquedaNombre(busqueda) {
-        /*
-        var busquedaArray = busqueda.split(" ");
-        var filtro;
-        if (busquedaArray.length == 3){ //si la persona tiene un nombre
-            filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
-        }
-        if (busquedaArray.length == 4){ //si la persona tiene dos nombre
-            filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[3]+" "+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
-        }
-        if (busquedaArray.length == 5){ //si la persona tiene tres nombres
-            filtro = 'agremiados/?filter={"limit":2,"where":{"or":[{"nombres": {"like": "'+busquedaArray[4]+" "+busquedaArray[3]+" "+busquedaArray[2]+'"}},{"apellidopaterno": {"like": "'+busquedaArray[1]+'"}},{"apellidomaterno": {"like": "'+busquedaArray[0]+'"}}]}}';
-        }
-        */
-        var url_path = encodeURIComponent(JSON.stringify({"limit":5,"where":{"or":[{"nombres": {"like": busqueda}},{"apellidopaterno": {"like": busqueda}},{"apellidomaterno": {"like": busqueda}}]}}));
+        
         $.ajax({
             type: "GET",
-            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/6' ,//url_servicios+'agremiados/?filter='+url_path,
+            url: URL_CORLAD+"/web/busquedaNombresApellidos/"+busqueda,
             data: "json",
             beforeSend: ()=>{
                 $('.bi-search').hide();
@@ -90,41 +74,71 @@ $(document).ready(function () {
             success: function (response) {
                 $('.bi-search').show();
                 $('.bi-arrow-repeat').hide();
+                
+                if (response.length <= 0) {
+                    borrarDatos();
+                }
                 for (let responseElement of response) {
-                    if (responseElement.nombre+' '+ responseElement.apellidos == busqueda){
-                        insertarDatos(responseElement);
+                    if (responseElement){
+                        busquedaId(responseElement.id);
                         break;
-                    }else{
-                        borrarDatos();
                     }
                 }
             }
         });
     }
+    function detalleUsuario(id) {
+        $.ajax({
+            type: "GET",
+            url: URL_CORLAD+'/web/detalleagremiado/'+id,
+            data: "json",
+            success: function (response) {
+                if (response){
+                    insertarDatosDetalle(response);
+                }else{
+                    borrarDatos();
+                }
+            }
+        });
+    }
+    function busquedaId(busqueda) {
+        $.ajax({
+            type: "GET",
+            url: URL_CORLAD+"/web/busquedaId/"+busqueda,
+            data: "json",
+            success: function (response) {
+                insertarDatos(response);
+                detalleUsuario(busqueda);
+            }
+        });
+    }
     function insertarDatos(user) {
-        $('#name').val(user.nombre);
-        $('#surname').val(user.apellidos);
-        $('#collage').val(user.nColegiado);
-        $('#date').val(user.fechaIncorporacion);//falta
-        $('#condicion').val(user.condicion);//falta
-        $('#deuda').html(user.deuda);//falta
-        $('#date-habilitado').html(user.fechaHabilitado);//falta
-        $('#date-ultima-cuota').html(user.ultimaCuota);//falta
+        $('#name').val(user.nombres);
+        $('#surname').val(user.apellidopaterno+" "+user.apellidomaterno);
+        $('#collage').val(user.codigocolegiado);
+        $('#date').val(user.fechaingreso);
+        $('#date-habilitado').html(user.fechaHabilitado);
+        $('#date-ultima-cuota').html(user.ultimaCuota);
         $('#imagen-perfil img').hide();
-        if (typeof user.imagen == "object"){
+        if (typeof user.foto == "object"){
             $('#imagen-perfil').css("background", "transparent");
         }else{
-            $('#imagen-perfil').css("background", "no-repeat url("+user.imagen+")");
+            $('#imagen-perfil').css("background", "no-repeat url("+user.foto+")");
             $('#imagen-perfil').css("background-size", "100% 100%");
         }
+    }
+    function insertarDatosDetalle(user) {
+        $('#condicion').val(user.condicion);
+        $('#deuda').html("S/. "+user.multas.multaTotal);
 
         var pagoTr='';
         for (let pago of user.pagos) {
-            let tr = '<tr><td>'+pago.numero+'</td>'+'<td>'+pago.fechaPago+'</td>'+'<td>S/. '+pago.aporte+'</td>'+'<td>'+pago.concepto+'</td>'+'<td>'+pago.comprobante+'</td></tr>';
+            let tr = '<tr><td>'+pago.cantidad+'</td>'+'<td>'+pago.fechatransaccion+'</td>'+'<td>S/. '+pago.precio+'</td>'+'<td>'+pago.denominacion+'</td>'+'<td>'+pago.serienumero+'</td></tr>';
             pagoTr+=tr;
         }
         $('.table tbody').html(pagoTr);
     }
+
     function borrarDatos() {
         $('#name').val(null);
         $('#surname').val(null);
@@ -143,7 +157,7 @@ $(document).ready(function () {
     /*===================BOTON DE BUSQUEDA======================*/
     var search = $('#search');
     $('#button-search').click(function (e) { 
-        if (submitUserForm()) {             //submitUserForm()
+        if (true) {             //submitUserForm()
             e.preventDefault();
             if ($('#criterio').val() == "none") {
                 $('#criterio').css('border', '1px solid red');
@@ -171,17 +185,6 @@ $(document).ready(function () {
     });
 
     /*=========================VALIDACION y CAMBIOS DE CAMPO REQUERIMIENTO============================*/
-    var listaUsers = [];
-        $.ajax({
-            type: "GET",
-            url: 'https://api.jsonbin.io/b/5eed4a4f2406353b2e08f5f3/6',//url_servicios+'agremiados/',
-            data: "json",
-            success: function (response) {
-                for (let user of response) {
-                    listaUsers.push(user.nombre + " " + user.apellidos);
-                }
-            }
-        });
     $('#criterio').blur(function () { 
         var that = $(this);
         if (that.val() == "dni") {
@@ -199,15 +202,26 @@ $(document).ready(function () {
             search.attr("name", "text");
             search.attr("placeholder", "Ingrese sus nombres y apellidos");
             search.autocomplete({
-                source: listaUsers,
+                source: function( request, response ) {
+                    $.ajax( {
+                      url: URL_CORLAD+"/web/busquedaNombresApellidos/"+search.val(),
+                      dataType: "json",
+                      success: function( data ) {
+                          datos = [];
+                          for (let item of data) {
+                              datos.push(item.nombres);
+                          }
+                          response( datos );
+                      }
+                    });},
                 disabled: false,
                 limit: 5,
-                minLength: 2,
-                select: function (event){
-                    if (submitUserForm()) {
-                        setTimeout(() => {
+                minLength: 1,
+                select: function (event,ui){
+                    if (true) {
+                        setTimeout(()=>{
                             busquedaNombre(search.val());
-                        }, 200);
+                        },300);
                     }
                 }
             });
@@ -221,7 +235,6 @@ $(document).ready(function () {
                 disabled:true
             });
             $('#criterio').css('border', '1px solid #ccc');
-            // $('[name="codigo"]').mask('000');
         }else{
             search.autocomplete({
                 disabled:true
