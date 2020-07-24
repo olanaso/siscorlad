@@ -1,7 +1,3 @@
-/*======================URL GENERAL=======================*/
-//import URL_CORLAD from '../../10. service/corlad.service';
-//console.log(URL_CORLAD);
-URL_CORLAD = "http://54.161.211.196:3000/api";
 /*==================METODOS DEL CATPCHA======================*/
 function submitUserForm() {
     var response = grecaptcha.getResponse();
@@ -116,9 +112,8 @@ $(document).ready(function () {
         $('#name').val(user.nombres);
         $('#surname').val(user.apellidopaterno+" "+user.apellidomaterno);
         $('#collage').val(user.codigocolegiado);
-        $('#date').val(user.fechaingreso);
-        $('#date-habilitado').html(user.fechaHabilitado);
-        $('#date-ultima-cuota').html(user.ultimaCuota);
+        $('#date').val(formatearFecha(user.fechaingreso));
+        $('#documento').val(user.dni);
         $('#imagen-perfil img').hide();
         if (typeof user.foto == "object"){
             $('#imagen-perfil').css("background", "transparent");
@@ -130,10 +125,11 @@ $(document).ready(function () {
     function insertarDatosDetalle(user) {
         $('#condicion').val(user.condicion);
         $('#deuda').html("S/. "+user.multas.multaTotal);
-
+        $('#date-ultima-cuota').html(formatearFecha(user.pagos[0].fechatransaccion));
+        $('#date-habilitado').html(habilitadoHasta(user.pagos[0].fechatransaccion));
         var pagoTr='';
         for (let pago of user.pagos) {
-            let tr = '<tr><td>'+pago.cantidad+'</td>'+'<td>'+pago.fechatransaccion+'</td>'+'<td>S/. '+pago.precio+'</td>'+'<td>'+pago.denominacion+'</td>'+'<td>'+pago.serienumero+'</td></tr>';
+            let tr = '<tr><td>'+pago.cantidad+'</td>'+'<td>'+formatearFecha(pago.fechatransaccion)+'</td>'+'<td>S/. '+pago.precio+'</td>'+'<td>'+pago.denominacion+'</td>'+'<td>'+pago.serienumero+'</td></tr>';
             pagoTr+=tr;
         }
         $('.table tbody').html(pagoTr);
@@ -153,7 +149,15 @@ $(document).ready(function () {
         $('#imagen-perfil').css("background", "transparent");
     }
 
-
+    function formatearFecha(fecha) {
+        let f = new Date(fecha);
+        return f.getDate()+"-"+f.getMonth()+"-"+f.getFullYear();
+    }
+    function habilitadoHasta(fecha) {
+        let f = new Date(fecha);
+        f.setMonth(f.getMonth() + 1);
+        return f.getDate()+"-"+f.getMonth()+"-"+f.getFullYear();
+    }
     /*===================BOTON DE BUSQUEDA======================*/
     var search = $('#search');
     $('#button-search').click(function (e) { 

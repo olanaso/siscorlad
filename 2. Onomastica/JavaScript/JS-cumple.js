@@ -1,10 +1,9 @@
-URL_CORLAD = "http://54.161.211.196:3000/api";
-
 $(document).ready(function () {
+    
     // PETICION DE SERVICEs
     $.ajax({
         type: 'GET',
-        url: URL_CORLAD+"/web/cumpleanios", //"https://api.jsonbin.io/b/5ee91c1b19b60f7aa95b796a/6",
+        url: URL_CORLAD+"/web/cumpleanios",
         success: function (response) {
             if (response.cumpleanios <= 0) {
                 $('body').html("No existen colegiados que cumplan años este mes");

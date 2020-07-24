@@ -1,6 +1,3 @@
-/*======================URL GENERAL=======================*/
-URL_CORLAD = "http://54.161.211.196:3000/api";
-
 $(document).ready(function () {
     $('#contentResultado').hide();
     $('#contentPago').hide();
@@ -24,7 +21,7 @@ $(document).ready(function () {
             }
             if ($('#check_aporte:checked').val() == "on"){
                 let aporte = $('#monto-aporte').html();
-                let cantidad = 2;
+                let cantidad = 1;
                 let monto = parseInt(aporte) * cantidad;
                 $('#tabla-pago tbody').prepend("<tr><td>"+cantidad+"</td><td>Aporte</td><td>"+aporte+"</td><td>"+monto+"</td></tr>");
             }
@@ -73,12 +70,13 @@ $(document).ready(function () {
             success: function (response) {
                 $('#tabla-detalles tbody').html("");
                 $('#monto-aporte').html(response.cuotas.cuotaTotal+'.00');
+                var estado;
                 for (let cuota of response.cuotas.cuotas) {
-                    var estado;
-                    if (cuota.estadoaporteid == 1) estado = "pendiente";
-                    if (cuota.estadoaporteid == 2) estado = "pagado";
-                    if (cuota.estadoaporteid == 3) estado = "cancelado";
-                    $('#tabla-detalles tbody').prepend("<tr><td>"+cuota.fecha_registro+"</td><td>"+estado+"</td><td>S/. "+cuota.monto+"</td></tr>");
+                    if (cuota.estadoaporteid == 1) estado = "Pendiente";if (cuota.estadoaporteid == 2) estado = "Pagado";if (cuota.estadoaporteid == 3) estado = "Cancelado";
+                    $('#tabla-detalles-cuotas tbody').prepend("<tr><td>"+formatearFecha(cuota.fecha_registro)+"</td><td>"+estado+"</td><td>S/. "+cuota.monto+"</td></tr>");
+                }
+                for (let multa of response.multas.multas) {
+                    $('#tabla-detalles-multas tbody').prepend("<tr><td>"+formatearFecha(cuota.fecha_registro)+"</td><td>"+estado+"</td><td>S/. "+cuota.monto+"</td></tr>");
                 }
             }
         });
@@ -111,6 +109,10 @@ $(document).ready(function () {
     }
     previewphoto();
 
+    function formatearFecha(fecha) {
+        let f = new Date(fecha);
+        return f.getDate()+"-"+f.getMonth()+"-"+f.getFullYear();
+    }
 
     /*==================================*/
     /*=========VALIDANDO FORMS==========*/
