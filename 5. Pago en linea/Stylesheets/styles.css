@@ -124,7 +124,7 @@ select:focus, input:focus, textarea:focus{
 }
 #section-pagar{
     display: grid;
-    grid-template-columns: repeat(4, 24%);
+    grid-template-columns: repeat(4, 23%);
     grid-column-gap: 10px;
     justify-content: center;
     align-items: flex-start;
@@ -132,12 +132,17 @@ select:focus, input:focus, textarea:focus{
 }
 #section-deuda{
     display: grid;
-    grid-template-columns: 4% 20% 52% 3% 21%;
+    grid-template-columns: 20px 33% 35% 4% 15% 10%;
 }
-#btn-detalles{
-    grid-column: 4/6;
+#detalleMulta{
+    grid-column: 6/7;
+    height: 23px;
 }
-#btn-detalles{
+#detalleDeuda{
+    grid-column: 6/7;
+    height: 23px;
+}
+#pagarTarjeta{
     padding: 5px;
     color: white;
     text-transform: uppercase;
@@ -147,15 +152,37 @@ select:focus, input:focus, textarea:focus{
     cursor: pointer;
     transition: all 300ms;
 }
-#btn-detalles:hover{
+#pagarTarjeta:hover{
     transform: scale(1.03,1.03);
     color: white;
     transition: all 200ms;
 }
-#btn-detalles:focus-within{
+#pagarTarjeta:focus-within{
     outline: none;
 }
-#btn-detalles:active{
+#pagarTarjeta:active{
+    outline: none;
+    box-shadow: 0px 0px 5px #a0a0a0;
+}
+#pagarVaucher{
+    padding: 5px;
+    color: white;
+    text-transform: uppercase;
+    background-color: #03873B;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 300ms;
+}
+#pagarVaucher:hover{
+    transform: scale(1.03,1.03);
+    color: white;
+    transition: all 200ms;
+}
+#pagarVaucher:focus-within{
+    outline: none;
+}
+#pagarVaucher:active{
     outline: none;
     box-shadow: 0px 0px 5px #a0a0a0;
 }
@@ -163,13 +190,15 @@ select:focus, input:focus, textarea:focus{
     border-top: 1px solid #ccc;
     padding-top: 5px;
     width: 100%;
-    grid-column: 1/6;
+    text-align: start;
+    grid-column: 1/7;
 }
 #section-deuda span{
-    text-align: end;
+    text-align: start;
 }
 #section-deuda p{
-    border-bottom: 1px solid #333;
+    border-bottom: 1px dashed #333;
+    margin-right: 15px;
 }
 #image{
     width: 33px;
@@ -283,6 +312,38 @@ h2{
     display: none;
 }
 
+#divPagoTajeta{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.ui-tabs .ui-tabs-panel{
+    padding: 0px;
+    border-top: 4px solid #298A28;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    box-shadow: 1px 0px 1px #ccc;
+    box-shadow: -1px 0px 1px #ccc;
+    border-bottom: 3px solid #298A28;
+    border-radius: 0px;
+    min-height: 330px;
+}
+.ui-tabs{
+    padding: 0px;
+}
+.ui-widget-header {
+    background-color: transparent;
+    border: none;
+}
+.ui-widget.ui-widget-content{
+    border: 1px dashed #18927a75;
+    border-radius: 7px 7px 0px 0px;
+    background-color: white !important;
+}
+.ui-tabs .ui-tabs-nav{
+    padding: 0px;
+}
 /*====================RESPONSIVE=======================*/
 @media (max-width: 700px) {
     #container{
@@ -299,9 +360,9 @@ h2{
 }
 @media (max-width: 551px) {
     h1{
-        width: 75%;
+        width: 70%;
         font-size: 30px;
-        line-height: 40px;
+        line-height: 30px;
     }
     #imagen{
         width: 70px;
@@ -309,7 +370,7 @@ h2{
 }
 @media (max-width: 504px) {
     #section-pagar{
-        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: repeat(2, 43%);
     }
     #labelVaucher{
         grid-row: 3/4;
@@ -321,7 +382,11 @@ h2{
         grid-row: 2/3;
     }
     #section-deuda{
-        grid-template-columns: 7% 35% 35% 10% 13%;
+        grid-template-columns: 15px 35% 18% 10% 22%;
+        font-size: 10px;
+    }
+    #section-deuda *{
+        font-size: 10px;
     }
     #btn-detalles{
         grid-column: 3/6;

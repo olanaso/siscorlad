@@ -13,6 +13,7 @@ function verifyCaptcha() {
 
 
 $(document).ready(function () {
+    $('#agremiadoEncontrado').hide();
     /*============================================================*/
     /*===================METODOS DE BUSQUEDA======================*/
     function busquedaDni(busqueda) {
@@ -30,8 +31,10 @@ $(document).ready(function () {
                 if (response){
                     detalleUsuario(response.id);
                     insertarDatos(response);
+                    $('#agremiadoEncontrado').fadeOut();
                 }else{
                     borrarDatos();
+                    $('#agremiadoEncontrado').fadeIn();
                 }
             }
         });
@@ -51,8 +54,10 @@ $(document).ready(function () {
                 if (response){
                     detalleUsuario(response.id);
                     insertarDatos(response);
+                    $('#agremiadoEncontrado').fadeOut();
                 }else{
                     borrarDatos();
+                    $('#agremiadoEncontrado').fadeIn();
                 }
             }
         });
@@ -73,10 +78,12 @@ $(document).ready(function () {
                 
                 if (response.length <= 0) {
                     borrarDatos();
+                    $('#agremiadoEncontrado').fadeIn();
                 }
                 for (let responseElement of response) {
                     if (responseElement){
                         busquedaId(responseElement.id);
+                        $('#agremiadoEncontrado').fadeOut();
                         break;
                     }
                 }
@@ -91,8 +98,10 @@ $(document).ready(function () {
             success: function (response) {
                 if (response){
                     insertarDatosDetalle(response);
+                    $('#agremiadoEncontrado').fadeOut();
                 }else{
                     borrarDatos();
+                    $('#agremiadoEncontrado').fadeIn();
                 }
             }
         });
@@ -124,15 +133,17 @@ $(document).ready(function () {
     }
     function insertarDatosDetalle(user) {
         $('#condicion').val(user.condicion);
-        $('#deuda').html("S/. "+user.multas.multaTotal);
+        $('#deudaAporte').html("S/ "+user.cuotas.cuotaTotal);
+        $('#multaTotal').html("S/ "+user.multas.multaTotal);
         $('#date-ultima-cuota').html(formatearFecha(user.pagos[0].fechatransaccion));
         $('#date-habilitado').html(habilitadoHasta(user.pagos[0].fechatransaccion));
-        var pagoTr='';
-        for (let pago of user.pagos) {
-            let tr = '<tr><td>'+pago.cantidad+'</td>'+'<td>'+formatearFecha(pago.fechatransaccion)+'</td>'+'<td>S/. '+pago.precio+'</td>'+'<td>'+pago.denominacion+'</td>'+'<td>'+pago.serienumero+'</td></tr>';
-            pagoTr+=tr;
+
+        for (let cuota of user.cuotas.cuotas) {
+            $('#tabla-detalles-cuotas tbody').prepend("<tr><td>S/ "+cuota.monto+"</td><td>"+formatearMes(cuota.mes)+"</td><td>"+cuota.anio+"</td></tr>");
         }
-        $('.table tbody').html(pagoTr);
+        for (let multa of user.multas.multas) {
+            $('#tabla-detalles-multas tbody').prepend("<tr><td>S/ "+multa.monto+"</td><td>"+multa.motivo_multa+"</td></tr>");
+        }
     }
 
     function borrarDatos() {
@@ -140,6 +151,9 @@ $(document).ready(function () {
         $('#surname').val(null);
         $('#collage').val(null);
         $('#date').val(null);
+        $('#tabla-detalles-cuotas tbody').html(null);
+        $('#tabla-detalles-multas tbody').html(null);
+        $('#documento').val(null);
         $('#condicion').val(null);
         $('#deuda').html('');
         $('#date-habilitado').html('');
@@ -157,6 +171,25 @@ $(document).ready(function () {
         let f = new Date(fecha);
         f.setMonth(f.getMonth() + 1);
         return f.getDate()+"-"+f.getMonth()+"-"+f.getFullYear();
+    }
+    function formatearMes(mes) {
+        var mesFormateado = "";
+        switch (mes) {
+            case 1:mesFormateado = "enero"; break;
+            case 2:mesFormateado = "febrero"; break;
+            case 2:mesFormateado = "marzo"; break;
+            case 4:mesFormateado = "abril"; break;
+            case 5:mesFormateado = "mayo"; break;
+            case 6:mesFormateado = "junio"; break;
+            case 7:mesFormateado = "julio"; break;
+            case 8:mesFormateado = "agosto"; break;
+            case 9:mesFormateado = "septiembre"; break;
+            case 10:mesFormateado = "octubre"; break;
+            case 11:mesFormateado = "noviembre"; break;
+            case 12:mesFormateado = "diciembre"; break;
+            default:break;
+        }
+        return mesFormateado;
     }
     /*===================BOTON DE BUSQUEDA======================*/
     var search = $('#search');
@@ -187,7 +220,6 @@ $(document).ready(function () {
             e.preventDefault();
         }
     });
-
     /*=========================VALIDACION y CAMBIOS DE CAMPO REQUERIMIENTO============================*/
     $('#criterio').blur(function () { 
         var that = $(this);
@@ -219,8 +251,8 @@ $(document).ready(function () {
                       }
                     });},
                 disabled: false,
-                limit: 5,
-                minLength: 1,
+                limit: 4,
+                minLength: 2,
                 select: function (event,ui){
                     if (true) {
                         setTimeout(()=>{

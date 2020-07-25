@@ -112,6 +112,14 @@ body{
 #imagen-perfil img{
     width: 100%;
 }
+#agremiadoEncontrado{
+    position: absolute;
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+    color: red;
+    z-index: 10;
+}
 /************************************************/
 /*=====================TABS=====================*/
 .tabs h2{
@@ -171,7 +179,7 @@ body{
     padding: 10px;
     justify-content: space-around;
 }
-#formulario div{
+#formulario div.contenedor{
     margin: 0px auto;
     width: 100%;
     margin: 0px;
@@ -217,6 +225,12 @@ form label{
 }
 .table thead th{
     color: #189279;
+}
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    float: right;
 }
 /********************************************************/
 /*==================== RESPONSIVE ======================*/

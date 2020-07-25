@@ -17,6 +17,7 @@
     <link type="text/css" rel="stylesheet" href="stylesheet/styles.css"/>    
 </head>
 <body>
+    <section id="agremiadoEncontrado">NO SE ENCONTRO NINGUN COLEGIADO</section>
     <div id="container">
         <div id="busqueda">
             <img src="img/consulta.png" id="consulta-img"/>
@@ -45,7 +46,6 @@
                     </button>
                 </form>
                 <script src='https://www.google.com/recaptcha/api.js'></script>
-
             </div>
             <div class="clearfix"></div>
         </div>
@@ -54,14 +54,12 @@
                 <!-- Tabs Header -->
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active"><a href="#home" data-toggle="tab">Datos</a></li>
-                    <li><a href="#profile2" data-toggle="tab">Ultimos pagos</a></li>
                 </ul>
                 <!-- Tabs Content -->
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="home">
-                        <h2>Habilitado hasta: <span id="date-habilitado"></span></h2>
+                    <h2>Habilitado hasta: <span id="date-habilitado"></span></h2>
                         <div id="formulario">
-                            <div id="imagen-perfil">
+                            <div id="imagen-perfil" class="contenedor">
                                 <img style="opacity: 0.08;" src="img/user.png"/>
                             </div>
                             <form action="#" method="POST">
@@ -77,34 +75,77 @@
                                 <input disabled type="text" name="date" id="date"/>
                                 <label for="condicion">Condición</label>
                                 <input disabled type="text" name="condicion" id="condicion"/>
-                                <label>Deuda Actual</label>
-                                <span id="deuda"></span>
+                                <label>Deudas de aportes</label>
+                                <section>
+                                    <span id="deudaAporte"></span>
+                                    <button type="button" id="detalleDeuda" data-toggle="modal" data-target="#modalCuotas">Ver</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalCuotas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="exampleModalLabel">Deudas de los aportes</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                            <div class="table-responsive" id="tabla-detalles-cuotas">
+                                                <table class="table table-striped table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Monto</th>
+                                                        <th>Mes</th>
+                                                        <th>año</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">OK</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <label>Multas</label>
+                                <section>
+                                    <span id="multaTotal"></span>
+                                    <button type="button" id="detalleMulta" data-toggle="modal" data-target="#modalMultas">Ver</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalMultas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="exampleModalLabel">Multas</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                            <div class="table-responsive" id="tabla-detalles-multas">
+                                                <table class="table table-striped table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Monto</th>
+                                                        <th>Motivo de la multa</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">OK</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </form>
                             <p>Ultima Cuota: <span id="date-ultima-cuota"></span></p>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile2">
-                        <div>
-                            <div class="panel">
-                                <div class="panel-content panel-tabla">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Fecha de Pago</th>
-                                            <th>Aporte</th>
-                                            <th>Concepto</th>
-                                            <th>Comprobante</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
