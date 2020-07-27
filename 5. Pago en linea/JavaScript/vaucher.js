@@ -1,4 +1,25 @@
-//$('#contentResultado').hide();
+$('body').hover(function () {
+    // over
+    if (window.name === "VentanaExterna") {
+        $('#modal-container').remove();
+    } else{
+        $('body').prepend('<section id="modal-container"><button id="ingresarOriginal">INGRESAR</button></section>');
+        $('#container').css('filter', 'blur(2px)');
+        $('#ingresarOriginal').click(function (e) { 
+            e.preventDefault();
+            
+            window.open('http://corladayacucho.org.pe/consultas/5.%20Pago%20en%20linea/','VentanaExterna',"width=690,height=733,location=NO");
+        });
+    }
+    
+}, function () {
+    // out
+    $('#modal-container').remove();
+    $('#container').css('filter', 'none');
+}
+);
+
+$('#contentResultado').hide();
 $('#encontrados').hide();
 var nombreColegiado = '';
 var apellidoscolegiado = '';
@@ -196,8 +217,9 @@ Culqi.options({
 });
 Culqi.publicKey = 'pk_test_xDCpMxAgd8kjuKSV';
 // Usa la funcion Culqi.open() en el evento que desees
+var detalles;
 $('#pagarTarjeta').on('click', function(e) {
-    var detalles = [];
+    detalles = []
     if (document.getElementById("check-deudas").checked) {
         detalles.push("Deudas de aportes");
     }

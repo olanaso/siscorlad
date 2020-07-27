@@ -4,7 +4,10 @@
     font-family: 'Quicksand', sans-serif;
     font-size: 15px;
 }
-
+body{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 #container{
     display: flex;
     flex-flow: row wrap;
@@ -343,6 +346,37 @@ h2{
 }
 .ui-tabs .ui-tabs-nav{
     padding: 0px;
+}
+/***********************MODAL GENERAL***************************/
+#modal-container{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.685) ;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-flow: row  nowrap;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    filter: none !important;
+}
+#ingresarOriginal{
+    padding: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
+    border: 2px solid #ccc;
+    background-color: #03873B;
+    color: white;
+    border-radius: 40px;
+    filter: none !important;
+}
+#ingresarOriginal:hover{
+    box-shadow: 0px 0px 3px white;
+    background-color: #0e9647;
+    color: white;
+    text-shadow: 0px 0px 2px white;
+    border-radius: 40px;
+    filter: none !important;
 }
 /*====================RESPONSIVE=======================*/
 @media (max-width: 700px) {

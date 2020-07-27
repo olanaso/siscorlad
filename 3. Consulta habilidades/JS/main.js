@@ -11,7 +11,25 @@ function verifyCaptcha() {
     document.getElementById('g-recaptcha-error').innerHTML = '';
 }
 
-
+$('body').hover(function () {
+        // over
+        if (window.name === "VentanaExterna") {
+            $('#modal-container').remove();
+        } else{
+            $('body').prepend('<section id="modal-container"><button id="ingresarOriginal">INGRESAR</button></section>');
+            $('#container').css('filter', 'blur(2px)');
+            $('#ingresarOriginal').click(function (e) { 
+                e.preventDefault();
+                window.open('http://corladayacucho.org.pe/consultas/3.%20Consulta%20habilidades/','VentanaExterna',"width=690,height=733,location=NO");
+            });
+        }
+        
+    }, function () {
+        // out
+        $('#modal-container').remove();
+        $('#container').css('filter', 'none');
+    }
+);
 $(document).ready(function () {
     $('#agremiadoEncontrado').hide();
     /*============================================================*/
@@ -137,7 +155,8 @@ $(document).ready(function () {
         $('#multaTotal').html("S/ "+user.multas.multaTotal);
         $('#date-ultima-cuota').html(formatearFecha(user.pagos[0].fechatransaccion));
         $('#date-habilitado').html(habilitadoHasta(user.pagos[0].fechatransaccion));
-
+        $('#tabla-detalles-cuotas tbody').html(null);
+        $('#tabla-detalles-multas tbody').html(null);
         for (let cuota of user.cuotas.cuotas) {
             $('#tabla-detalles-cuotas tbody').prepend("<tr><td>S/ "+cuota.monto+"</td><td>"+formatearMes(cuota.mes)+"</td><td>"+cuota.anio+"</td></tr>");
         }
@@ -194,26 +213,22 @@ $(document).ready(function () {
     /*===================BOTON DE BUSQUEDA======================*/
     var search = $('#search');
     $('#button-search').click(function (e) { 
-        if (true) {             //submitUserForm()
+        if (submitUserForm()) {             //submitUserForm()
             e.preventDefault();
-            if ($('#criterio').val() == "none") {
-                $('#criterio').css('border', '1px solid red');
-            } else{
-                if (search.val() == "" || search.val() == "undefined" || search.val() == null) {
-                    search.removeClass('valid');
-                    search.addClass('error');
-                } else {
-                    search.removeClass('error');
-                    search.addClass('valid');
-                    if ($('#criterio').val() == "dni") {
-                        busquedaDni(search.val());
-                    }
-                    if ($('#criterio').val() == "codColegiado") {
-                        busquedaCodigo(search.val());
-                    }
-                    if ($('#criterio').val() == "nombreApellido") {
-                        busquedaNombre(search.val());
-                    }
+            if (search.val() == "" || search.val() == "undefined" || search.val() == null) {
+                search.removeClass('valid');
+                search.addClass('error');
+            } else {
+                search.removeClass('error');
+                search.addClass('valid');
+                if ($('#criterio').val() == "dni") {
+                    busquedaDni(search.val());
+                }
+                if ($('#criterio').val() == "codColegiado") {
+                    busquedaCodigo(search.val());
+                }
+                if ($('#criterio').val() == "nombreApellido") {
+                    busquedaNombre(search.val());
                 }
             }
         } else {
@@ -254,7 +269,7 @@ $(document).ready(function () {
                 limit: 4,
                 minLength: 2,
                 select: function (event,ui){
-                    if (true) {
+                    if (submitUserForm()) {
                         setTimeout(()=>{
                             busquedaNombre(search.val());
                         },300);
