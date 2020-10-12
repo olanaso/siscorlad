@@ -20,6 +20,7 @@
     <script src="Scripts/validate/jquery.validate.min.js"></script>
     <script src="Scripts/validate/messages_es.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    <script src="../10.service/config.js"></script>
     <script src="Scripts/index.js"></script>
 </head>
 <body>
@@ -56,12 +57,22 @@
                         <label for="mensaje">Descripción del reclamo*</label>
                         <textarea class="form-control form-control-sm" id="mensaje" rows="7" name="mensaje"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-outline-success">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                    <div class="row">
+                        <input type="checkbox" id="autorizo_natural" class="col-1 m-0 autorizo">
+                        <label for="autorizo_natural" class="col-9 m-0">Estoy de acuerdo con las <a data-toggle="modal" data-target="#politicas" class="link_politicas">políticas de privacidad</a></label>
+                        <br><br>
+                    </div>
+                    <button type="button" id="enviarCorreoNatural" class="btn btn-outline-success">
+                        <svg id="iconoEnviarNatural" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
                           </svg>
-                          ENVIAR
+                          <svg id="cargandoEnviarNatural"  class="bi bi-arrow-repeat" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
+                            <path fill-rule="evenodd" d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z"/>
+                        </svg>
+                        <span id="textoBotonNatural">ENVIAR</span></button>
                     </button>
+                    <span id="labelPersonaNatural" style="color: red;">s</span>
                 </form>
             </div>
             <div id="persona-juridica">
@@ -84,16 +95,372 @@
                         <label for="mensajeJ">Descripción del reclamo*</label>
                         <textarea name="mensajeJ" class="form-control form-control-sm" id="mensajeJ" rows="7"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-outline-success">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                    <div class="row">
+                        <input type="checkbox" id="autorizo_juridica" class="col-1 m-0 autorizo">
+                        <label for="autorizo_juridica" class="col-11 m-0">Estoy de acuerdo con las <a data-toggle="modal" data-target="#politicas" class="link_politicas">políticas de privacidad</a></label>
+                        <br><br>
+                    </div>
+                    <button type="button" id="enviarCorreoJuridica" class="btn btn-outline-success">
+                        <svg id="iconoEnviarJuridica" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
                           </svg>
-                          ENVIAR
+                          <svg id="cargandoEnviarJuridica"  class="bi bi-arrow-repeat" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
+                            <path fill-rule="evenodd" d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z"/>
+                        </svg>
+                        <span id="textoBotonJuridica">ENVIAR</span></button>
                     </button>
+                    <span id="labelPersonaJuridica" style="color: red;"></span>
                 </form>
             </div>
         </div>
-    
+
+
+        
+        <!-- Modal -->
+        <div class="modal fade" id="politicas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Políticas de privacidad</h5>
+                <button type="button" class="close m-0 p-1" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body" style="font-size: 13px;">
+                    <p>Política de Privacidad
+                        La presente política se encuentra sujeta a lo dispuesto por la Ley N° 29733, Ley de Protección de Datos Personales, y su Reglamento, el Decreto Supremo 003-2013-JUS, y las normas que las modifique o reemplacen (en lo sucesivo, Normativa de protección de datos personales).
+                        Los datos recogidos en la presente web son administrados por Colegio regional de licenciados en administración de ayacucho (en adelante “CORLAD AYACUCHO”), y serán incluidos en nuestro fichero de clientes y la finalidad del tratamiento es únicamente para la gestión de atención a los agremiados.</p>
+                    <p>
+                        El usuario autoriza expresamente a CORLAD AYACUCHO para hacer uso y tratar los datos personales que proporcione en la presente web, así como la que se derive de su uso, incluida aquella que resulte de la navegación que el suscrito realice.
+                        
+                        Asimismo, CORLAD AYACUCHO le informa sobre la posibilidad de ejercitar los derechos de acceso, rectificación, cancelación y oposición de los datos de carácter personal incluidos en el mencionado fichero, dirigiéndose a nuestras oficinas.</p>
+                    
+                    <p>Para la utilización de nuestro sitio web es necesaria la utilización de cookies. Las cookies se utilizan con la finalidad de (optimizar la usabilidad del Web Site) si usted lo desea puede configurar su navegador para ser avisado en pantalla de la recepción de cookies y para impedir la instalación de cookies en su disco duro. Por favor, consulte las instrucciones y manuales de su navegador para ampliar esta información.
+                    
+                        Para continuar debe indicar que ha leído las presentes condiciones y que se encuentra conforme con las mismas.</p>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
+
+
+
+    <script>
+        $('#labelPersonaNatural').hide();
+        //$('#labelPersonaJuridica').hide();
+
+        $('#enviarCorreoNatural').click(e => {
+            if ($('#numeroDocumento').val().trim() === '' || $('#correoElectronico').val().trim() === '') {
+                $('#labelPersonaNatural').html('Complete correctamente todos los campos');
+                $('#labelPersonaNatural').show();
+            } else {
+                if (document.getElementById('autorizo_natural').checked) {
+                    $('#labelPersonaNatural').html("");
+                    $('#labelPersonaNatural').hide();
+                    sendMailNatural();
+                } else{
+                    $('#labelPersonaNatural').html('Acepte las políticas de privacidad');
+                    $('#labelPersonaNatural').show();
+                }
+                
+            }
+            
+        })
+
+        $('#enviarCorreoJuridica').click(function () { 
+            if ($('#numeroRuc').val().trim() === '' || $('#correoElectronicoJ').val().trim() === '') {
+                $('#labelPersonaJuridica').html('Complete correctamente todos los campos');
+                $('#labelPersonaJuridica').show();
+            } else {
+                if (document.getElementById('autorizo_juridica').checked) {
+                    $('#labelPersonaJuridica').html("");
+                    $('#labelPersonaJuridica').hide();
+                    sendMailJuridica();
+                } else {
+                    $('#labelPersonaJuridica').html('Acepte las políticas de privacidad');
+                    $('#labelPersonaJuridica').show();
+                }
+                
+            }
+
+        });
+
+        function uuidv4() {
+          return 'xxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+        }
+        
+        function sendMailNatural() {
+            
+            let templateHTML=`
+            
+            <table class="MsoTableGrid" style="border-collapse: collapse; border: none; margin-left: auto; margin-right: auto; box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 10px 1px; width: 655px;" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes;">
+<td style="width: 623px; background: green; padding: 0cm 5.4pt; text-align: center;" colspan="2" valign="top">
+<table style="height: 118px; width: 604px;">
+<tbody>
+<tr>
+<td style="width: 149.6px;"><img src="https://corladayacucho.org.pe/portal/wp-content/uploads/2020/08/text85SS8.png" alt="" width="106" height="106" /></td>
+<td style="width: 440px;">
+<p><span style="color: #ffffff;"><strong>COLEGIO REGIONAL DE LICENCIADOS EN ADMINISTRACI&Oacute;N DE AYACUCHO - CORLAD</strong></span></p>
+<p><span style="color: #ffffff;"><strong>LIBRO DE RECLAMACIONES</strong></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="font-family: 'Calibri Light', sans-serif;"><strong>CODIGO UNICO</strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${uuidv4()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 1;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 'Calibri Light', sans-serif;">TIPO PERSONA</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span style="font-family: 'Calibri Light', sans-serif;">Natural</span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 2;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">NRO DOCUMENTO</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#numeroDocumento').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="font-family: 'Calibri Light', sans-serif;"><strong>NOMBRES</strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#nombres').val()+" "+$('#apellidoPaterno').val()+" "+$('#apellidoMaterno').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">CORREO</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#correoElectronico').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">CELULAR</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#celular').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">TELEFONO FIJO</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#telefonoFijo').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="font-family: 'Calibri Light', sans-serif;"><strong>DOMICILIO</strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#domicilio').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="font-family: 'Calibri Light', sans-serif;"><strong>MENSAJE</strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#mensaje').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 4; mso-yfti-lastrow: yes;">
+<td style="width: 623px; background: #03883c; padding: 0cm 5.4pt;" colspan="2" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><span lang="ES" style="font-size: 9.0pt; mso-bidi-font-size: 12.0pt; font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; color: white; mso-themecolor: background1; mso-ansi-language: ES;">Copyright &copy; Colegio Regional de Licenciados en <span class="SpellE">Administraci&oacute;n</span> de Ayacucho, <span class="SpellE">All</span> <span class="SpellE">rights</span> <span class="SpellE">reserved</span>.</span></p>
+<p class="MsoNormal" style="text-align: center;" align="center"><span lang="ES" style="font-size: 9.0pt; mso-bidi-font-size: 12.0pt; font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; color: white; mso-themecolor: background1; mso-ansi-language: ES;">www.corladayacucho.org.pe</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+            `
+           
+           var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": URL_CORLAD+"/web/sendemail",
+      "method": "POST",
+      "headers": {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "from": "\"LIBRO DE RECLAMACIONES - \" <corladayacucho@corladayacucho.org.pe>",
+        "subject": "LIBRO DE RECLAMACIONES - " + $('#apellidoPaterno').val() +' '+$('#apellidoMaterno').val()+ ' ' +$('#nombres').val() ,
+        "email_html": templateHTML,
+        "to": $('#correoElectronico').val().trim()+',mesadepartes@corladayacucho.org.pe'
+      }
+    }
+    $('#iconoEnviarNatural').hide();
+    $('#cargandoEnviarNatural').show();
+    $('#textoBotonNatural').html("ENVIANDO...");
+    $.ajax(settings).done(function (response) {
+        $('#iconoEnviarNatural').show();
+            $('#cargandoEnviarNatural').hide();
+      if(response.result){
+            $('#textoBotonNatural').html("ENVIADO");
+          alert('Se envio correctamente ')
+          window.location.reload()
+      }
+    });
+        }
+
+
+
+        function sendMailJuridica() {
+            
+            let templateHTML=`
+            
+            <table class="MsoTableGrid" style="border-collapse: collapse; border: none; margin-left: auto; margin-right: auto; box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 10px 1px; width: 655px;" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes;">
+<td style="width: 623px; background: green; padding: 0cm 5.4pt; text-align: center;" colspan="2" valign="top">
+<table style="height: 118px; width: 604px;">
+<tbody>
+<tr>
+<td style="width: 149.6px;"><img src="https://corladayacucho.org.pe/portal/wp-content/uploads/2020/08/text85SS8.png" alt="" width="106" height="106" /></td>
+<td style="width: 440px;">
+<p><span style="color: #ffffff;"><strong>COLEGIO REGIONAL DE LICENCIADOS EN ADMINISTRACI&Oacute;N DE AYACUCHO - CORLAD</strong></span></p>
+<p><span style="color: #ffffff;"><strong>LIBRO DE RECLAMACIONES</strong></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="font-family: 'Calibri Light', sans-serif;"><strong>CODIGO UNICO</strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${uuidv4()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 1;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 'Calibri Light', sans-serif;">TIPO PERSONA</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span style="font-family: 'Calibri Light', sans-serif;">Juridica</span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 2;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">NRO RUC</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#numeroRuc').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="font-family: 'Calibri Light', sans-serif;"><strong>RAZON SOCIAL</strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#razonSocial').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">CORREO</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#correoElectronicoJ').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">CELULAR</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#celularJ').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><strong><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">TELEFONO FIJO</span></strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#telefonoFijoJ').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="font-family: 'Calibri Light', sans-serif;"><strong>DOMICILIO</strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#domicilioJ').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 3;">
+<td style="width: 146.8px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="font-family: 'Calibri Light', sans-serif;"><strong>MENSAJE</strong></p>
+</td>
+<td style="width: 476.2px; padding: 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span class="SpellE"><span lang="ES" style="font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: ES;">${$('#mensajeJ').val()}</span></span></p>
+</td>
+</tr>
+<tr style="mso-yfti-irow: 4; mso-yfti-lastrow: yes;">
+<td style="width: 623px; background: #03883c; padding: 0cm 5.4pt;" colspan="2" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><span lang="ES" style="font-size: 9.0pt; mso-bidi-font-size: 12.0pt; font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; color: white; mso-themecolor: background1; mso-ansi-language: ES;">Copyright &copy; Colegio Regional de Licenciados en <span class="SpellE">Administraci&oacute;n</span> de Ayacucho, <span class="SpellE">All</span> <span class="SpellE">rights</span> <span class="SpellE">reserved</span>.</span></p>
+<p class="MsoNormal" style="text-align: center;" align="center"><span lang="ES" style="font-size: 9.0pt; mso-bidi-font-size: 12.0pt; font-family: 'Calibri Light',sans-serif; mso-fareast-font-family: 'Times New Roman'; color: white; mso-themecolor: background1; mso-ansi-language: ES;">www.corladayacucho.org.pe</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+            `
+           
+           var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": URL_CORLAD+"/web/sendemail",
+      "method": "POST",
+      "headers": {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "from": "\"LIBRO DE RECLAMACIONES - \" <corladayacucho@corladayacucho.org.pe>",
+        "subject": "LIBRO DE RECLAMACIONES - " + $('#apellidoPaterno').val() +' '+$('#apellidoMaterno').val()+ ' ' +$('#nombres').val() ,
+        "email_html": templateHTML,
+        "to": $('#correoElectronicoJ').val().trim()+',mesadepartes@corladayacucho.org.pe'
+      }
+    }
+    $('#iconoEnviarJuridica').hide();
+    $('#cargandoEnviarJuridica').show();
+    $('#textoBotonJuridica').html("ENVIANDO...");
+    $.ajax(settings).done(function (response) {
+        $('#iconoEnviarJuridica').show();
+            $('#cargandoEnviarJuridica').hide();
+      if(response.result){
+            $('#textoBotonJuridica').html("ENVIADO");
+          alert('Se envio correctamente')
+          window.location.reload()
+      }
+    });
+        }
+
+
+        </script>
 </body>
 </html>

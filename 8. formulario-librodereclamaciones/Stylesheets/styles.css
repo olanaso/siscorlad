@@ -87,6 +87,31 @@ label.error {
     padding-left: 0px;
     margin: 0px;
 }
+.bi-arrow-repeat{
+    display: none;
+    animation: animate-search 1500ms linear infinite;
+}
+@keyframes animate-search{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+.autorizo{
+    margin-top: 2px !important;
+}
+.autorizo:focus{
+    box-shadow: none !important;
+    border: none !important;
+}
+.link_politicas{
+    cursor: pointer;
+    color: #03873B !important;
+    font-weight: bold !important;
+}
+
 /*=========================================*/
 /*===============RESPONSIVE================*/
 @media (max-width: 690px){

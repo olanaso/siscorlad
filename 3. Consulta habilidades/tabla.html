@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>Consulta habilidades | CORLAD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet" />
+
+    <!--jquery-->
+
+    <link type="text/css" rel="stylesheet" href="JS/JQuery-UI-1.12.1/jquery-ui.min.css" />
+    <link type="text/css" rel="stylesheet" href="JS/JQuery-UI-1.12.1/jquery-ui.structure.min.css" />
+    <link type="text/css" rel="stylesheet" href="JS/JQuery-UI-1.12.1/jquery-ui.theme.min.css" />
+
+    <!--styles y boostrap-->
+
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="stylesheet/style.css" />
+    <link type="text/css" rel="stylesheet" href="stylesheet/styles.css" />
+
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
+</head>
+
+<body>
+    <section id="agremiadoEncontrado">NO SE ENCONTRO NINGUN COLEGIADO</section>
+    <div id="container">
+        <div id="busqueda">
+            <img src="img/consulta.png" id="consulta-img" />
+            <div>
+                <form id="section-busqueda" method="post" onsubmit="return submitUserForm();">
+
+
+                    <select id="especilidades">
+                        <option value="dni"></option>
+                    </select>
+
+
+                    <input placeholder="Ingrese sus nombres y apellidos" id="search" />
+
+                    <!-- <input type="submit" name="submit" value="Submit" /> -->
+
+                    <button type="button" name="submit" id="traer"
+                        style="height: 40px; background: #03873B; color: white; border-radius: 10px; border-color: aliceblue; ">
+
+                        <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                            <path fill-rule="evenodd"
+                                d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                        </svg>
+                        <svg class="bi bi-arrow-repeat" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+                            <path fill-rule="evenodd"
+                                d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+                        </svg>
+                        CARGAR
+                    </button>
+
+                    <button type="button" name="submit" id="limpiar"
+                        style="height: 40px; background: #03873B; color: white; border-radius: 10px; border-color: aliceblue; ">Limpiar</button>
+
+
+
+
+
+                </form>
+            </div>
+        </div>
+        <div>
+            <div class="tabs">
+                <!-- Tabs Header -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#home" data-toggle="tab">Resultados</a></li>
+                </ul>
+                <!-- Tabs Content -->
+                <div class="tab-content">
+                    <div class="panel-content">
+
+
+                        <div class="table-responsive">
+                            <table class="table" id="mytable">
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Nombres</th>
+                                        <th>Correo</th>
+                                        <th>Telefonos</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pintar">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!--BASIC scripts-->
+<!-- ========================================================= -->
+<script src="JS/jquery-1.12.3.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="JS/nano-scroller.js"></script>
+<script type="text/javascript" src="JS/JQuery-UI-1.12.1/jquery-ui.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
+<script src="JS/jquery.mask.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../10.service/config.js"></script>
+<script type="text/javascript" src="JS/colegiado.js"></script>
+
+
+
+<script>
+    $.ajax({
+        type: "GET",
+        url: "https://siscorlad.corladayacucho.org.pe/api/especialidads",
+        data: "json",
+        beforeSend: () => {
+
+        },
+        success: function (repuesta) {
+            $('#especilidades').html(``)
+            for (let item of repuesta) {
+                $('#especilidades').append(`
+             <option value="${item.id}">${item.denominacion}</option>`
+                )
+            }
+
+        }
+    });
+
+</script>
+
+
+
+<script>
+    $("#traer").click(
+        function (event) {
+
+            llamar($("#especilidades").val(), $("#search").val())
+
+
+        });
+
+
+
+    function llamar(idespecialidad, nombres) {
+
+        $.ajax({
+
+            type: 'GET',
+
+            url: "https://siscorlad.corladayacucho.org.pe/api/web/listaAgremiados?especialidadid=" + idespecialidad + "&nombres=" + nombres,
+            data: 'json',
+
+            beforeSend: () => {
+
+
+            },
+            success: function (respuesta) {
+                $('#pintar').html(``)
+
+                for (let i = 0; i < respuesta.length; i++) {
+                    // text += respuesta[i] + "<br>";
+
+
+                    $('#pintar').append(`
+<tr>
+                        <td>${i + 1}</td>
+                        <td>${respuesta[i].nombres}</td>
+                        <td>${respuesta[i].correo}</td>
+                        <td>${respuesta[i].celular}</td>             
+ </tr>
+
+ 
+ `
+                    )
+                }
+                $('#mytable').DataTable({
+
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                    }
+
+                    //cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json
+
+
+                });
+            }
+        })
+            ;
+
+    }
+
+    $("#limpiar").click(function () {
+        location.reload()
+    })
+
+
+
+</script>
+
+</html>

@@ -33,20 +33,20 @@ $(document).ready(function () {
     function formatearFecha(mes, dia) {
         var mesFormateado = "";
         switch (mes) {
-            case "1":mesFormateado = "enero"; break;
-            case "2":mesFormateado = "febrero"; break;
-            case "3":mesFormateado = "marzo"; break;
-            case "4":mesFormateado = "abril"; break;
-            case "5":mesFormateado = "mayo"; break;
-            case "6":mesFormateado = "junio"; break;
-            case "7":mesFormateado = "julio"; break;
-            case "8":mesFormateado = "agosto"; break;
-            case "9":mesFormateado = "septiembre"; break;
-            case "10":mesFormateado = "octubre"; break;
-            case "11":mesFormateado = "noviembre"; break;
-            case "12":mesFormateado = "diciembre"; break;
+            case 1:mesFormateado = "enero"; break;
+            case 2:mesFormateado = "febrero"; break;
+            case 3:mesFormateado = "marzo"; break;
+            case 4:mesFormateado = "abril"; break;
+            case 5:mesFormateado = "mayo"; break;
+            case 6:mesFormateado = "junio"; break;
+            case 7:mesFormateado = "julio"; break;
+            case 8:mesFormateado = "agosto"; break;
+            case 9:mesFormateado = "septiembre"; break;
+            case 10:mesFormateado = "octubre"; break;
+            case 11:mesFormateado = "noviembre"; break;
+            case 12:mesFormateado = "diciembre"; break;
             default:break;
         }
-        return dia + " " + mesFormateado;
+        return dia + " de " + mesFormateado;
     }
 });

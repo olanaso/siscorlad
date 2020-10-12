@@ -233,7 +233,9 @@ input, button, select, textarea {
     line-height: inherit;
     float: right;
 }
-
+#agremiadoEncontrado{
+    display: none;
+}
 /***********************MODAL GENERAL***************************/
 #modal-container{
     position: fixed;

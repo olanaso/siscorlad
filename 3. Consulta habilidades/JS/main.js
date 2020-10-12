@@ -1,3 +1,24 @@
+function blockearbutton() {
+    const button = document.querySelector('#button-search');
+    button.setAttribute('disabled', 'disabled');
+    button.style.background = '#88BF9F';
+    button.style.color = '#dedede';
+    $('.bi-search').hide();
+    $('.bi-arrow-repeat').show();
+}
+
+function desblockearbutton() {
+    const button = document.querySelector('#button-search');
+    button.removeAttribute('disabled');
+    button.style.background = '#03873B';
+    button.style.color = '#FFFFFF';
+    $('.bi-search').show();
+    $('.bi-arrow-repeat').hide();
+
+
+}
+
+
 /*==================METODOS DEL CATPCHA======================*/
 function submitUserForm() {
     var response = grecaptcha.getResponse();
@@ -11,7 +32,7 @@ function verifyCaptcha() {
     document.getElementById('g-recaptcha-error').innerHTML = '';
 }
 
-$('body').hover(function () {
+/*$('body').hover(function () {
         // over
         if (window.name === "VentanaExterna") {
             $('#modal-container').remove();
@@ -29,7 +50,7 @@ $('body').hover(function () {
         $('#modal-container').remove();
         $('#container').css('filter', 'none');
     }
-);
+);*/
 $(document).ready(function () {
     $('#agremiadoEncontrado').hide();
     /*============================================================*/
@@ -40,12 +61,10 @@ $(document).ready(function () {
             url: URL_CORLAD+"/web/busquedaDNI/"+busqueda,
             data: "json",
             beforeSend: ()=>{
-                $('.bi-search').hide();
-                $('.bi-arrow-repeat').show();
+               blockearbutton()
             },
             success: function (response) {
-                $('.bi-search').show();
-                $('.bi-arrow-repeat').hide();
+               desblockearbutton()
                 if (response){
                     detalleUsuario(response.id);
                     insertarDatos(response);
@@ -63,12 +82,10 @@ $(document).ready(function () {
             url: URL_CORLAD+"/web/busquedaNro/"+busqueda,
             data: "json",
             beforeSend: ()=>{
-                $('.bi-search').hide();
-                $('.bi-arrow-repeat').show();
+                blockearbutton()
             },
             success: function (response) {
-                $('.bi-search').show();
-                $('.bi-arrow-repeat').hide();
+               desblockearbutton()
                 if (response){
                     detalleUsuario(response.id);
                     insertarDatos(response);
@@ -87,12 +104,10 @@ $(document).ready(function () {
             url: URL_CORLAD+"/web/busquedaNombresApellidos/"+busqueda,
             data: "json",
             beforeSend: ()=>{
-                $('.bi-search').hide();
-                $('.bi-arrow-repeat').show();
+                 blockearbutton()
             },
             success: function (response) {
-                $('.bi-search').show();
-                $('.bi-arrow-repeat').hide();
+                desblockearbutton()
                 
                 if (response.length <= 0) {
                     borrarDatos();
@@ -113,7 +128,11 @@ $(document).ready(function () {
             type: "GET",
             url: URL_CORLAD+'/web/detalleagremiado/'+id,
             data: "json",
+              beforeSend: ()=>{
+                 blockearbutton()
+            },
             success: function (response) {
+                desblockearbutton()
                 if (response){
                     insertarDatosDetalle(response);
                     $('#agremiadoEncontrado').fadeOut();
@@ -129,7 +148,11 @@ $(document).ready(function () {
             type: "GET",
             url: URL_CORLAD+"/web/busquedaId/"+busqueda,
             data: "json",
+            beforeSend: ()=>{
+                 blockearbutton()
+            },
             success: function (response) {
+                 desblockearbutton()
                 insertarDatos(response);
                 detalleUsuario(busqueda);
             }
@@ -153,8 +176,8 @@ $(document).ready(function () {
         $('#condicion').val(user.condicion);
         $('#deudaAporte').html("S/ "+user.cuotas.cuotaTotal);
         $('#multaTotal').html("S/ "+user.multas.multaTotal);
-        $('#date-ultima-cuota').html(formatearFecha(user.pagos[0].fechatransaccion));
-        $('#date-habilitado').html(habilitadoHasta(user.pagos[0].fechatransaccion));
+       // $('#date-ultima-cuota').html(formatearFecha(user.pagos[0].fechatransaccion));
+        //$('#date-habilitado').html(habilitadoHasta(user.pagos[0].fechatransaccion));
         $('#tabla-detalles-cuotas tbody').html(null);
         $('#tabla-detalles-multas tbody').html(null);
         for (let cuota of user.cuotas.cuotas) {
@@ -196,7 +219,7 @@ $(document).ready(function () {
         switch (mes) {
             case 1:mesFormateado = "enero"; break;
             case 2:mesFormateado = "febrero"; break;
-            case 2:mesFormateado = "marzo"; break;
+            case 3:mesFormateado = "marzo"; break;
             case 4:mesFormateado = "abril"; break;
             case 5:mesFormateado = "mayo"; break;
             case 6:mesFormateado = "junio"; break;
@@ -236,6 +259,34 @@ $(document).ready(function () {
         }
     });
     /*=========================VALIDACION y CAMBIOS DE CAMPO REQUERIMIENTO============================*/
+    search.autocomplete({
+        source: function( request, response ) {
+            $.ajax( {
+              url: URL_CORLAD+"/web/busquedaNombresApellidos/"+search.val(),
+              dataType: "json",
+                beforeSend: ()=>{
+               blockearbutton()
+            },
+              success: function( data ) {
+                   desblockearbutton()
+                  datos = [];
+                  for (let item of data) {
+                      datos.push(item.nombres);
+                  }
+                  response( datos );
+              }
+            });},
+        disabled: false,
+        limit: 4,
+        minLength: 2,
+        select: function (event,ui){
+            if (submitUserForm()) {
+                setTimeout(()=>{
+                    busquedaNombre(search.val());
+                },300);
+            }
+        }
+    });
     $('#criterio').blur(function () { 
         var that = $(this);
         if (that.val() == "dni") {
@@ -257,7 +308,13 @@ $(document).ready(function () {
                     $.ajax( {
                       url: URL_CORLAD+"/web/busquedaNombresApellidos/"+search.val(),
                       dataType: "json",
+                      
+                         beforeSend: ()=>{
+               blockearbutton()
+            },
                       success: function( data ) {
+                          
+                           blockearbutton()
                           datos = [];
                           for (let item of data) {
                               datos.push(item.nombres);
@@ -286,13 +343,6 @@ $(document).ready(function () {
                 disabled:true
             });
             $('#criterio').css('border', '1px solid #ccc');
-        }else{
-            search.autocomplete({
-                disabled:true
-            });
-            search.attr("placeholder", "Seleccione tipo de búsqueda");
-            search.attr("type", "search");
-            search.attr("name", "search");
         }
     });
 
@@ -325,7 +375,7 @@ $(document).ready(function () {
                 minlength: "Carácteres minimos 1"
             },
             text: {
-                required: "Ingrese nombres y apellidos",
+                required: "Ingrese sus nombres y apellidos",
             }
         }
     });
