@@ -14,15 +14,13 @@ function desblockearbutton() {
     button.style.color = '#FFFFFF';
     $('.bi-search').show();
     $('.bi-arrow-repeat').hide();
-
-
 }
 
 
 /*==================METODOS DEL CATPCHA======================*/
 function submitUserForm() {
     var response = grecaptcha.getResponse();
-    if(response.length == 0) {
+    if(response.length === 0) {
         document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:#ff0000;">Verifica si no eres un robot.</span>';
         return false;
     }
@@ -104,6 +102,8 @@ $(document).ready(function () {
             }
         });
     }
+
+    /*=========================FUNCIONES===========================*/
     function detalleUsuario(id) {
         $.ajax({
             type: "GET",
@@ -124,6 +124,7 @@ $(document).ready(function () {
             }
         });
     }
+
     function busquedaId(busqueda) {
         $.ajax({
             type: "GET",
@@ -139,6 +140,7 @@ $(document).ready(function () {
             }
         });
     }
+
     function insertarDatos(user) {
         $('#name').val(user.nombres);
         $('#surname').val(user.apellidopaterno+" "+user.apellidomaterno);
@@ -149,8 +151,7 @@ $(document).ready(function () {
         if (typeof user.foto == "object"){
             $('#imagen-perfil').css("background", "transparent");
         }else{
-            $('#imagen-perfil').css("background", "no-repeat url("+user.foto+")");
-            $('#imagen-perfil').css("background-size", "100% 100%");
+            $('#imagen-perfil').css("background", "no-repeat url("+user.foto+")").css("background-size", "100% 100%");
         }
     }
     function insertarDatosDetalle(user) {
@@ -190,13 +191,9 @@ $(document).ready(function () {
         let f = new Date(fecha);
         return f.getDate()+"-"+f.getMonth()+"-"+f.getFullYear();
     }
-    function habilitadoHasta(fecha) {
-        let f = new Date(fecha);
-        f.setMonth(f.getMonth() + 1);
-        return f.getDate()+"-"+f.getMonth()+"-"+f.getFullYear();
-    }
+
     function formatearMes(mes) {
-        var mesFormateado = "";
+        let mesFormateado = "";
         switch (mes) {
             case 1:mesFormateado = "enero"; break;
             case 2:mesFormateado = "febrero"; break;
@@ -216,7 +213,7 @@ $(document).ready(function () {
     }
 
     /*===================BOTON DE BUSQUEDA======================*/
-    var search = $('#search');
+    let search = $('#search');
     $('#button-search').click(function (e) { 
         if (submitUserForm()) {             //submitUserForm()
             e.preventDefault();
@@ -228,11 +225,9 @@ $(document).ready(function () {
                 search.addClass('valid');
                 if ($('#criterio').val() === "dni") {
                     busquedaDni(search.val());
-                }
-                if ($('#criterio').val() === "codColegiado") {
+                } else if ($('#criterio').val() === "codColegiado") {
                     busquedaCodigo(search.val());
-                }
-                if ($('#criterio').val() === "nombreApellido") {
+                } else if ($('#criterio').val() === "nombreApellido") {
                     busquedaNombre(search.val());
                 }
             }
@@ -272,7 +267,7 @@ $(document).ready(function () {
     });
 
     $('#criterio').blur(function () { 
-        var that = $(this);
+        let that = $(this);
         if (that.val() === "dni") {
             search.attr("type", "number");
             search.attr("name", "number");
@@ -291,13 +286,7 @@ $(document).ready(function () {
                     $.ajax( {
                       url: URL_CORLAD+"/web/busquedaNombresApellidos/"+search.val(),
                       dataType: "json",
-                      
-                         beforeSend: ()=>{
-               blockearbutton()
-            },
                       success: function( data ) {
-                          
-                           blockearbutton()
                           datos = [];
                           for (let item of data) {
                               datos.push(item.nombres);
@@ -310,7 +299,7 @@ $(document).ready(function () {
                 minLength: 2,
                 select: function (event,ui){
                     if (submitUserForm()) {
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             busquedaNombre(search.val());
                         },300);
                     }

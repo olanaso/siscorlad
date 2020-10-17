@@ -20,79 +20,63 @@ function desblockearbutton() {
 
 $('#contentResultado').hide();
 $('#encontrados').hide();
-var nombreColegiado = '';
-var apellidoscolegiado = '';
-var address = '';
-var telefono = '';
-var agremiadoid = '';
-var detalleTransaccion = [];
-var cuotasArray = [];
-var multasArray = [];
-var code64Convertido = '';
-var numerocomprobante;
-var cantidad_cuotas=0;
-var totalPagar = 0;
-var multa_total = 0;
+let nombreColegiado = '';
+let apellidoscolegiado = '';
+let address = '';
+let telefono = '';
+let agremiadoid = '';
+let detalleTransaccion = [];
+let cuotasArray = [];
+let multasArray = [];
+let code64Convertido = '';
+let numerocomprobante;
+let cantidad_cuotas=0;
+let totalPagar = 0;
+let multa_total = 0;
+let deuda_total = 0;
+let monto_certificado = 20;
 
 $(document).ready(function () {
     desblockearbutton();
 });
 
 /*===========FORM BUSQUEDA============*/
-
-
 $('#buscar').click(function(e) {
     e.preventDefault();
    
-    if ($('#dni').val() != "") {
+    if ($('#dni').val() !== "") {
    
         busquedaDni($('#dni').val());
     }
 });
 
-
-
 /*Solicitar la gestion clave*/
 $('#btnsolicitarclave').click(function(e) {
-
-    var r = confirm("¿Desea solicitar la clave de gestión?");
-    if (r == true) {
-        sendMailgetclave()
-    } else {
-        //sendMail()
-    }
-
-
-
-
+    let r = confirm("¿Desea solicitar la clave de gestión?");
+    r ? sendMailgetclave() : null;
+    /*if (r) sendMailgetclave()
+    else sendMail()*/
 })
 
 /*Solicitar las deudas*/
 $('#btnsolicitarPagos').click(function(e) {
-    var r = confirm("¿ Desea solicitar las deudas ?");
-    if (r == true) {
-        sendMailDeudas();
-    } else {
-        //sendMail()
-    }
+    let r = confirm("¿ Desea solicitar las deudas ?");
+    r ? sendMailDeudas() : null;
+    /*if (r) sendMailDeudas();
+    else sendMail()*/
 })
 
-
 $('#pagarVaucher').click(function(e) {
-    
     let $this = $('#pagarVaucher');
     if ($('#nOperacion').val() === "") {
         alert('Ingrese el numero operación.')       
         return;
     }
     if ($('#fechaOperacion').val() === "") {
-       
         alert('Ingrese la fecha de operación.')        
         return;
     }
-
     if (code64Convertido === "") {
-       
         alert('Ingrese la foto del voucher.')
         return;
     }
@@ -162,12 +146,8 @@ $('#pagarVaucher').click(function(e) {
         "data": JSON.stringify({ transaccion, detalletransaccion: detalleTransaccion, clavegestion }),
       
     }
- 
 
-    //console.log( JSON.stringify({transaccion,detalletransaccion:detalleTransaccion}));     
-    $.ajax(settings).done(function(response) {    
-   
-        
+    $.ajax(settings).done(function(response) {
         numerocomprobante = "RCB-" + response.transaccionDB.numerocomprobante;
         sendMail();
         $this.removeAttr("disabled")
@@ -176,23 +156,16 @@ $('#pagarVaucher').click(function(e) {
         $('#iconoEnviar').show();
         $('#cargandoEnviar').hide();
     }).error(function(err) {
-          /*Reiniccinado los valores*/
-         
-             detalleTransaccion = [];
+        /*Reiniccinado los valores**/
+        detalleTransaccion = [];
         if(err){
-            
             alert(err.responseJSON.message);
             $this.removeAttr("disabled")
             $this.css("background", "#03873B")
             $this.css("color", "#FFFFFF")
             $('#iconoEnviar').show();
-            $('#cargandoEnviar').hide();       
-            
-
-          
+            $('#cargandoEnviar').hide();
         }
-       
-      
     });
 });
 
@@ -220,9 +193,7 @@ function busquedaDni(busqueda) {
     });
 }
 
-var deuda_total = 0;
-var monto_certificado = 20;
-
+/*=========INSERTA LOS DATOS DE LA PETICIÓN AL HTML=========*/
 function insertarDatosDeudas(busqueda) {
     $.ajax({
         type: "GET",
@@ -238,7 +209,6 @@ function insertarDatosDeudas(busqueda) {
             deuda_total = response.cuotas.cuotaTotal;
             multa_total = response.multas.multaTotal;
 
-          /*   multa_total=40; */
             cantidad_cuotas=cuotasArray.length;
             $('#cantidad_deuda').attr('disabled', 'disabled');
             $('#check_certificado').attr('disabled', 'disabled');
@@ -254,8 +224,6 @@ function insertarDatosDeudas(busqueda) {
             }     
 
             $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
-            /* decodeURIComponent.getElementById("cuotas_aportes").html(cuotasArray.length+ 'cuotas'); 
-            $("#cuotas_aportes").text(cuotasArray.length+ 'cuotas');*/
             $("#cuotas_aportes").text((cuotasArray.length)?cuotasArray.length+ ' CUOTAS':'CUOTAS');
             document.getElementById("cantidad_deuda").value=cuotasArray.length;
             $('#total-deuda').html(cantidad_cuotas * 15 + '.00');
@@ -269,65 +237,54 @@ function insertarDatosDeudas(busqueda) {
             for (let multa of response.multas.multas) {
                 $('#tabla-detalles-multas tbody').prepend("<tr><td>S/ " + multa.monto + "</td><td>" + multa.motivo_multa + "</td></tr>");
             }
-            //console.log(cuotasArray, multasArray);
         }
     });
 }
-$('#cantidad_deuda').keyup(function() {
-    let temporal = cantidad_cuotas;      
-    valor = $(this).val();
-    if(valor){
-    let total_dif = valor-(temporal);
-    totalPagar = totalPagar + (total_dif * 15);
-    cantidad_cuotas = valor;
-    if(cantidad_cuotas<cuotasArray.length){
-        $('#check_certificado').attr('disabled', 'disabled');  
-        if(document.getElementById("check_certificado").checked){
-            document.getElementById("check_certificado").checked = false;  
-            totalPagar = totalPagar - monto_certificado;
-        }            
-    }else{
-        $('#check_certificado').removeAttr('disabled');  
-    }
-    $('#total-deuda').html(cantidad_cuotas*15 + '.00');
 
-    $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
+$('#cantidad_deuda').keyup(function() {
+    let temporal = cantidad_cuotas;
+    let valor = $(this).val();
+    if(valor){
+        let total_dif = valor - (temporal);
+        totalPagar = totalPagar + (total_dif * 15);
+        cantidad_cuotas = valor;
+        if(cantidad_cuotas<cuotasArray.length){
+            $('#check_certificado').attr('disabled', 'disabled');
+            if(document.getElementById("check_certificado").checked){
+                document.getElementById("check_certificado").checked = false;
+                totalPagar = totalPagar - monto_certificado;
+            }
+        } else $('#check_certificado').removeAttr('disabled');
+
+        $('#total-deuda').html(cantidad_cuotas * 15 + '.00');
+        $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
     }
    
 });
 
 
 $("#check-deudas").change(function() {
-   if(this.checked){
-    $('#cantidad_deuda').removeAttr('disabled');  
-    totalPagar += cantidad_cuotas*15;
-    $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)    
-    if(cantidad_cuotas>=cuotasArray.length){
-        $('#check_certificado').removeAttr('disabled');      
-       
+    if(this.checked){
+        $('#cantidad_deuda').removeAttr('disabled');
+        totalPagar += cantidad_cuotas * 15;
+        $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
+        if(cantidad_cuotas >= cuotasArray.length)$('#check_certificado').removeAttr('disabled');
     }
-   }
    
     if(!this.checked){
         $('#cantidad_deuda').attr('disabled', 'disabled');
         if(document.getElementById("check_certificado").checked){
-            totalPagar=totalPagar-(cantidad_cuotas*15+monto_certificado);
+            totalPagar = totalPagar - (cantidad_cuotas * 15 + monto_certificado);
             document.getElementById("check_certificado").checked = false;
-        }
-        else{
-            totalPagar=totalPagar-cantidad_cuotas*15; 
-        }
-        
-       
+        } else totalPagar = totalPagar - cantidad_cuotas * 15;
+
         $('#check_certificado').attr('disabled', 'disabled'); 
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
     }
 });
 
 $("#check_certificado").change(function() {
-   
     if(this.checked){
-       
         totalPagar += monto_certificado;
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
     }
@@ -336,6 +293,7 @@ $("#check_certificado").change(function() {
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
     }
 });
+
 $("#check-multas").change(function() {   
     if(this.checked){    
         totalPagar += multa_total;
@@ -346,8 +304,6 @@ $("#check-multas").change(function() {
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
     }
 });
-
-
 
 function insertarDatos(user) {
     nombreColegiado = user.nombres;
@@ -366,16 +322,13 @@ function insertarDatos(user) {
 
 function previewphoto() {
     document.getElementById("input-id").onchange = function(e) {
-        var reader = new FileReader();
+        let reader = new FileReader();
 
         reader.onload = function(e) {
-            // get loaded data and render thumbnail.
             document.getElementById("image").src = e.target.result;
             code64Convertido = e.target.result;
         };
-        // read the image file as a data URL.
         reader.readAsDataURL(this.files[0]);
-        //console.log("tamaño de imagen", this.files[0].size);
 
         if (this.files[0].size > 1000000) {
             alert("La imagen sobre pasa el tamaño permitido");
@@ -388,76 +341,24 @@ function previewphoto() {
 previewphoto();
 
 function formatearMes(mes) {
-    var mesFormateado = "";
+    let mesFormateado = "";
     switch (mes) {
-        case 1:
-            mesFormateado = "enero";
-            break;
-        case 2:
-            mesFormateado = "febrero";
-            break;
-        case 3:
-            mesFormateado = "marzo";
-            break;
-        case 4:
-            mesFormateado = "abril";
-            break;
-        case 5:
-            mesFormateado = "mayo";
-            break;
-        case 6:
-            mesFormateado = "junio";
-            break;
-        case 7:
-            mesFormateado = "julio";
-            break;
-        case 8:
-            mesFormateado = "agosto";
-            break;
-        case 9:
-            mesFormateado = "septiembre";
-            break;
-        case 10:
-            mesFormateado = "octubre";
-            break;
-        case 11:
-            mesFormateado = "noviembre";
-            break;
-        case 12:
-            mesFormateado = "diciembre";
-            break;
-        default:
-            break;
+        case 1: mesFormateado = "enero";break;
+        case 2: mesFormateado = "febrero";break;
+        case 3: mesFormateado = "marzo";break;
+        case 4: mesFormateado = "abril";break;
+        case 5: mesFormateado = "mayo";break;
+        case 6: mesFormateado = "junio";break;
+        case 7: mesFormateado = "julio";break;
+        case 8: mesFormateado = "agosto";break;
+        case 9: mesFormateado = "septiembre";break;
+        case 10: mesFormateado = "octubre";break;
+        case 11: mesFormateado = "noviembre";break;
+        case 12: mesFormateado = "diciembre";break;
+        default: break;
     }
     return mesFormateado;
 }
-
-
-
-/* var totalPagar = 0;
-
-    if (document.getElementById("check-deudas").checked) { totalPagar += cantidad_cuotas*15; }
-    if (document.getElementById("check-multas").checked) { totalPagar += multa_total; }
-
-    if (deuda_total <= 0) { $('#check-deudas').attr('disabled', 'disabled'); } else { $('#check-deudas').removeAttr('disabled'); }
-    if (multa_total <= 0) { $('#check-multas').attr('disabled', 'disabled'); } else { $('#check-multas').removeAttr('disabled'); }
-    
-    if (deuda_total > 0 && !document.getElementById("check-deudas").checked ) {
-        $('#check_certificado').attr('disabled', 'disabled');
-    } else {
-        
-        if (multa_total > 0 && !document.getElementById("check-multas").checked) {
-            $('#check_certificado').attr('disabled', 'disabled');
-        } else {
-            $('#check_certificado').removeAttr('disabled');
-            if (document.getElementById("check_certificado").checked) { totalPagar += monto_certificado; }
-        }
-    }
-
-    $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
-
-    totalPagar = totalPagar * 100;
- */
 /*==================================*/
 /*=========VALIDANDO FORMS==========*/
 $('#contentBusqueda').validate({
@@ -483,14 +384,14 @@ $('#contentResultado').validate({
         }
     }
 });
-
-
 $('#default-datepicker').datepicker({
     format: "dd/mm/yy",
     weekStart: 1,
     todayBtn: "linked",
     todayHighlight: true
 });
+
+
 /**************************************************/
 /*CONFIGURANDO A ESPAÑOL EL ADJUNTADOR DE ARCHIVOS*/
 setTimeout(() => {
@@ -737,7 +638,7 @@ function sendMailDeudas() {
         let anio = prompt(" Ingrese Año?");
              let dni = $('#labelDni').val()
     
-        var settings = {
+        let settings = {
         "async": true,
         "crossDomain": true,
         "url": `https://siscorlad.corladayacucho.org.pe/api/web/obtenerAportes/${dni}/${anio}`,
@@ -838,18 +739,12 @@ Culqi.options({
 });
 Culqi.publicKey = 'pk_test_xDCpMxAgd8kjuKSV';
 // Usa la funcion Culqi.open() en el evento que desees
-var detalles;
+let detalles;
 $('#pagarTarjeta').on('click', function(e) {
-    detalles = []
-    if (document.getElementById("check-deudas").checked) {
-        detalles.push("Deudas de aportes");
-    }
-    if (document.getElementById("check-multas").checked) {
-        detalles.push("Multas");
-    }
-    if (document.getElementById("check_certificado").checked && !$('#check_certificado').attr('disabled')) {
-        detalles.push("Certificado");
-    }
+    detalles = [];
+    if (document.getElementById("check-deudas").checked) detalles.push("Deudas de aportes");
+    if (document.getElementById("check-multas").checked) detalles.push("Multas");
+    if (document.getElementById("check_certificado").checked && !$('#check_certificado').attr('disabled')) detalles.push("Certificado");
 
     // Configura tu Culqi Checkout
     Culqi.settings({
@@ -870,11 +765,11 @@ $('#pagarTarjeta').on('click', function(e) {
 /*Para pagar*/
 function culqi() {
     if (Culqi.token) { // ¡Objeto Token creado exitosamente!
-        var token = Culqi.token.id;
-        var email = Culqi.token.email;
+        let token = Culqi.token.id;
+        let email = Culqi.token.email;
 
 
-        var data = {
+        let data = {
             "amount": totalPagar,
             "description": detalles.join(", "),
             "email": email,
@@ -886,7 +781,7 @@ function culqi() {
             "source_id": token
         };
 
-        var url = "https://corladayacucho.org.pe/culqui/proceso.php";
+        let url = "https://corladayacucho.org.pe/culqui/proceso.php";
 
         $.post(url, data, function(res) {
 
@@ -908,4 +803,4 @@ function culqi() {
         console.log("error al entrar a culqui: " + Culqi.error);
         alert(Culqi.error.user_message);
     }
-};
+}

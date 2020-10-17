@@ -5,18 +5,16 @@ $(document).ready(()=>{
 
 
     $('#generar').click(function (e) {
-        var input = $('#sala');
-        var combo = $('#sala_select');
         e.preventDefault()
-        if (input.val().trim() == ""){
-            input.css('border', '1px solid red');
-        }else{
+        let input = $('#sala');
+        if (input.val().trim() === "") input.css('border', '1px solid red');
+        else{
             $('#url_compartir').show();
             $('#copy').show();
             //quitar espacios del input
-            var sala = input.val();
-            var salaSplit = sala.split(" ");
-            var salaSinEspacios = "";
+            let sala = input.val();
+            let salaSplit = sala.split(" ");
+            let salaSinEspacios = "";
             salaSplit.forEach((palabra)=>{
                 salaSinEspacios += palabra;
             })
@@ -31,7 +29,6 @@ $(document).ready(()=>{
                 };
                 const api = new JitsiMeetExternalAPI(domain, options);
                 $('#url_compartir').html(domain + '/' + salaSinEspacios);
-
                 input.attr('disabled','disabled');
                 $(this).attr('disabled','disabled');
                 setTimeout(function () {
