@@ -32,25 +32,6 @@ function verifyCaptcha() {
     document.getElementById('g-recaptcha-error').innerHTML = '';
 }
 
-/*$('body').hover(function () {
-        // over
-        if (window.name === "VentanaExterna") {
-            $('#modal-container').remove();
-        } else{
-            $('body').prepend('<section id="modal-container"><button id="ingresarOriginal">INGRESAR</button></section>');
-            $('#container').css('filter', 'blur(2px)');
-            $('#ingresarOriginal').click(function (e) { 
-                e.preventDefault();
-                window.open('http://corladayacucho.org.pe/consultas/3.%20Consulta%20habilidades/','VentanaExterna',"width=690,height=733,location=NO");
-            });
-        }
-        
-    }, function () {
-        // out
-        $('#modal-container').remove();
-        $('#container').css('filter', 'none');
-    }
-);*/
 $(document).ready(function () {
     $('#agremiadoEncontrado').hide();
     /*============================================================*/
@@ -233,24 +214,25 @@ $(document).ready(function () {
         }
         return mesFormateado;
     }
+
     /*===================BOTON DE BUSQUEDA======================*/
     var search = $('#search');
     $('#button-search').click(function (e) { 
         if (submitUserForm()) {             //submitUserForm()
             e.preventDefault();
-            if (search.val() == "" || search.val() == "undefined" || search.val() == null) {
+            if (search.val() === "" || search.val() === "undefined" || search.val() == null) {
                 search.removeClass('valid');
                 search.addClass('error');
             } else {
                 search.removeClass('error');
                 search.addClass('valid');
-                if ($('#criterio').val() == "dni") {
+                if ($('#criterio').val() === "dni") {
                     busquedaDni(search.val());
                 }
-                if ($('#criterio').val() == "codColegiado") {
+                if ($('#criterio').val() === "codColegiado") {
                     busquedaCodigo(search.val());
                 }
-                if ($('#criterio').val() == "nombreApellido") {
+                if ($('#criterio').val() === "nombreApellido") {
                     busquedaNombre(search.val());
                 }
             }
@@ -258,7 +240,8 @@ $(document).ready(function () {
             e.preventDefault();
         }
     });
-    /*=========================VALIDACION y CAMBIOS DE CAMPO REQUERIMIENTO============================*/
+
+    /*=========================CAMBIOS DE CAMPO REQUERIMIENTO============================*/
     search.autocomplete({
         source: function( request, response ) {
             $.ajax( {
@@ -287,9 +270,10 @@ $(document).ready(function () {
             }
         }
     });
+
     $('#criterio').blur(function () { 
         var that = $(this);
-        if (that.val() == "dni") {
+        if (that.val() === "dni") {
             search.attr("type", "number");
             search.attr("name", "number");
             search.attr("placeholder", "Ingrese su DNI");
@@ -297,9 +281,8 @@ $(document).ready(function () {
                 disabled:true
             });
             $('#criterio').css('border', '1px solid #ccc');
-            // $('[name="number"]').mask('00000000');
         } 
-        else if (that.val() == "nombreApellido") {
+        else if (that.val() === "nombreApellido") {
             search.attr("type", "text");
             search.attr("name", "text");
             search.attr("placeholder", "Ingrese sus nombres y apellidos");
@@ -335,7 +318,7 @@ $(document).ready(function () {
             });
             $('#criterio').css('border', '1px solid #ccc');
         }
-        else if (that.val() == "codColegiado") {
+        else if (that.val() === "codColegiado") {
             search.attr("type", "text");
             search.attr("name", "codigo");
             search.attr("placeholder", "Ingrese su código de colegiado");
@@ -367,12 +350,12 @@ $(document).ready(function () {
             number: {
                 required: "Ingrese su DNI",
                 number: "Ingrese un número valido",
-                minlength: "Carácteres minimos 8",
-                maxlength: "Carácteres maximos 8"
+                minlength: "Caracteres mínimos 8",
+                maxlength: "Caracteres máximos 8"
             },
             codigo: {
                 required: "Ingrese su código de colegiado",
-                minlength: "Carácteres minimos 1"
+                minlength: "Caracteres mínimos 1"
             },
             text: {
                 required: "Ingrese sus nombres y apellidos",
