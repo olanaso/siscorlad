@@ -3,6 +3,7 @@ function blockearbutton() {
     button.setAttribute('disabled', 'disabled');
     button.style.background = '#88BF9F';
     button.style.color = '#dedede';
+    button.style.cursor = 'default';
     $('.bi-search').hide();
     $('.bi-arrow-repeat').show();
 }
@@ -12,6 +13,7 @@ function desblockearbutton() {
     button.removeAttribute('disabled');
     button.style.background = '#03873B';
     button.style.color = '#FFFFFF';
+    button.style.cursor = 'pointer';
     $('.bi-search').show();
     $('.bi-arrow-repeat').hide();
 }

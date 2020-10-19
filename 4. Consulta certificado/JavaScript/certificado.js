@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    var categoria = $('#categoria');
+    let categoria = $('#categoria');
     $("#consultar").click(function () {
-        if ($('#casillaSearch').val().trim() != ""){
+        if ($('#casillaSearch').val().trim() !== ""){
             if (categoria.val()==="codigo"){
                 busquedaCodigo($('#casillaSearch').val());
             }

@@ -1,7 +1,6 @@
 /*Generales*/
-var ESPECIALIDADES = [],
+let ESPECIALIDADES = [],
     ID_ESPECILIDAD = 0;
-/*==================METODOS DEL CATPCHA======================*/
 
 $.ajax({
     url: URL_CORLAD + "/especialidads",
@@ -33,12 +32,8 @@ $.ajax({
 
 function sendMailgetclave() {
 
-    var r = confirm("¿Desea solicitar la Clave Web para gestionar las acciones ?");
-    if (r == true) {
-
-    } else {
-        return
-    }
+    let r = confirm("¿Desea solicitar la Clave Web para gestionar las acciones ?");
+    if (!r) return;
 
     let templateHTML = `
         <table class="MsoTableGrid" style="border-collapse: collapse; border: none; margin-left: auto; margin-right: auto; box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 10px 1px; width: 580px;" border="0" cellspacing="0" cellpadding="0">
@@ -77,12 +72,12 @@ function sendMailgetclave() {
    
         `
 
-    if ($('#correo').val().trim() == '') {
+    if ($('#correo').val().trim() === '') {
         alert('Realice la búsqueda del colegiado.')
         return
     }
 
-    var settings = {
+    let settings = {
         "async": true,
         "crossDomain": true,
         "url": "https://siscorlad.corladayacucho.org.pe/api/web/sendemailclavegestion",
@@ -110,7 +105,7 @@ function sendMailgetclave() {
 function previewphoto() {
 
     document.getElementById("icono").onchange = function() {
-        var reader = new FileReader();
+        let reader = new FileReader();
 
         reader.onload = function(e) {
             // get loaded data and render thumbnail.
@@ -136,13 +131,11 @@ function previewphoto() {
 
 previewphoto();
 
-
-
 $('#btnsave').click(function(e) {
     let clavegestion = prompt(" Ingrese la clave de gestion?");
 
 
-    var settings = {
+    let settings = {
         "async": true,
         "crossDomain": true,
         "url": URL_CORLAD + "/guardarAgremiadoWeb",
@@ -164,8 +157,6 @@ $('#btnsave').click(function(e) {
 
     }
 
-
-    //console.log( JSON.stringify({transaccion,detalletransaccion:detalleTransaccion}));     
     $.ajax(settings).done(function(response) {
 
         alert('Se grabo correctamente.')
@@ -180,17 +171,15 @@ $('#btnsave').click(function(e) {
 /*============================================================*/
 /*===================METODOS DE BUSQUEDA======================*/
 function busquedaDni(busqueda) {
+    blockearbutton();
     $.ajax({
         type: "GET",
         url: URL_CORLAD + "/web/obtenerAgremiadoWeb/" + busqueda,
         data: "json",
         beforeSend: () => {
-            $('.bi-search').hide();
-            $('.bi-arrow-repeat').show();
         },
         success: function(response) {
-            $('.bi-search').show();
-            $('.bi-arrow-repeat').hide();
+            desblockearbutton()
             let agremiado = response.aportes[0]
             if (agremiado) {
                 // detalleUsuario(response.id);
@@ -230,7 +219,27 @@ function insertarDatos(user) {
 }
 
 /*===================BOTON DE BUSQUEDA======================*/
-var search = $('#search');
+let search = $('#search');
 $('#button-search').click(function(e) {
     busquedaDni(search.val());
 });
+
+function blockearbutton() {
+    const button = document.querySelector('#button-search');
+    button.setAttribute('disabled', 'disabled');
+    button.style.background = '#88BF9F';
+    button.style.color = '#dedede';
+    button.style.cursor = 'default';
+    $('.bi-search').hide();
+    $('.bi-arrow-repeat').show();
+}
+
+function desblockearbutton() {
+    const button = document.querySelector('#button-search');
+    button.removeAttribute('disabled');
+    button.style.background = '#03873B';
+    button.style.color = '#FFFFFF';
+    button.style.cursor = 'pointer';
+    $('.bi-search').show();
+    $('.bi-arrow-repeat').hide();
+}
