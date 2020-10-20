@@ -118,6 +118,7 @@ $(document).ready(function () {
                 desblockearbutton()
                 if (response){
                     insertarDatosDetalle(response);
+                    console.log(response)
                     $('#agremiadoEncontrado').fadeOut();
                 }else{
                     borrarDatos();
@@ -147,7 +148,7 @@ $(document).ready(function () {
         $('#name').val(user.nombres);
         $('#surname').val(user.apellidopaterno+" "+user.apellidomaterno);
         $('#collage').val(user.codigocolegiado);
-        $('#date').val(formatearFecha(user.fechaingreso));
+        $('#date').val(user.fechacolegiado);
         $('#documento').val(user.dni);
         $('#imagen-perfil img').hide();
         if (typeof user.foto == "object"){
@@ -156,6 +157,7 @@ $(document).ready(function () {
             $('#imagen-perfil').css("background", "no-repeat url("+user.foto+")").css("background-size", "100% 100%");
         }
     }
+
     function insertarDatosDetalle(user) {
         $('#condicion').val(user.condicion);
         $('#deudaAporte').html("S/ "+user.cuotas.cuotaTotal);
@@ -217,7 +219,7 @@ $(document).ready(function () {
     /*===================BOTON DE BUSQUEDA======================*/
     let search = $('#search');
     $('#button-search').click(function (e) { 
-        if (submitUserForm()) {             //submitUserForm()
+        if (submitUserForm()) {
             e.preventDefault();
             if (search.val() === "" || search.val() === "undefined" || search.val() == null) {
                 search.removeClass('valid');

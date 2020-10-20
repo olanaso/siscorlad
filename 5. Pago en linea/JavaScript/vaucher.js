@@ -16,9 +16,9 @@ function desblockearbutton() {
     button.style.cursor = 'pointer';
     $('.bi-search').show();
     $('.bi-arrow-repeat').hide();
-
-
 }
+
+$('[data-toggle="tooltip"]').tooltip()
 
 $('#contentResultado').hide();
 $('#encontrados').hide();
@@ -56,8 +56,6 @@ $('#buscar').click(function(e) {
 $('#btnsolicitarclave').click(function(e) {
     let r = confirm("¿Desea solicitar la clave de gestión?");
     r ? sendMailgetclave() : null;
-    /*if (r) sendMailgetclave()
-    else sendMail()*/
 })
 
 /*Solicitar las deudas*/
@@ -211,7 +209,8 @@ function insertarDatosDeudas(busqueda) {
             deuda_total = response.cuotas.cuotaTotal;
             multa_total = response.multas.multaTotal;
 
-            cantidad_cuotas=cuotasArray.length;
+            cantidad_cuotas = cuotasArray.length;
+            setMask(cantidad_cuotas);
             $('#cantidad_deuda').attr('disabled', 'disabled');
             $('#check_certificado').attr('disabled', 'disabled');
             if(cuotasArray.length > 0){
@@ -239,6 +238,9 @@ function insertarDatosDeudas(busqueda) {
             for (let multa of response.multas.multas) {
                 $('#tabla-detalles-multas tbody').prepend("<tr><td>S/ " + multa.monto + "</td><td>" + multa.motivo_multa + "</td></tr>");
             }
+
+            const [ dia, mes, year ] = new Date().toLocaleDateString().split('/');
+            $('#fechaOperacion').val(year+"-"+mes+"-"+dia);
         }
     });
 }
@@ -361,6 +363,7 @@ function formatearMes(mes) {
     }
     return mesFormateado;
 }
+
 /*==================================*/
 /*=========VALIDANDO FORMS==========*/
 $('#contentBusqueda').validate({
@@ -393,6 +396,15 @@ $('#default-datepicker').datepicker({
     todayHighlight: true
 });
 
+
+function setMask(tamano) {
+    let long = '';
+    for (let i = 0; i < String(tamano).length; i++) {
+        long += '9';
+    }
+
+    $('#cantidad_deuda').inputmask(long);
+}
 
 /**************************************************/
 /*CONFIGURANDO A ESPAÑOL EL ADJUNTADOR DE ARCHIVOS*/
@@ -714,20 +726,9 @@ templateHTML+=`
         }
     });
 
-
-        
-   
         }
         
     });
-    
-
-  
-
-
-    
-    
-     
 }
 
 

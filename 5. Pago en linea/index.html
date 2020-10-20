@@ -57,7 +57,7 @@
             <h2>BUSQUEDA</h2>
             <label for="dni">DNI:</label>
             <!--<select name="categoria" id="categoria"></select>-->
-            <input id="dni" name="dni" placeholder="Ingrese su DNI" type="number"/>
+            <input id="dni" name="dni" placeholder="Ingrese su DNI" type="number" autofocus/>
             <button id="buscar" type="submit">
                 <svg  class="bi bi-arrow-repeat" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>
@@ -84,22 +84,24 @@
                 <h3>DEUDAS Y PAGOS POR CERTIFICADO</h3>
                     
                 <input type="checkbox" name="aporte" id="check-deudas"/>
-                <label for="check-deudas">Deuda  (<span id="cuotas_aportes"></span>)</label> <p> <input type="text" style="width: 80px;
-                    height: 20px;" id="cantidad_deuda" name="cantidad" value="" /></p> S/<span id="total-deuda"></span>
+                <label for="check-deudas">Deuda  (<span id="cuotas_aportes"></span>)</label> <p>
+                <input type="text" style="width: 80px;
+                    height: 20px;" id="cantidad_deuda" name="cantidad" value="" /></p>
+                S/<span id="total-deuda"></span>
           
                 <!-- <button type="button" id="detalleDeuda" data-toggle="modal" data-target="#modalCuotas">Ver</button> -->
                
-                <button type="button" id="btnsolicitarPagos" style="width:60px;               
+                <button type="button" id="btnsolicitarPagos" style="width:60px;
                 font-size:10pt;
                 overflow:hidden;
                 white-space:nowrap;
-                text-overflow: ellipsis;" >Solicitar Detalle de Pagos</button>
+                text-overflow: ellipsis;" data-toggle="tooltip" data-placement="top" title="Solicite sus deudas y se le enviará a su correo">?</button>
                 <!-- Modal -->
-                <div class="modal fade" id="modalCuotas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modalCuotas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="exampleModalLabel">Deudas de los aportes</h3>
+                            <h3 class="modal-title" id="exampleModalLabel1">Deudas de los aportes</h3>
                         </div>
                         <div class="modal-body">
                         <div class="table-responsive" id="tabla-detalles-cuotas">
@@ -164,7 +166,7 @@
 <p style="text-align: center;">&nbsp;</p>
  
  
- <button type="button" id="btnsolicitarclave">
+                            <button type="button" id="btnsolicitarclave">
                                
                                 <span>SOLICITAR CLAVE WEB PARA REALIZAR LA TRANSACCIÓN</span>
                             </button>
@@ -195,7 +197,7 @@
                               
                             </select>
                             <label for="nOperacion">N° Operación</label>
-                            <input type="number" name="nOperacion" id="nOperacion" placeholder="Operación"/>
+                            <input type="text" name="nOperacion" id="nOperacion" placeholder="Número de operación"/>
                             <label for="fechaOperacion" id="labelFechaOperación">Fecha Operación</label>
                             <input type="date" name="fechaOperacion" id="fechaOperacion">
                             <label for="input-id" id="labelVaucher">Voucher/Captura de pantalla</label>
