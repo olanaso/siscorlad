@@ -250,7 +250,6 @@ $('#cantidad_deuda').keyup(function() {
     let temporal = cantidad_cuotas;
     let valor = $(this).val();
     if(valor){
-        let total_dif = valor - (temporal);
         totalPagar = totalDeudasLimite(valor);
         cantidad_cuotas = valor;
         if(cantidad_cuotas < cuotasArray.length){
@@ -260,6 +259,9 @@ $('#cantidad_deuda').keyup(function() {
                 totalPagar = totalPagar - monto_certificado;
             }
         } else $('#check_certificado').removeAttr('disabled');
+        if(document.getElementById("check_certificado").checked){
+            totalPagar = totalPagar + monto_certificado;
+        }
         $('#total-deuda').html(totalDeudasLimite(valor) + '.00');
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar);
     } else {
@@ -270,10 +272,14 @@ $('#cantidad_deuda').keyup(function() {
 });
 
 function totalDeudasLimite(valor) {
-    return cuotasArray.reduce((totalSuma, value, i) => {
+    let diff = 0;
+    if (valor > cuotasArray.length) diff = (valor - cuotasArray.length) * 15;
+    console.log(diff);
+    const total = cuotasArray.reduce((totalSuma, value, i) => {
         if (i < Number(valor)) return totalSuma + Number(value.monto);
         return totalSuma;
     }, 0);
+    return diff + total;
 }
 
 $("#check-deudas").change(function() {
@@ -281,10 +287,10 @@ $("#check-deudas").change(function() {
         $('#cantidad_deuda').removeAttr('disabled');
         totalPagar += totalDeudasLimite(cantidad_cuotas);
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
-        if(cantidad_cuotas >= cuotasArray.length)$('#check_certificado').removeAttr('disabled');
+        if(cantidad_cuotas >= cuotasArray.length) $('#check_certificado').removeAttr('disabled');
     }
    
-    if(!this.checked){
+    if(!this.checked) {
         $('#cantidad_deuda').attr('disabled', 'disabled');
         if(document.getElementById("check_certificado").checked){
             totalPagar = totalPagar - (totalDeudasLimite(cantidad_cuotas) + monto_certificado);
@@ -299,12 +305,10 @@ $("#check-deudas").change(function() {
 $("#check_certificado").change(function() {
     if(this.checked){
         totalPagar += monto_certificado;
-        $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
+    } else {
+        totalPagar -= monto_certificado;
     }
-    if(!this.checked){
-        totalPagar=totalPagar - monto_certificado;
-        $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
-    }
+    $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
 });
 
 $("#check-multas").change(function() {   
