@@ -66,6 +66,7 @@ $('#btnsolicitarPagos').click(function(e) {
 })
 
 $('#pagarVaucher').click(function(e) {
+    console.log(totalPagar)
     let $this = $('#pagarVaucher');
     if ($('#nOperacion').val() === "") {
         alert('Ingrese el numero operación.')       
@@ -213,7 +214,7 @@ function insertarDatosDeudas(busqueda) {
             $('#cantidad_deuda').attr('disabled', 'disabled');
             $('#check_certificado').attr('disabled', 'disabled');
             if(cuotasArray.length > 0){
-                totalPagar = cantidad_cuotas * 15;
+                totalPagar = deuda_total;
                 document.getElementById("check-deudas").checked = true;
                 $('#cantidad_deuda').removeAttr('disabled');
                 $('#check_certificado').removeAttr('disabled');
@@ -226,7 +227,7 @@ function insertarDatosDeudas(busqueda) {
             $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
             $("#cuotas_aportes").text((cuotasArray.length)?cuotasArray.length+ ' CUOTAS':'CUOTAS');
             document.getElementById("cantidad_deuda").value=cuotasArray.length;
-            $('#total-deuda').html(cantidad_cuotas * 15 + '.00');
+            $('#total-deuda').html(totalPagar + '.00');
             $('#total-multa').html(multa_total + '.00');
             $('#monto-certificado').html(monto_certificado + '.00');
             $('#tabla-detalles-cuotas tbody').html(null);
@@ -251,7 +252,7 @@ $('#cantidad_deuda').keyup(function() {
     let valor = $(this).val();
     if(valor){
         let total_dif = valor - (temporal);
-        totalPagar = totalPagar + (total_dif * 15);
+        totalPagar = totalDeudasLimite(valor);
         cantidad_cuotas = valor;
         if(cantidad_cuotas < cuotasArray.length){
             $('#check_certificado').attr('disabled', 'disabled');
@@ -260,31 +261,36 @@ $('#cantidad_deuda').keyup(function() {
                 totalPagar = totalPagar - monto_certificado;
             }
         } else $('#check_certificado').removeAttr('disabled');
-        $('#total-deuda').html(cantidad_cuotas * 15 + '.00');
+        $('#total-deuda').html(totalDeudasLimite(valor) + '.00');
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar);
     } else {
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + 0);
         $('#total-deuda').html(0 + '.00');
+        totalPagar = 0;
     }
-   
 });
 
+function totalDeudasLimite(valor) {
+    return cuotasArray.reduce((totalSuma, value, i) => {
+        if (i < Number(valor)) return totalSuma + Number(value.monto);
+        return totalSuma;
+    }, 0);
+}
 
 $("#check-deudas").change(function() {
     if(this.checked){
         $('#cantidad_deuda').removeAttr('disabled');
-        totalPagar += cantidad_cuotas * 15;
+        totalPagar += totalDeudasLimite(cantidad_cuotas);
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
-        console.log(totalPagar)
         if(cantidad_cuotas >= cuotasArray.length)$('#check_certificado').removeAttr('disabled');
     }
    
     if(!this.checked){
         $('#cantidad_deuda').attr('disabled', 'disabled');
         if(document.getElementById("check_certificado").checked){
-            totalPagar = totalPagar - (cantidad_cuotas * 15 + monto_certificado);
+            totalPagar = totalPagar - (totalDeudasLimite(cantidad_cuotas) + monto_certificado);
             document.getElementById("check_certificado").checked = false;
-        } else totalPagar = totalPagar - cantidad_cuotas * 15;
+        } else totalPagar = totalPagar - totalDeudasLimite(cantidad_cuotas);
 
         $('#check_certificado').attr('disabled', 'disabled'); 
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
