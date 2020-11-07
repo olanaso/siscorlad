@@ -66,7 +66,6 @@ $('#btnsolicitarPagos').click(function(e) {
 })
 
 $('#pagarVaucher').click(function(e) {
-    console.log(totalPagar)
     let $this = $('#pagarVaucher');
     if ($('#nOperacion').val() === "") {
         alert('Ingrese el numero operación.')       
