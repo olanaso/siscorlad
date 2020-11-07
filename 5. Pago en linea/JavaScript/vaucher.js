@@ -40,6 +40,7 @@ let monto_certificado = 20;
 
 $(document).ready(function () {
     desblockearbutton();
+
 });
 
 /*===========FORM BUSQUEDA============*/
@@ -62,8 +63,6 @@ $('#btnsolicitarclave').click(function(e) {
 $('#btnsolicitarPagos').click(function(e) {
     let r = confirm("¿ Desea solicitar las deudas ?");
     r ? sendMailDeudas() : null;
-    /*if (r) sendMailDeudas();
-    else sendMail()*/
 })
 
 $('#pagarVaucher').click(function(e) {
@@ -240,7 +239,9 @@ function insertarDatosDeudas(busqueda) {
             }
 
             const [ dia, mes, year ] = new Date().toLocaleDateString().split('/');
-            $('#fechaOperacion').val(year+"-"+mes+"-"+dia);
+
+            if (dia < 10) $('#fechaOperacion').val(year+"-"+mes+"-0"+dia);
+            else $('#fechaOperacion').val(year+"-"+mes+"-"+dia);
         }
     });
 }
@@ -252,16 +253,18 @@ $('#cantidad_deuda').keyup(function() {
         let total_dif = valor - (temporal);
         totalPagar = totalPagar + (total_dif * 15);
         cantidad_cuotas = valor;
-        if(cantidad_cuotas<cuotasArray.length){
+        if(cantidad_cuotas < cuotasArray.length){
             $('#check_certificado').attr('disabled', 'disabled');
             if(document.getElementById("check_certificado").checked){
                 document.getElementById("check_certificado").checked = false;
                 totalPagar = totalPagar - monto_certificado;
             }
         } else $('#check_certificado').removeAttr('disabled');
-
         $('#total-deuda').html(cantidad_cuotas * 15 + '.00');
-        $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
+        $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar);
+    } else {
+        $('#total-pagar').html("TOTAL A PAGAR: S/ " + 0);
+        $('#total-deuda').html(0 + '.00');
     }
    
 });
@@ -272,6 +275,7 @@ $("#check-deudas").change(function() {
         $('#cantidad_deuda').removeAttr('disabled');
         totalPagar += cantidad_cuotas * 15;
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
+        console.log(totalPagar)
         if(cantidad_cuotas >= cuotasArray.length)$('#check_certificado').removeAttr('disabled');
     }
    
@@ -377,7 +381,7 @@ $('#contentBusqueda').validate({
     messages: {
         dni: {
             required: "Se requiere el dni",
-            minlength: "Cararteres minimos 8",
+            minlength: "Caracteres mínimos 8",
             maxlength: "Caracteres máximos 8"
         }
     }
@@ -400,10 +404,10 @@ $('#default-datepicker').datepicker({
 function setMask(tamano) {
     let long = '';
     for (let i = 0; i < String(tamano).length; i++) {
-        long += '9';
+        long += '0';
     }
 
-    $('#cantidad_deuda').inputmask(long);
+    $('#cantidad_deuda').mask(long);
 }
 
 /**************************************************/
