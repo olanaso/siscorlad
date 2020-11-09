@@ -66,6 +66,7 @@ $('#btnsolicitarPagos').click(function(e) {
 })
 
 $('#pagarVaucher').click(function(e) {
+    console.log(code64Convertido)
     let $this = $('#pagarVaucher');
     if ($('#nOperacion').val() === "") {
         alert('Ingrese el numero operación.')       
@@ -346,40 +347,33 @@ function previewphoto() {
             code64Convertido = '';
             $('#input-id').val('');
             document.getElementById("image").src = 'images/no-image.jpg';
-            return
+            return;
         }
         reader.onload = function(e) {
             code64Convertido = e.target.result;
             let quality;
-            if (file.size > 500000 && file.size < 1000000) quality = 5; else quality = 10;
+            if (file.size > 500000 && file.size < 1000000) quality = 5;
+            else quality = 10;
 
             const img =  document.getElementById('targetImage');
             img.src = code64Convertido;
+            setTimeout(() => {
+                const cvs = document.createElement('canvas');
+                cvs.width = img.naturalWidth;
+                cvs.height = img.naturalHeight;
+                const ctx = cvs.getContext("2d");
+                window.ctx = ctx;
+                ctx.drawImage(img, 0, 0);
 
-            const cvs = document.createElement('canvas');
-            cvs.width = img.naturalWidth;
-            cvs.height = img.naturalHeight;
-            const ctx = cvs.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-
-            const newImageData = cvs.toDataURL(file.type, quality/100);
-            document.getElementById('image').src = code64Convertido;
+                const newImageData = cvs.toDataURL(file.type, quality/100);
+                document.getElementById('image').src = newImageData;
+                code64Convertido = newImageData;
+            }, 500);
         };
         reader.readAsDataURL(file);
     };
 }
 previewphoto();
-/*function compress(quality, imagen, output_format){
-    const img = document.createElement('img');
-    img.src = imagen;
-    const cvs = document.createElement('canvas');
-    cvs.width = img.naturalWidth;
-    cvs.height = img.naturalHeight;
-    console.log(cvs)
-    const newImageData = cvs.toDataURL(output_format, quality/100);
-    console.log(newImageData)
-    return newImageData;
-}*/
 
 function formatearMes(mes) {
     let mesFormateado = "";
