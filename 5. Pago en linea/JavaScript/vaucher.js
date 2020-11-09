@@ -66,7 +66,7 @@ $('#btnsolicitarPagos').click(function(e) {
 })
 
 $('#pagarVaucher').click(function(e) {
-    console.log(code64Convertido)
+
     let $this = $('#pagarVaucher');
     if ($('#nOperacion').val() === "") {
         alert('Ingrese el numero operación.')       
@@ -275,7 +275,7 @@ $('#cantidad_deuda').keyup(function() {
 function totalDeudasLimite(valor) {
     let diff = 0;
     if (valor > cuotasArray.length) diff = (valor - cuotasArray.length) * 15;
-    console.log(diff);
+
     const total = cuotasArray.reduce((totalSuma, value, i) => {
         if (i < Number(valor)) return totalSuma + Number(value.monto);
         return totalSuma;
