@@ -203,19 +203,13 @@ select:focus, input:focus, textarea:focus{
     border-bottom: 1px dashed #333;
     margin-right: 15px;
 }
-#image{
-    width: 33px;
-    position: absolute;
-    z-index: 3;
+.content-image {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }
 #image {
-    width: 32px;
-    height: 32px;
-    margin-top: 1px;
-    margin-left: 1px;
-    position: absolute;
-    z-index: 4;
-    background: white;
+    width: 230px;
 }
 /*====================================*/
 /*=========SECCION BUSQUEDA===========*/
@@ -231,7 +225,41 @@ h2{
     font-size: 25px;
     grid-column: 1/4;
     margin-bottom: 15px;
+}
 
+#btnsolicitarPagos {
+    background: #03873B;
+    height: 25px;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: background .5s;
+}
+#btnsolicitarPagos:hover {
+    background: #03622b;
+}
+#detalleMulta {
+    background: #03873B;
+    height: 25px;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: background .5s;
+}
+#detalleMulta:hover {
+    background: #03622b;
+}
+#btnsolicitarclave {
+    background: #03873B;
+    height: 25px;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+    transition: background .5s;
+}
+#btnsolicitarclave:hover {
+    background: #03622b;
 }
 #buscar{
     padding: 5px;

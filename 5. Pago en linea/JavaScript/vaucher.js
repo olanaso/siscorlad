@@ -340,22 +340,46 @@ function insertarDatos(user) {
 function previewphoto() {
     document.getElementById("input-id").onchange = function(e) {
         let reader = new FileReader();
-
-        reader.onload = function(e) {
-            document.getElementById("image").src = e.target.result;
-            code64Convertido = e.target.result;
-        };
-        reader.readAsDataURL(this.files[0]);
-
-        if (this.files[0].size > 1000000) {
-            alert("La imagen sobre pasa el tamaño permitido");
+        const file = this.files[0];
+        if (file.size >= 1000000) {
+            alert("La imagen sobre pasa el tamaño permitido de 10Mb");
             code64Convertido = '';
             $('#input-id').val('');
-            document.getElementById("image").src = 'images/blanco.png';
+            document.getElementById("image").src = 'images/no-image.jpg';
+            return
         }
+        reader.onload = function(e) {
+            code64Convertido = e.target.result;
+            let quality;
+            if (file.size > 500000 && file.size < 1000000) quality = 5; else quality = 10;
+
+            const img =  document.getElementById('targetImage');
+            img.src = code64Convertido;
+
+            const cvs = document.createElement('canvas');
+            cvs.width = img.naturalWidth;
+            cvs.height = img.naturalHeight;
+            const ctx = cvs.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+
+            const newImageData = cvs.toDataURL(file.type, quality/100);
+            document.getElementById('image').src = code64Convertido;
+        };
+        reader.readAsDataURL(file);
     };
 }
 previewphoto();
+/*function compress(quality, imagen, output_format){
+    const img = document.createElement('img');
+    img.src = imagen;
+    const cvs = document.createElement('canvas');
+    cvs.width = img.naturalWidth;
+    cvs.height = img.naturalHeight;
+    console.log(cvs)
+    const newImageData = cvs.toDataURL(output_format, quality/100);
+    console.log(newImageData)
+    return newImageData;
+}*/
 
 function formatearMes(mes) {
     let mesFormateado = "";

@@ -202,8 +202,11 @@
                             <input type="date" name="fechaOperacion" id="fechaOperacion">
                             <label for="input-id" id="labelVaucher">Voucher/Captura de pantalla</label>
                             <div>
-                                <img id="image" src="images/blanco.png"/>
                                 <input name="adjuntar" id="input-id" type="file" class="file" data-preview-file-type="text" accept=".jpg,.png" required/>
+                            </div>
+                            <div class="content-image">
+                                <img id="image" src="images/no-image.jpg"/>
+                                <img id="targetImage" style="width: 230px; display: none">
                             </div>
                             <button type="button"id="pagarVaucher">
                                 <svg id="iconoEnviar" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
