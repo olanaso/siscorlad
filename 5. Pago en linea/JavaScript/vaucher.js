@@ -342,18 +342,14 @@ function previewphoto() {
     document.getElementById("input-id").onchange = function(e) {
         let reader = new FileReader();
         const file = this.files[0];
-        if (file.size >= 1000000) {
-            alert("La imagen sobre pasa el tamaño permitido de 10Mb");
-            code64Convertido = '';
-            $('#input-id').val('');
-            document.getElementById("image").src = 'images/no-image.jpg';
-            return;
-        }
+        let newImageData;
         reader.onload = function(e) {
             code64Convertido = e.target.result;
             let quality;
-            if (file.size > 500000 && file.size < 1000000) quality = 5;
-            else quality = 10;
+            if (file.size > 300000 && file.size < 400000) quality = 35;
+            else if (file.size > 200000 && file.size <= 300000) quality = 55;
+            else if (file.size > 100000 && file.size <= 200000) quality = 80;
+            else quality = 90;
 
             const img =  document.getElementById('targetImage');
             img.src = code64Convertido;
@@ -365,7 +361,14 @@ function previewphoto() {
                 window.ctx = ctx;
                 ctx.drawImage(img, 0, 0);
 
-                const newImageData = cvs.toDataURL(file.type, quality/100);
+                newImageData = cvs.toDataURL(file.type, quality/100);
+                if (Number((newImageData.length/1024).toFixed(1)) * 1024 >= 200000) {
+                    $('#input-id').val('');
+                    document.getElementById("image").src = 'images/no-image.jpg';
+                    code64Convertido = '';
+                    alert("La imagen sobre pasa el tamaño permitido de 200 kB");
+                    return;
+                }
                 document.getElementById('image').src = newImageData;
                 code64Convertido = newImageData;
             }, 500);
