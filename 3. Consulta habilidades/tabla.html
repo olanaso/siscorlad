@@ -31,10 +31,16 @@
             <img src="img/consulta.png" id="consulta-img" />
             <div>
                 <form id="section-busqueda" method="post" onsubmit="return submitUserForm();">
+
+
                     <select id="especilidades">
                         <option value="dni"></option>
                     </select>
-                    <input placeholder="Ingrese sus nombres y apellidos" id="search" autofocus/>
+
+
+                    <input placeholder="Ingrese sus nombres y apellidos" id="search" />
+
+                    <!-- <input type="submit" name="submit" value="Submit" /> -->
 
                     <button type="button" name="submit" id="traer"
                         style="height: 40px; background: #03873B; color: white; border-radius: 10px; border-color: aliceblue; ">
@@ -55,8 +61,14 @@
                         </svg>
                         CARGAR
                     </button>
+
                     <button type="button" name="submit" id="limpiar"
                         style="height: 40px; background: #03873B; color: white; border-radius: 10px; border-color: aliceblue; ">Limpiar</button>
+
+
+
+
+
                 </form>
             </div>
         </div>
@@ -69,6 +81,7 @@
                 <!-- Tabs Content -->
                 <div class="tab-content">
                     <div class="panel-content">
+
 
                         <div class="table-responsive">
                             <table class="table" id="mytable">
@@ -87,6 +100,7 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -103,6 +117,7 @@
 <script src="JS/nano-scroller.js"></script>
 <script type="text/javascript" src="JS/JQuery-UI-1.12.1/jquery-ui.min.js"></script>
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
 <script src="JS/jquery.mask.min.js"></script>
@@ -110,12 +125,15 @@
 <script type="text/javascript" src="../10.service/config.js"></script>
 <script type="text/javascript" src="JS/colegiado.js"></script>
 
+
+
 <script>
     $.ajax({
         type: "GET",
         url: "https://siscorlad.corladayacucho.org.pe/api/especialidads",
         data: "json",
         beforeSend: () => {
+
         },
         success: function (repuesta) {
             $('#especilidades').html(``)
@@ -124,23 +142,38 @@
              <option value="${item.id}">${item.denominacion}</option>`
                 )
             }
+
         }
     });
 
 </script>
+
+
 
 <script>
     $("#traer").click(
         function (event) {
 
             llamar($("#especilidades").val(), $("#search").val())
+
+
         });
 
+
+
     function llamar(idespecialidad, nombres) {
+
         $.ajax({
+
             type: 'GET',
+
             url: "https://siscorlad.corladayacucho.org.pe/api/web/listaAgremiados?especialidadid=" + idespecialidad + "&nombres=" + nombres,
             data: 'json',
+
+            beforeSend: () => {
+
+
+            },
             success: function (respuesta) {
                 $('#pintar').html(``)
 
@@ -149,20 +182,26 @@
 
 
                     $('#pintar').append(`
-                    <tr>
+<tr>
                         <td>${i + 1}</td>
                         <td>${respuesta[i].nombres}</td>
                         <td>${respuesta[i].correo}</td>
                         <td>${respuesta[i].celular}</td>             
-                    </tr>
-                    `)
+ </tr>
+
+ 
+ `
+                    )
                 }
                 $('#mytable').DataTable({
 
                     "language": {
                         "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
                     }
+
                     //cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json
+
+
                 });
             }
         })

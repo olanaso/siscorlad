@@ -1,7 +1,7 @@
 /*Generales*/
 let ESPECIALIDADES = [],
     ID_ESPECILIDAD = 0;
-
+let imagenActual;
 $.ajax({
     url: URL_CORLAD + "/especialidads",
     dataType: "json",
@@ -103,32 +103,43 @@ function sendMailgetclave() {
 }
 
 function previewphoto() {
-
-    document.getElementById("icono").onchange = function() {
+    document.getElementById("icono").onchange = function(e) {
         let reader = new FileReader();
-
+        const file = this.files[0];
+        let newImageData;
         reader.onload = function(e) {
-            // get loaded data and render thumbnail.
-            document.getElementById("image").src = e.target.result;
+            const code64Convertido = e.target.result;
+            console.log(code64Convertido)
+            let quality;
+            if (file.size > 300000 && file.size < 400000) quality = 35;
+            else if (file.size > 200000 && file.size <= 300000) quality = 55;
+            else if (file.size > 100000 && file.size <= 200000) quality = 80;
+            else quality = 90;
+
+            const img =  document.getElementById('targetImage');
+            img.src = code64Convertido;
+            setTimeout(() => {
+                const cvs = document.createElement('canvas');
+                cvs.width = img.naturalWidth;
+                cvs.height = img.naturalHeight;
+                const ctx = cvs.getContext("2d");
+                window.ctx = ctx;
+                ctx.drawImage(img, 0, 0);
+
+                newImageData = cvs.toDataURL(file.type, quality/100);
+                if (Number((newImageData.length/1024).toFixed(1)) * 1024 >= 200000) {
+                    $('#input-id').val('');
+                    document.getElementById("image").src = imagenActual;
+                    alert("La imagen sobre pasa el tamaño permitido de 200 kB");
+                    return;
+                }
+                document.getElementById('image').src = newImageData;
+            }, 500);
         };
-        // read the image file as a data URL.
-        reader.readAsDataURL(this.files[0]);
-        console.log("tamaño de imagen", this.files[0].size)
-
-        if (this.files[0].size > 200000) {
-
-            alert("La imagen sobre pasa el tamaño permitido")
-            setTimeout(function() {
-                document.getElementById("image").src = 'http://www.bajoelagua.com/avatares/avatar_g.jpg';
-                $('#icono').val('');
-            }, 1000)
-
-
-        }
+        reader.readAsDataURL(file);
+        console.log($('#image').attr('src'))
     };
-
 }
-
 previewphoto();
 
 $('#btnsave').click(function(e) {
@@ -211,7 +222,8 @@ function insertarDatos(user) {
     $('#date').val(formatearFecha(user.fechaingreso));
     $('#documento').val(user.dni);
     $('#correo').val(user.correo);
-        $('#image').attr('src',user.foto);
+    $('#image').attr('src',user.foto);
+    imagenActual = user.foto;
     $('#celulares').val(user.celular);
     $('#fechanacimiento').val(user.fechanacimiento);
 

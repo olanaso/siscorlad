@@ -189,6 +189,7 @@ body{
     border-top: 2px solid #189279;
     border-right: 1px solid #ccc;
     box-shadow: 0px 1px 2px #ccc;
+    overflow: hidden;
 }
 .ui-autocomplete-input{
     background-color: white;
@@ -311,11 +312,11 @@ input, button, select, textarea {
         justify-content: center;
     }
     #formulario #imagen-perfil{
-        margin: 0px auto;
         grid-column: 1/2;
         width: 40%;
         height: 200px;
         margin-bottom: 20px;
+        overflow: hidden !important;
     }
     #imagen-perfil img{
         width: 100%;
