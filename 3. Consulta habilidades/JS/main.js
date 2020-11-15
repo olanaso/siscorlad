@@ -159,11 +159,9 @@ $(document).ready(function () {
     }
 
     function insertarDatosDetalle(user) {
-        $('#condicion').val(user.condicion);
         $('#deudaAporte').html("S/ "+user.cuotas.cuotaTotal);
         $('#multaTotal').html("S/ "+user.multas.multaTotal);
-       // $('#date-ultima-cuota').html(formatearFecha(user.pagos[0].fechatransaccion));
-        //$('#date-habilitado').html(habilitadoHasta(user.pagos[0].fechatransaccion));
+        verificarAgremiado(user.cuotas.cuotas);
         $('#tabla-detalles-cuotas tbody').html(null);
         $('#tabla-detalles-multas tbody').html(null);
         for (let cuota of user.cuotas.cuotas) {
@@ -171,6 +169,25 @@ $(document).ready(function () {
         }
         for (let multa of user.multas.multas) {
             $('#tabla-detalles-multas tbody').prepend("<tr><td>S/ "+multa.monto+"</td><td>"+multa.motivo_multa+"</td></tr>");
+        }
+    }
+
+    function verificarAgremiado(cuotas) {
+        if (cuotas.length === 0 || !cuotas.length) {
+            $('#condicion').val("HABILITADO");
+        } else {
+            const indice = cuotas.length - 1;
+            const ultimoMesPago = cuotas[indice].mes;
+            const fechaUltimoPago = new Date();
+            fechaUltimoPago.setMonth(ultimoMesPago - 1);
+            fechaUltimoPago.setFullYear(cuotas[indice].anio)
+            const fechaActual = new Date();
+            fechaActual.setMonth(fechaActual.getMonth() - 3);
+            if (fechaActual <= fechaUltimoPago) {
+                $('#condicion').val("DESHABILITADO");
+            } else {
+                $('#condicion').val("HABILITADO");
+            }
         }
     }
 
@@ -189,11 +206,6 @@ $(document).ready(function () {
         $('#imagen-perfil img').show();
         $('.table tbody').html("");
         $('#imagen-perfil').css("background", "transparent");
-    }
-
-    function formatearFecha(fecha) {
-        let f = new Date(fecha);
-        return f.getDate()+"-"+f.getMonth()+"-"+f.getFullYear();
     }
 
     function formatearMes(mes) {
