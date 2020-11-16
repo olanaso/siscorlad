@@ -159,9 +159,10 @@ $(document).ready(function () {
     }
 
     function insertarDatosDetalle(user) {
+        $('#condicion').val(user.condicion);
         $('#deudaAporte').html("S/ "+user.cuotas.cuotaTotal);
         $('#multaTotal').html("S/ "+user.multas.multaTotal);
-        verificarAgremiado(user.cuotas.cuotas);
+//        verificarAgremiado(user.cuotas.cuotas);
         $('#tabla-detalles-cuotas tbody').html(null);
         $('#tabla-detalles-multas tbody').html(null);
         for (let cuota of user.cuotas.cuotas) {
