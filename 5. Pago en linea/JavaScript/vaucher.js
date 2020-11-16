@@ -227,7 +227,7 @@ function insertarDatosDeudas(busqueda) {
             $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar)
             $("#cuotas_aportes").text((cuotasArray.length)?cuotasArray.length+ ' CUOTAS':'CUOTAS');
             document.getElementById("cantidad_deuda").value=cuotasArray.length;
-            $('#total-deuda').html(totalPagar + '.00');
+            $('#total-deuda').html(deuda_total + '.00');
             $('#total-multa').html(multa_total + '.00');
             $('#monto-certificado').html(monto_certificado + '.00');
             $('#tabla-detalles-cuotas tbody').html(null);
@@ -262,6 +262,9 @@ $('#cantidad_deuda').keyup(function() {
         } else $('#check_certificado').removeAttr('disabled');
         if(document.getElementById("check_certificado").checked){
             totalPagar = totalPagar + monto_certificado;
+        }
+        if (document.getElementById("check-multas").checked) {
+            totalPagar = totalPagar + multa_total;
         }
         $('#total-deuda').html(totalDeudasLimite(valor) + '.00');
         $('#total-pagar').html("TOTAL A PAGAR: S/ " + totalPagar);
@@ -788,7 +791,7 @@ $('#pagarTarjeta').on('click', function(e) {
         title: 'PAGO CORLAD',
         currency: 'PEN',
         description: detalles.join(", "),
-        amount: totalPagar
+        amount: totalPagar * 100
     });
     // Abre el formulario con las opciones de Culqi.settings
     if (totalPagar >= 10) {
@@ -807,7 +810,7 @@ function culqi() {
 
 
         let data = {
-            "amount": totalPagar,
+            "amount": totalPagar * 100,
             "description": detalles.join(", "),
             "email": email,
             "address": address,
